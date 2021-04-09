@@ -2,7 +2,9 @@
 
 using namespace std;
 
-int main()
+class Cashbook
 {
+public:
+	void inputTerm();
 	
-}
+};
