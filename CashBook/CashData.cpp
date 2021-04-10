@@ -48,7 +48,7 @@ void cashData::menu(bool isSharedCashBook)
 			cout << "1. 소비" << endl;
 			cout << "2. 수입" << endl;
 			cout << "3. 조회" << endl;
-			cout << "4.가계부 삭제" << endl;
+			cout << "4. 가계부 삭제" << endl;
 			cout << "5. 뒤로가기" << endl;
 			cin >> select;
 			//오류처리 필요 "a"
@@ -728,6 +728,7 @@ bool cashData::isquit(string& str) {
 	else
 		return false;
 }
+
 bool cashData::yesorno()
 {		//true = y ,false = n
 	string c = "";
@@ -757,6 +758,7 @@ vector<string> cashData::split(string input, char delimiter)
 
 	return answer;
 }
+
 string& cashData::trimString(string& str, string& chars)
 {
 	return leftTrim(rightTrim(str, chars), chars);

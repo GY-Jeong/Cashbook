@@ -1,4 +1,3 @@
-#include <bits/stdc++.h>
 #include "Header.hpp"
 #include "Check.hpp"
 
