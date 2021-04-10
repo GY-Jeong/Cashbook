@@ -1,5 +1,6 @@
 #pragma once
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
+#include "Check.hpp"
 
 using namespace std;
 

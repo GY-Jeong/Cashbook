@@ -1,6 +1,5 @@
 #pragma once
-
-using namespace std;
+#include "CashData.h"
 
 class Check
 {

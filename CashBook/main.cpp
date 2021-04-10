@@ -1,8 +1,8 @@
 #include "Header.hpp"
-#include "Check.hpp"
-#include "Income.h"
+//#include "Check.hpp"
+//#include "Income.h"
 
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 
 using namespace std;
 

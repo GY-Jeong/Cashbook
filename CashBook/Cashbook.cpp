@@ -1,6 +1,5 @@
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include "Header.hpp"
-#include "Check.hpp"
 
 using namespace std;
 
