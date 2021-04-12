@@ -1,4 +1,7 @@
-#include "Header.hpp"
+#include "CashBook.h"
+#include "CashData.h"
+#include "Pay.h"
+#include "Income.h"
 
 using namespace std;
 
@@ -8,5 +11,6 @@ int main()
 	Cashbook element = Cashbook();
 	cashData cD;
 	cD.menu(false);
-	element.inputTerm();
+	string user_id = "user_id";
+	element.inputTerm(user_id);
 }
