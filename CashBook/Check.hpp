@@ -1,14 +1,8 @@
 #pragma once
 
-#include <iostream>
-#include <string>
+#include "CashData.h"
 
-using namespace std;
-
-class Check
-{
-public:
-	bool validDateCheck(string);
-	bool validQCheck(string);
-};
-
+bool validDateCheck(string);
+bool validQCheck(string);
+bool validNumberRange(string number, int start, int end);
+bool ValidDateCheck(string data);

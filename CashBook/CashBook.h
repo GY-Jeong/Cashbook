@@ -1,0 +1,17 @@
+#pragma once
+
+#include "Check.hpp"
+
+using namespace std;
+
+class Cashbook
+{
+public:
+	void inputTerm(string user_id);
+	void showTotal(string user_id, string start_date, string end_date);
+	void searchIncomeCategory(string user_id, string start_date, string end_date, vector<Income> IncomeList);
+	void serchPayCategory(string user_id, string start_date, string end_date, vector<Pay> PayList);
+	void searchDetail(string categoty_name, vector<cashData> category_list);
+private:
+	void deletePublicCashbook();
+};

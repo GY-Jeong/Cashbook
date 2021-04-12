@@ -44,7 +44,7 @@ void cashData::menu(bool isSharedCashBook)
 		{
 			//user_id 출력
 			//cashbook_name 출력
-			cout << "0.관리자 설정" << endl;
+			cout << "0. 관리자 설정" << endl;
 			cout << "1. 소비" << endl;
 			cout << "2. 수입" << endl;
 			cout << "3. 조회" << endl;
@@ -632,7 +632,7 @@ void cashData::printprice_err()
 }
 void cashData::printdate_err()
 {
-	cout << "날짜 형식 오류 " << endl;
+	cout << "날짜 형식 오류" << endl;
 }
 void cashData::printmemo_err()
 {

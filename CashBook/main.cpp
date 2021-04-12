@@ -1,6 +1,4 @@
 #include "Header.hpp"
-#include "Check.hpp"
-#include "Income.h"
 
 using namespace std;
 

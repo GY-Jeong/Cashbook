@@ -139,10 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cashbook.cpp" />
+    <ClCompile Include="CashBook.cpp" />
     <ClCompile Include="CashData.cpp" />
     <ClCompile Include="Check.cpp" />
-    <ClCompile Include="Header.hpp" />
+    <ClCompile Include="CashBook.h" />
     <ClCompile Include="Income.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pay.cpp" />
