@@ -2,6 +2,7 @@
 #include "CashData.h"
 #include "Pay.h"
 #include "Income.h"
+#include <stdlib.h>
 
 using namespace std;
 
@@ -119,7 +120,7 @@ void Cashbook::searchIncomeCategory(string user_id, string start_date, string en
 }
 
 // 지출 카테고리별 지출을 보여줌.
-void Cashbook::serchPayCategory(string user_id, string start_date, string end_date, vector<Pay> PayList)
+void Cashbook::searchPayCategory(string user_id, string start_date, string end_date, vector<Pay> PayList)
 {
 	string input;
 	vector<cashData> category_paylist[7];
@@ -162,9 +163,31 @@ void Cashbook::searchDetail(string categoty_name, vector<cashData> category_list
 	cout << "메인 메뉴로 돌아가시겠습니까? (Y/N or y/n)"
 }
 
-void Cashbook::deletePublicCashbook()
+// 공용 가계부 삭제
+void Cashbook::deletePublicCashbook(string txt_name)
 {
+	cashData* yn;
+	cout << "삭제 하시겠습니까? (Y/N or y/n)" << endl;
+	if (yn->yesorno()) {	//y를 누른 경우 yesorno()가 true
+		// 현재 공유 가계부 삭제
+		char* c_txt_name = new char[txt_name.length() + 1];		// string을 char * 으로 변경
+		strcpy(c_txt_name, txt_name.c_str());
 
+		if (remove(c_txt_name) == 0) {							// 삭제할 공유 가계부 경로
+			cout << "공유 가계부를 삭제했습니다." << endl;
+			cout << "2초 후 공유 가계부 선택 화면으로 돌아갑니다." << endl;
+			_sleep(2000);
+			// 삭제 후 공유 가계부 선택 화면으로 돌아가기
+		}
+		else {
+			// 가계부 파일을 삭제하지 못한 상황
+		}
+	}
+	else {					// n을 누른 경우 yesorno()가 false
+		// 공유 가계부 메뉴 선택으로 돌아감
+		cout << "2초 후 개인 및 공유 가계부 화면으로 돌아갑니다." << endl;
+		_sleep(2000);
+	}
 }
 
 vector<string> split(string str, char delimiter) {
