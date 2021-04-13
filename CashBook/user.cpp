@@ -11,16 +11,17 @@ user::~user() {
 }
 
 void user::menu() {
+	system("cls");
 	int sel = 4;
-	cout << "1. ·Î±×ÀÎ" << endl;
-	cout << "2. È¸¿ø°¡ÀÔ" << endl;
-	cout << "3. Á¾·á" << endl;
+	cout << "1. ë¡œê·¸ì¸" << endl;
+	cout << "2. íšŒì›ê°€ì…" << endl;
+	cout << "3. ì¢…ë£Œ" << endl;
 	cout << "> ";
 	
 	while (sel < 1 || sel>3) {
 		cin >> sel;
 		if (sel < 1 || sel>3) {
-			cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+			cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 			cout << ">";
 			continue;
 		}
@@ -40,6 +41,7 @@ void user::menu() {
 }
 
 void user::login() {
+	system("cls");
 	string idpw;
 	string id;
 	char idid[SIZE];
@@ -51,7 +53,7 @@ void user::login() {
 	vector<userInfo> minfo;
 	userInfo information;
 
-	//È¸¿øÁ¤º¸ ÆÄÀÏ ºÒ·¯¿À±â
+	//íšŒì›ì •ë³´ íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°
 	ifstream mfile("memberinformation.txt");
 	for (userInfo i;getline(mfile, i.infoId, '/') && getline(mfile, i.infoPw);) {
 		minfo.push_back(i);
@@ -62,7 +64,7 @@ void user::login() {
 	}
 	*/
 	if (user::isLoginState == false) {
-		cout << "¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä" << endl;
+		cout << "ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”" << endl;
 		cout << ">";
 		cin.clear();
 		while (user::isLoginState==false) {
@@ -79,7 +81,7 @@ void user::login() {
 				break;
 			}
 			else if (idpw.find("/") == string::npos) {
-				cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+				cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 				cout << ">";
 				continue;
 			}
@@ -96,40 +98,40 @@ void user::login() {
 			cin.clear();
 			//cout << id << pw << endl;
 			cin.clear();
-			if (id.size() >= 5 && id.size() <= 12) {//id±æÀÌ °Ë»ç
+			if (id.size() >= 5 && id.size() <= 12) {//idê¸¸ì´ ê²€ì‚¬
 				strcpy(idid, id.c_str());
 				//cout << idid << endl;
 				for (int i = 0;i < strlen(idid);i++) {
-					if (idid[i] < 97 || idid[i] > 122) {//id ¿µ¾î¼Ò¹®ÀÚ°Ë»ç
+					if (idid[i] < 97 || idid[i] > 122) {//id ì˜ì–´ì†Œë¬¸ìê²€ì‚¬
 						idfail = true;
 					}
 				}
 				if (idfail == true && user::isLoginState == false) {
-					cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+					cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 					cout << ">";
 					cin.clear();
 					continue;
 				}
 				else {
-					if (pw.size() >= 5 && pw.size() <= 12) {//pw±æÀÌ °Ë»ç
+					if (pw.size() >= 5 && pw.size() <= 12) {//pwê¸¸ì´ ê²€ì‚¬
 						strcpy(pwpw, pw.c_str());
 						//cout << pwpw << endl;
 						for (int j = 0;j < strlen(pwpw);j++) {
-							if (pwpw[j] < 97 || pwpw[j] > 122) {//pw ¿µ¾î¼Ò¹®ÀÚ°Ë»ç
+							if (pwpw[j] < 97 || pwpw[j] > 122) {//pw ì˜ì–´ì†Œë¬¸ìê²€ì‚¬
 								pwfail = true;
 							}
 						}
 						if (pwfail == true && user::isLoginState == false) {
-							cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+							cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 							cout << ">";
 							cin.clear();
 							continue;
 						}
 						else {
-							//id, pw Á¸Àç¿©ºÎ °Ë»ç
-							//id ¸ÕÀú °Å¸£±â
+							//id, pw ì¡´ì¬ì—¬ë¶€ ê²€ì‚¬
+							//id ë¨¼ì € ê±°ë¥´ê¸°
 							for (int i = 0;i < minfo.size();i++) {
-								if (minfo[i].infoId.compare(id) == 0 && minfo[i].infoPw.compare(pw) == 0) {//id Á¸Àç¿©ºÎ
+								if (minfo[i].infoId.compare(id) == 0 && minfo[i].infoPw.compare(pw) == 0) {//id ì¡´ì¬ì—¬ë¶€
 									user::isLoginState = true;
 									user::loginedId = id;
 									//cout << "Log In!!" << endl;
@@ -139,8 +141,8 @@ void user::login() {
 							}
 
 							if (diff == true && user::isLoginState == false) {
-								cout << "¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö¾Ê½À´Ï´Ù." << endl;
-								cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+								cout << "ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ì•ŠìŠµë‹ˆë‹¤." << endl;
+								cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 								cout << ">";
 								cin.clear();
 								continue;
@@ -153,7 +155,7 @@ void user::login() {
 						}
 					}
 					else {
-						cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+						cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 						cout << ">";
 						cin.clear();
 						continue;
@@ -161,13 +163,13 @@ void user::login() {
 				}
 			}
 			else {
-				cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+				cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 				cout << ">";
 				cin.clear();
 				continue;
 			}
 		}
-		cout << "°¡°èºÎ ¼±ÅÃÀ¸·Î!!" << endl;
+		cout << "ê°€ê³„ë¶€ ì„ íƒìœ¼ë¡œ!!" << endl;
 		//user::select_Cashbook();
 		user::make_CashBook_public();
 	}
@@ -175,52 +177,55 @@ void user::login() {
 }
 
 void user::logout() {
+	system("cls");
 	if (user::isLoginState == true) {
 		user::isLoginState = false;
 		user::loginedId = "";
-		cout<<"·Î±×¾Æ¿ô"<<endl;
+		cout<<"ë¡œê·¸ì•„ì›ƒ"<<endl;
 	}
 	user::menu();
 }
 
 void user::quit() {
+	system("cls");
 	user::isQuitState = true;
-	cout << "°¡°èºÎ ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù" << endl;
+	cout << "ê°€ê³„ë¶€ í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤" << endl;
 	exit(0);
 }
 
 
 void user::make_CashBook_public() {
+	system("cls");
 	string bookname;
 	string memlist;
 	char name[SIZE];
-	bool namefail = false;//°¡°èºÎÀÌ¸§ ¹®¹ı±ÔÄ¢ À§¹İ
-	bool namesame = false;//°¡°èºÎÀÌ¸§ Áßº¹
-	bool nsuccess = false;//°ø¿ë°¡°èºÎ »ı¼º¿©ºÎÃ¼Å©(¸â¹öÀÔ·ÂÀü »ı¼º¸¸)
-	bool memsuccess = false;//¸â¹öÀÔ·Â ¼º°ø¿©ºÎÃ¼Å©
-	bool notmem = false;//È¸¿ø ¾Æ´Ñ °æ¿ì
-	bool manybook = false;//°ø¿ë °¡°èºÎ °³¼ö 5°³ ³Ñ´Â °æ¿ì
+	bool namefail = false;//ê°€ê³„ë¶€ì´ë¦„ ë¬¸ë²•ê·œì¹™ ìœ„ë°˜
+	bool namesame = false;//ê°€ê³„ë¶€ì´ë¦„ ì¤‘ë³µ
+	bool nsuccess = false;//ê³µìš©ê°€ê³„ë¶€ ìƒì„±ì—¬ë¶€ì²´í¬(ë©¤ë²„ì…ë ¥ì „ ìƒì„±ë§Œ)
+	bool memsuccess = false;//ë©¤ë²„ì…ë ¥ ì„±ê³µì—¬ë¶€ì²´í¬
+	bool notmem = false;//íšŒì› ì•„ë‹Œ ê²½ìš°
+	bool manybook = false;//ê³µìš© ê°€ê³„ë¶€ ê°œìˆ˜ 5ê°œ ë„˜ëŠ” ê²½ìš°
 	bool onemem = false;
 	vector<string> members;
-	vector<userInfo> meminfo;//È¸¿øÁ¤º¸ idºñ±³
+	vector<userInfo> meminfo;//íšŒì›ì •ë³´ idë¹„êµ
 	userInfo info;
-	vector<pubcash> pubinfo;//°ø¿ë°¡°èºÎÀÌ¸§, ¼ÓÇÑ ¸â¹öµé ºñ±³
+	vector<pubcash> pubinfo;//ê³µìš©ê°€ê³„ë¶€ì´ë¦„, ì†í•œ ë©¤ë²„ë“¤ ë¹„êµ
 	pubcash pinfo;
-	vector<string> allbook;//°³ÀÎ+°ø¿ë °¡°èºÎÀÌ¸§µé¸¸ ¸ğÀ½
+	vector<string> allbook;//ê°œì¸+ê³µìš© ê°€ê³„ë¶€ì´ë¦„ë“¤ë§Œ ëª¨ìŒ
 
-	//È¸¿øÁ¤º¸ ÆÄÀÏ ºÒ·¯¿À±â
+	//íšŒì›ì •ë³´ íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°
 	ifstream memfile("memberinformation.txt");
 	for (userInfo i;getline(memfile, i.infoId, '/') && getline(memfile, i.infoPw);) {
 		meminfo.push_back(i);
 	}
 
-	//°ø¿ë°¡°èºÎÀÌ¸§,¸â¹öµé ÆÄÀÏ ºÒ·¯¿À±â->¸â¹ö¼ö°¡ Àû¾î¼­ ±¸Á¶Ã¼ ¸¸Å­ ¾ÈµÉ°æ¿ì ¾Æ¿¹ ¸â¹ö³ÖÀ»¶§ ºóÄ­Àº x·Î
+	//ê³µìš©ê°€ê³„ë¶€ì´ë¦„,ë©¤ë²„ë“¤ íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°->ë©¤ë²„ìˆ˜ê°€ ì ì–´ì„œ êµ¬ì¡°ì²´ ë§Œí¼ ì•ˆë ê²½ìš° ì•„ì˜ˆ ë©¤ë²„ë„£ì„ë•Œ ë¹ˆì¹¸ì€ xë¡œ
 	ifstream pubfile("makehiddenfile.txt");
 	for (pubcash i;getline(pubfile, i.pubname, '/') && getline(pubfile, i.maker, '/') && getline(pubfile, i.m1, '/') && getline(pubfile, i.m2, '/') && getline(pubfile, i.m3, '/') && getline(pubfile, i.m4, '/') && getline(pubfile, i.m5, '/') && getline(pubfile, i.m6, '/') && getline(pubfile, i.m7, '/') && getline(pubfile, i.m8, '/') && getline(pubfile, i.m9);) {
 		pubinfo.push_back(i);
 	}
 	
-	//°³ÀÎ+°ø¿ë °¡°èºÎ ÀÌ¸§µé¸¸ ¸ğ¾Æ³õÀ½
+	//ê°œì¸+ê³µìš© ê°€ê³„ë¶€ ì´ë¦„ë“¤ë§Œ ëª¨ì•„ë†“ìŒ
 	for (int j = 0;j < meminfo.size();j++) {
 		allbook.push_back(meminfo[j].infoId);
 	}
@@ -228,7 +233,7 @@ void user::make_CashBook_public() {
 		allbook.push_back(pubinfo[j].pubname);
 	}
 
-	cout << "»ı¼ºÇÒ °¡°èºÎ ÀÌ¸§À» ÀÛ¼ºÇØÁÖ¼¼¿ä(¿µ¼Ò¹®ÀÚ ÃÖ´ë 5ÀÚ)" << endl;
+	cout << "ìƒì„±í•  ê°€ê³„ë¶€ ì´ë¦„ì„ ì‘ì„±í•´ì£¼ì„¸ìš”(ì˜ì†Œë¬¸ì ìµœëŒ€ 5ì)" << endl;
 	cout << ">";
 	while (nsuccess == false) {
 		namefail = false;
@@ -245,29 +250,29 @@ void user::make_CashBook_public() {
 			strcpy(name, bookname.c_str());
 			//cout << name << endl;
 			for (int i = 0;i < strlen(name);i++) {
-				if (name[i] < 97 || name[i] > 122) {//°¡°èºÎÀÌ¸§ ¿µ¾î¼Ò¹®ÀÚ°Ë»ç
+				if (name[i] < 97 || name[i] > 122) {//ê°€ê³„ë¶€ì´ë¦„ ì˜ì–´ì†Œë¬¸ìê²€ì‚¬
 					namefail = true;
 				}
 			}
 			if (namefail == true) {
-				cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+				cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 				cout << ">";
 				continue;
 			}
 			for (int i = 0;i < allbook.size();i++) {
-				if (allbook[i].compare(bookname) == 0) {//°¡°èºÎÀÌ¸§ Áßº¹¿©ºÎ Ã¼Å©
+				if (allbook[i].compare(bookname) == 0) {//ê°€ê³„ë¶€ì´ë¦„ ì¤‘ë³µì—¬ë¶€ ì²´í¬
 					namesame = true;
 				}
 			}
 			if (namesame == true) {
-				cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+				cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 				cout << ">";
 				continue;
 			}
 			nsuccess = true;
 		}
 		else {
-			cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+			cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 			cout << ">";
 			continue;
 		}
@@ -279,9 +284,9 @@ void user::make_CashBook_public() {
 	char savefilename[20];
 	strcpy(savefilename, sfilename.c_str());
 	ofstream sfile(savefilename);
-	cout << "°ø¿ë°¡°èºÎ »ı¼º!!" << endl;
-	//¸â¹ö ÀÔ·Â¹Ş±â
-	cout << "ÇÔ²² ¾µ »ç¿ëÀÚÀÇ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä. (ÃÖ´ë 9 ¸í)" << endl;
+	cout << "ê³µìš©ê°€ê³„ë¶€ ìƒì„±!!" << endl;
+	//ë©¤ë²„ ì…ë ¥ë°›ê¸°
+	cout << "í•¨ê»˜ ì“¸ ì‚¬ìš©ìì˜ ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”. (ìµœëŒ€ 9 ëª…)" << endl;
 	cout << ">";
 	while (memsuccess == false) {
 		notmem = false;
@@ -294,7 +299,7 @@ void user::make_CashBook_public() {
 		cin >> memlist;
 		cin.clear();
 		
-		if (memlist=="x") {//¸â¹ö Ãß°¡ ¾ø´Â °æ¿ì ¿£ÅÍ¸¸ ´©¸£´Â °ÍÀ¸·Î ¼³Á¤ÇØ³õÀ½
+		if (memlist=="x") {//ë©¤ë²„ ì¶”ê°€ ì—†ëŠ” ê²½ìš° ì—”í„°ë§Œ ëˆ„ë¥´ëŠ” ê²ƒìœ¼ë¡œ ì„¤ì •í•´ë†“ìŒ
 			onemem = true;
 			memsuccess = true;
 			break;
@@ -303,7 +308,7 @@ void user::make_CashBook_public() {
 		stringstream sss(memlist);
 		string token2;
 		
-		if (memlist.find("/") == string::npos) {//'/'¾øÀÌ ÀÔ·Â-1¸íÀÇ ¸â¹ö¾ÆÀÌµğ
+		if (memlist.find("/") == string::npos) {//'/'ì—†ì´ ì…ë ¥-1ëª…ì˜ ë©¤ë²„ì•„ì´ë””
 			while (getline(sss, token2, '\n'))
 			{
 				minput.push_back(token2);
@@ -320,13 +325,13 @@ void user::make_CashBook_public() {
 			bookcount.push_back(0);
 		}
 
-		if (minput.size() > 9) {//9¸í ÃÊ°ú
-			cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+		if (minput.size() > 9) {//9ëª… ì´ˆê³¼
+			cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 			cout << ">";
 			continue;
 		}
-		else {//È¸¿øÁ¤º¸¿¡ ¾ø´Â °æ¿ì, °ø¿ë °¡°èºÎ ÀÌ¹Ì 5°³ ÀÖ´Â °æ¿ì
-			for (int i = 0;i < minput.size();i++) {///È¸¿ø ¿©ºÎ È®ÀÎ
+		else {//íšŒì›ì •ë³´ì— ì—†ëŠ” ê²½ìš°, ê³µìš© ê°€ê³„ë¶€ ì´ë¯¸ 5ê°œ ìˆëŠ” ê²½ìš°
+			for (int i = 0;i < minput.size();i++) {///íšŒì› ì—¬ë¶€ í™•ì¸
 				for (int j = 0;j < meminfo.size();j++) {
 					if (minput[i].compare(meminfo[j].infoId) == 0) {
 						idcount += 1;
@@ -335,7 +340,7 @@ void user::make_CashBook_public() {
 			}
 			if (idcount == minput.size()) {
 				idcount = 0;
-				for (int i = 0;i < minput.size();i++) {///°ø¿ë°¡°èºÎ 5°³ ÀÌ»ó ¿©ºÎ È®ÀÎ
+				for (int i = 0;i < minput.size();i++) {///ê³µìš©ê°€ê³„ë¶€ 5ê°œ ì´ìƒ ì—¬ë¶€ í™•ì¸
 					for (int j = 0;j < pubinfo.size();j++) {
 						if (minput[i].compare(pubinfo[j].maker) == 0) {
 							bookcount[i] += 1;
@@ -375,7 +380,7 @@ void user::make_CashBook_public() {
 					}
 				}
 				if (manybook == true) {
-					cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+					cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 					cout << ">";
 					continue;
 				}
@@ -387,13 +392,13 @@ void user::make_CashBook_public() {
 			else {
 				notmem = true;
 				idcount = 0;
-				cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+				cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 				cout << ">";
 				continue;
 			}
 		}
 	}
-	//¸â¹ö ¾ø´Â °æ¿ì, ÀÖ´Â °æ¿ì(9¸í, 9¸í ¹Ì¸¸ÀÎ °æ¿ì-makehiddenfile.txt ³ª¸ÓÁö x·Î Ã¤¿ö¾ßÇÔ) ÆÄÀÏ »ı¼º
+	//ë©¤ë²„ ì—†ëŠ” ê²½ìš°, ìˆëŠ” ê²½ìš°(9ëª…, 9ëª… ë¯¸ë§Œì¸ ê²½ìš°-makehiddenfile.txt ë‚˜ë¨¸ì§€ xë¡œ ì±„ì›Œì•¼í•¨) íŒŒì¼ ìƒì„±
 	if (onemem == true) {
 		string sstr = bookname + "_M";
 		stringstream save;
@@ -434,7 +439,7 @@ void user::make_CashBook_public() {
 			ssmfile.close();
 		}
 	}
-	//°¡°èºÎ°³¼ö Ã¼Å©¸¦ À§ÇØ »ç¿ëÇÏ´Â ÆÄÀÏ ÀÛ¼º
+	//ê°€ê³„ë¶€ê°œìˆ˜ ì²´í¬ë¥¼ ìœ„í•´ ì‚¬ìš©í•˜ëŠ” íŒŒì¼ ì‘ì„±
 	if (members.size() == 9) {
 		ofstream spub("makehiddenfile.txt", ios::out | ios::app);
 
