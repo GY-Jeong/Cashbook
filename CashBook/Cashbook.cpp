@@ -244,6 +244,10 @@ int get_difference_of_dates(string start_date, string end_date)
 	stime.tm_year = s_year - 1900;
 	stime.tm_mon = s_month - 1;
 	stime.tm_mday = s_day;
+	stime.tm_hour = 0;
+	stime.tm_min = 0;
+	stime.tm_sec = 0;
+	stime.tm_isdst = 0; //썸머타임 사용안함
 
 	vector<string> end_date_list = split(end_date, '-');
 
@@ -267,6 +271,10 @@ int get_difference_of_dates(string start_date, string end_date)
 	etime.tm_year = e_year - 1900;
 	etime.tm_mon = e_month - 1;
 	etime.tm_mday = e_day;
+	etime.tm_hour = 0;
+	etime.tm_min = 0;
+	etime.tm_sec = 0;
+	etime.tm_isdst = 0; //썸머타임 사용안함
 
 	printf("%d %d %d %d %d %d\n", s_year, s_month, s_day, e_year, e_month, e_day);
 	start = mktime(&stime);

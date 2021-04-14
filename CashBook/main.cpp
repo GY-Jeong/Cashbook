@@ -2,6 +2,7 @@
 #include "CashData.h"
 #include "Pay.h"
 #include "Income.h"
+#include "Check.hpp"
 
 using namespace std;
 
