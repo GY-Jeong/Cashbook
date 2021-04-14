@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Check.hpp"
+#include "CashData.h"
+#include "Pay.h"
+#include "Income.h"
 
 using namespace std;
 

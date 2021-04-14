@@ -1,11 +1,8 @@
-#include "Check.hpp"
+#include "Header.h"
 
 using namespace std;
 
-bool validDateCheck(string input)
-{
-	return true;
-}
+bool isLeapyear(int);
 
 bool validQCheck(string input)
 {
@@ -22,7 +19,7 @@ bool validNumberRange(string number, int start, int end)
 	return false;
 }
 
-bool ValidDateCheck(string data)
+bool validDateCheck(string data)
 {
 	int year = 0, month = 0, day = 0;
 	cout << "date testing ";
@@ -104,17 +101,9 @@ bool ValidDateCheck(string data)
 	default:
 		break;
 	}
-
 	//result = to_string(year) + "-" + (string)matches[2] + "-" + (string)matches[3];
 	//cout << "result " << result << endl;
 	return true;
-}
-
-bool isLeapyear(int year)
-{
-	if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
-		return true;
-	return false;
 }
 
 void printdate_err()
