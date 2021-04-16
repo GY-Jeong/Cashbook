@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <vector>
 #include <map>
@@ -11,10 +11,10 @@ using namespace std;
 
 class user {
 private:
-	bool isLoginState = false;//·Î±×ÀÎ ¿©ºÎ Ã¼Å©
-
+	bool isLoginState = false;//ë¡œê·¸ì¸ ì—¬ë¶€ ì²´í¬
+	
 public:
-	struct userInfo {//È¸¿øÁ¤º¸ ÆÄÀÏ ºÒ·¯¿Ã ¶§ »ç¿ë
+	struct userInfo {//íšŒì›ì •ë³´ íŒŒì¼ ë¶ˆëŸ¬ì˜¬ ë•Œ ì‚¬ìš©
 		string infoId = "";
 		string infoPw = "";
 	};
@@ -31,11 +31,11 @@ public:
 		string m8 = "";
 		string m9 = "";
 	};
-	string loginedId;//ÇöÀç ·Î±×ÀÎÇÑ ÀÌ¿ëÀÚ id Ç¥½Ã
-	bool isQuitState = false;//Á¾·á ¿©ºÎ Ã¼Å©
+	string loginedId;//í˜„ì¬ ë¡œê·¸ì¸í•œ ì´ìš©ì id í‘œì‹œ
+	bool isQuitState = false;//ì¢…ë£Œ ì—¬ë¶€ ì²´í¬
 	user();
 	~user();
-	void menu();//ÁÖÇÁ·ÒÇÁÆ® Ãß°¡µÈ ºÎºĞ
+	void menu();//ì£¼í”„ë¡¬í”„íŠ¸ ì¶”ê°€ëœ ë¶€ë¶„
 	void login();
 	void logout();
 	void quit();

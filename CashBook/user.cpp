@@ -1,4 +1,4 @@
-#include "user.h"
+﻿#include "user.h"
 #include <map>
 #include "Windows.h"
 
@@ -14,7 +14,6 @@ user::~user() {
 }
 
 void user::menu() {
-	system("cls");
 	int sel = 4;
 	cout << "1. 로그인" << endl;
 	cout << "2. 회원가입" << endl;
@@ -44,7 +43,6 @@ void user::menu() {
 }
 
 void user::login() {
-	system("cls");
 	string idpw;
 	string id;
 	char idid[SIZE];
@@ -180,7 +178,6 @@ void user::login() {
 }
 
 void user::logout() {
-	system("cls");
 	if (user::isLoginState == true) {
 		user::isLoginState = false;
 		user::loginedId = "";
@@ -190,7 +187,6 @@ void user::logout() {
 }
 
 void user::quit() {
-	system("cls");
 	user::isQuitState = true;
 	cout << "가계부 프로그램을 종료합니다" << endl;
 	exit(0);
@@ -198,7 +194,6 @@ void user::quit() {
 
 
 void user::make_CashBook_public() {
-	system("cls");
 	string bookname;
 	string memlist;
 	char name[SIZE];
