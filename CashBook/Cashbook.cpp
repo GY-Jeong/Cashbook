@@ -228,7 +228,6 @@ void Cashbook::deletePublicCashbook(string txt_name)
 			cout << "공유 가계부를 삭제했습니다." << endl;
 			cout << "2초 후 공유 가계부 선택 화면으로 돌아갑니다." << endl;
 
-			// 나은님 _sleep 오류 나와서 Sleep으로 바꿔요! 확인되면 주석 지워주세요
 			Sleep(2000);
 			// 삭제 후 공유 가계부 선택 화면으로 돌아가기
 		}
@@ -240,7 +239,6 @@ void Cashbook::deletePublicCashbook(string txt_name)
 		// 공유 가계부 메뉴 선택으로 돌아감
 		cout << "2초 후 개인 및 공유 가계부 화면으로 돌아갑니다." << endl;
 
-		// 나은님 _sleep 오류 나와서 Sleep으로 바꿔요! 확인되면 주석 지워주세요
 		Sleep(2000);
 	}
 }
