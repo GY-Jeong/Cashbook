@@ -1,4 +1,5 @@
 #include "Income.h"
+#include "CashBook.h"
 #define _T(x) x
 
 cashData::cashData()//현재 가계부 정보, 유저 정보 생성자로 넘겨받아야함
@@ -28,7 +29,10 @@ void cashData::menu(bool isSharedCashBook)
 			else if (select == 2)
 				Income* income = new Income();
 			else if (select == 3)
-				cout << "3 조회";
+			{
+				Cashbook cashbook = Cashbook();
+				cashbook.inputTerm("user_id");
+			}
 			else if (select == 4)
 				break;
 			else
@@ -597,8 +601,6 @@ bool cashData::memo_test(string data)
 	}
 }
 
-
-
 bool cashData::date_validation(string& startdate, string& enddate)
 {
 	if (date_test(startdate) && date_test(enddate))
@@ -639,7 +641,6 @@ void cashData::printmemo_err()
 	cout << "내용 형식 오류" << endl;
 }
 
-
 void cashData::readTextFile(string txt_name)
 {
 	file_data.clear();//file_data 초기화
@@ -663,6 +664,7 @@ void cashData::readTextFile(string txt_name)
 	//file_data.push_back("2022-10-01/1000/기타/*/ooozzz"); 테스트용
 	readFile.close();
 }
+
 wstring s2ws(const string& s)
 {
 	int len;

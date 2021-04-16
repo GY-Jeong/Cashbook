@@ -36,6 +36,9 @@
     <ClCompile Include="CashBook.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="user.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Check.hpp">
@@ -51,6 +54,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Header.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="user.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

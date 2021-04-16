@@ -1,7 +1,10 @@
 #include "user.h"
 #include <map>
 #include "Windows.h"
+
 #define SIZE 100
+#pragma warning(disable:4996)
+
 user::user() {
 
 }
@@ -17,7 +20,7 @@ void user::menu() {
 	cout << "2. 회원가입" << endl;
 	cout << "3. 종료" << endl;
 	cout << "> ";
-	
+
 	while (sel < 1 || sel>3) {
 		cin >> sel;
 		if (sel < 1 || sel>3) {
@@ -67,7 +70,7 @@ void user::login() {
 		cout << "아이디와 비밀번호를 입력하세요" << endl;
 		cout << ">";
 		cin.clear();
-		while (user::isLoginState==false) {
+		while (user::isLoginState == false) {
 			idfail = false;
 			pwfail = false;
 			diff = false;
@@ -181,7 +184,7 @@ void user::logout() {
 	if (user::isLoginState == true) {
 		user::isLoginState = false;
 		user::loginedId = "";
-		cout<<"로그아웃"<<endl;
+		cout << "로그아웃" << endl;
 	}
 	user::menu();
 }
@@ -224,7 +227,7 @@ void user::make_CashBook_public() {
 	for (pubcash i;getline(pubfile, i.pubname, '/') && getline(pubfile, i.maker, '/') && getline(pubfile, i.m1, '/') && getline(pubfile, i.m2, '/') && getline(pubfile, i.m3, '/') && getline(pubfile, i.m4, '/') && getline(pubfile, i.m5, '/') && getline(pubfile, i.m6, '/') && getline(pubfile, i.m7, '/') && getline(pubfile, i.m8, '/') && getline(pubfile, i.m9);) {
 		pubinfo.push_back(i);
 	}
-	
+
 	//개인+공용 가계부 이름들만 모아놓음
 	for (int j = 0;j < meminfo.size();j++) {
 		allbook.push_back(meminfo[j].infoId);
@@ -298,8 +301,8 @@ void user::make_CashBook_public() {
 		cin.clear();
 		cin >> memlist;
 		cin.clear();
-		
-		if (memlist=="x") {//멤버 추가 없는 경우 엔터만 누르는 것으로 설정해놓음
+
+		if (memlist == "x") {//멤버 추가 없는 경우 엔터만 누르는 것으로 설정해놓음
 			onemem = true;
 			memsuccess = true;
 			break;
@@ -307,14 +310,14 @@ void user::make_CashBook_public() {
 
 		stringstream sss(memlist);
 		string token2;
-		
+
 		if (memlist.find("/") == string::npos) {//'/'없이 입력-1명의 멤버아이디
 			while (getline(sss, token2, '\n'))
 			{
 				minput.push_back(token2);
 			}
 		}
-		
+
 		else {
 			while (getline(sss, token2, '/'))
 			{

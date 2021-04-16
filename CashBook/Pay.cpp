@@ -3,7 +3,6 @@
 Pay::Pay()
 {
 	int select;
-
 	while (1)
 	{
 		if (isDataSetting) break;
