@@ -25,6 +25,8 @@ private:
 public:
 	bool isSharedCashBook;
 	bool isDataSetting;
+	vector<string> pay_file_data;
+	vector<string> income_file_data;
 	cashData();
 	void menu(bool flag);
 	vector<string> data_split1();
@@ -33,7 +35,7 @@ public:
 	bool price_test(string& data);
 	bool memo_test(string data);
 	bool date_validation(string& startdate, string& enddate);
-	bool keyword_search(string startdate, string enddate, string data);
+	bool keyword_search(string startdate, string enddate, string data, bool search_what);
 
 	bool is3digit(string data);
 	void printdate_err();
@@ -43,6 +45,7 @@ public:
 	void readTextFile(string txt_name); //파일 읽어오기
 	void writeTextFile(string txt_name, string data); //파일 내용 추가시 사용
 	void reWriteTextFile(string txt_name); //파일 수정시 사용
+	string remove_mark(string data);
 
 	bool yesorno();
 	bool isquit(string& data);
