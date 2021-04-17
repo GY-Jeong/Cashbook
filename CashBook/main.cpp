@@ -12,6 +12,7 @@ int main()
 	Cashbook element = Cashbook();
 	cashData cd;
 	cd.menu(false);
+	//cd.readTextFile("test2.txt");
 	string user_id = "user_id";
-	element.inputTerm(user_id);
+	//element.inputTerm(user_id);
 }

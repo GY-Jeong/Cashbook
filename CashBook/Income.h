@@ -13,7 +13,7 @@ private:
 
 public:
 	Income();
-	bool income_category_test(string data);
+	bool income_category_test(string& data);
 
 
 	void printcategory_err();

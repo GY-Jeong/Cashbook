@@ -206,6 +206,7 @@ SelectYNRetry:
 		if (is_pay)
 		{
 			//parameter 넣기가 빡센데?
+			//searchDetail() 매개변수에 user_id, start_date, end_date를 추가하면 어떨까요..?
 			//searchPayCategory();
 			cout << "searchPayCategory()" << endl;
 		}

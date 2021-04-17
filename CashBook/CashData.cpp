@@ -316,10 +316,12 @@ vector<string> cashData::data_split2()
 
 
 
-bool cashData::keyword_search(string startdate, string enddate, string data)
+bool cashData::keyword_search(string startdate, string enddate, string data,bool search_what)
 {
+	bool isPaysearch = search_what;
 	int matching_count = 0, matching_sub = 0;
-	int matched_index[10]; //최대 검색 결과 개수 지정 필요 (기획서 수정요망)
+	//int matched_index[10];
+	vector<int> matched_index;
 	int s_sub, e_sub;
 	s_sub = stoi(startdate.substr(0, 4) + startdate.substr(5, 2) + startdate.substr(8, 2));
 	e_sub = stoi(enddate.substr(0, 4) + enddate.substr(5, 2) + enddate.substr(8, 2));
@@ -351,17 +353,36 @@ bool cashData::keyword_search(string startdate, string enddate, string data)
 	else
 	{
 		cout << endl << "<검색 결과>" << endl;
-		for (int k = 0; k < file_data.size(); k++) {
-			if (file_data[k].find(data) >= 0 && file_data[k].find(data) < file_data[k].size())
-			{
-				matching_sub = stoi(file_data[k].substr(0, 4) + file_data[k].substr(5, 2) + file_data[k].substr(8, 2));
-				if (matching_sub >= s_sub && matching_sub <= e_sub) {
-					matched_index[matching_count++] = k;
-					cout << matching_count << ". " << file_data[k] << endl;
+		if (isPaysearch) {//pay_file_data search
+			for (int k = 0; k < pay_file_data.size(); k++) {
+
+				if (pay_file_data[k].find(data) >= 0 && pay_file_data[k].find(data) < pay_file_data[k].size())
+				{
+					matching_sub = stoi(pay_file_data[k].substr(0, 4) + pay_file_data[k].substr(5, 2) + pay_file_data[k].substr(8, 2));
+					if (matching_sub >= s_sub && matching_sub <= e_sub) {
+						//matched_index[matching_count++] = k;
+						matched_index.push_back(k);
+						matching_count++;
+						cout << matching_count << ". " << pay_file_data[k] << endl;
+					}
 				}
 			}
 		}
-
+		else {
+			for (int k = 0; k < income_file_data.size(); k++) {
+				if (income_file_data[k].find(data) >= 0 && income_file_data[k].find(data) < income_file_data[k].size())
+						{
+							matching_sub = stoi(income_file_data[k].substr(0, 4) + income_file_data[k].substr(5, 2) + income_file_data[k].substr(8, 2));
+							if (matching_sub >= s_sub && matching_sub <= e_sub) {
+								matched_index.push_back(k);
+								matching_count++;
+								//remove_mark(income_file_data[k]);
+								//matched_index[matching_count++] = k;
+								cout << matching_count << ". " << remove_mark(income_file_data[k]) << endl;
+							}
+						}
+			}
+		}
 		if (matching_count == 0) {
 			cout << "데이터가 없습니다. " << endl;
 			return false;
@@ -375,7 +396,11 @@ bool cashData::keyword_search(string startdate, string enddate, string data)
 			cout << "삭제 하시겠습니까? ";
 			if (yesorno()) {
 				//yes
-				file_data[matched_index[select - 1]].clear();
+				if(isPaysearch)
+					pay_file_data[matched_index.at(select-1)].clear();
+				else
+					income_file_data[matched_index.at(select - 1)].clear();
+				//다시 합치기
 				reWriteTextFile("test.txt");
 				cout << "삭제가 완료되었습니다." << endl;
 			}
@@ -393,6 +418,13 @@ bool cashData::keyword_search(string startdate, string enddate, string data)
 	}
 
 
+}
+string cashData::remove_mark(string str)
+{
+	if (str.find("^", 0) >= 0 && str.find("^", 0) <= 65) 
+		str.erase(remove(str.begin(), str.end(), '^'),str.end());
+
+	return str;
 }
 
 bool isLeapyear(int year)
@@ -641,9 +673,16 @@ void cashData::printmemo_err()
 	cout << "내용 형식 오류" << endl;
 }
 
+
+
 void cashData::readTextFile(string txt_name)
 {
-	file_data.clear();//file_data 초기화
+	//vector<string> pay_file_data;
+	//vector<string> income_file_data;
+
+	pay_file_data.clear();//file_data 초기화
+	income_file_data.clear();//file_data 초기화
+	file_data.clear();
 	char readline[66];//한 줄 최대 2020-02-02/999999999/5*2/10*2/user_id = 10+9+10+20+12+4+\n = 66
 
 	ifstream readFile;
@@ -652,18 +691,50 @@ void cashData::readTextFile(string txt_name)
 
 		while (!readFile.eof()) {
 			readFile.getline(readline, 66);
+			string str(readline);
+
 			if (!readFile.eof())
-				file_data.push_back(readline);
+			{
+				if ((str.find("^", 0) >= 0 && str.find("^", 0) <= 65) 
+					|| (str.find("월급", 0) >= 0 && str.find("월급", 0) <= 65) 
+					|| (str.find("용돈", 0) >= 0 && str.find("용돈", 0) <= 65) 
+					|| (str.find("인센티브", 0) >= 0 && str.find("인센티브", 0) <= 65) 
+					|| (str.find("아르바이트", 0) >= 0 && str.find("아르바이트", 0) <= 65)
+					)
+				{
+					//if (str.find("^", 0) >= 0 && str.find("^", 0) <= 65) 
+						//str.erase(remove(str.begin(), str.end(), '^'),str.end());
+					strcpy_s(readline, str.c_str());
+					income_file_data.push_back(readline);
+				}
+				else
+				{
+					strcpy_s(readline, str.c_str());
+					pay_file_data.push_back(readline);
+				}
+			}
 		}
 	}
 	else {
 		cout << "file not open" << endl;
 	}
-	//for(int i=0; i<file_data.size(); i++)
-	//	cout << file_data[i] << endl;
+	//합치기
+	file_data = pay_file_data;
+	file_data.insert(file_data.end(), income_file_data.begin(), income_file_data.end());
+
+	//cout << "pays" << endl;
+	//for(int i=0; i<pay_file_data.size(); i++)
+	//   cout << pay_file_data[i] << endl;
+	//cout << "incomes" << endl;
+	//	for(int i=0; i<income_file_data.size(); i++)
+	//		  cout << income_file_data[i] << endl;
+	//	cout << "sum" << endl;
+	//	for(int i=0; i<file_data.size(); i++)
+	//	   cout << file_data[i] << endl;
 	//file_data.push_back("2022-10-01/1000/기타/*/ooozzz"); 테스트용
 	readFile.close();
 }
+
 
 wstring s2ws(const string& s)
 {
@@ -700,6 +771,9 @@ void cashData::writeTextFile(string txt_name, string data)
 }
 void cashData::reWriteTextFile(string txt_name)
 {
+	//합치기
+	file_data = pay_file_data;
+	file_data.insert(file_data.end(), income_file_data.begin(), income_file_data.end());
 	wstring stemp = s2ws(txt_name);
 	LPCWSTR result = stemp.c_str();
 	ofstream writeFile;

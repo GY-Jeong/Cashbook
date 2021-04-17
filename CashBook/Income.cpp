@@ -24,6 +24,7 @@ Income::Income()
 			if (date_test(result[0]) && price_test(result[1]) && income_category_test(result[2]) && memo_test(result[3])) {
 				data_format = Income::printdata(result);
 				//y/n 받는 자리
+				//if (result[2] == "기타") result[2] = "기타^"; //data 구분이안댐 ㅠㅠ; 화면출력은 ^ 안보이게했음
 				cout << "저장 하시겠습니까?";
 				if (yesorno()) {
 					//yes
@@ -56,7 +57,7 @@ Income::Income()
 
 			if (date_validation(result[0], result[1])) {
 				readTextFile("test.txt");
-				keyword_search(result[0], result[1], result[2]);				//맨밑에서 y/n받음
+				keyword_search(result[0], result[1], result[2],false);				//맨밑에서 y/n받음
 				isDataSetting = true;//y/n 상관없이 흐름도상 분기로 이동
 			}
 			else {
@@ -80,7 +81,9 @@ string Income::printdata(vector<string> input)
 {
 	cout << "날짜 :" << input[0] << endl;
 	cout << "금액 :" << input[1] << endl;
-	cout << "카테고리 :" << input[2] << endl;
+	if (input[2] == "기타^") {
+		cout << "카테고리 :" << "기타" << endl;
+	}
 	if (input[3] == "") {
 		cout << "내용: 없음" << endl;
 		result[3] = '*';
@@ -92,13 +95,16 @@ string Income::printdata(vector<string> input)
 
 }
 
-bool Income::income_category_test(string data)
+bool Income::income_category_test(string& data)
 {
 	int test = 0;
 	cout << "category testing ";
 	for (int i = 0; i < income_category.size(); i++)
-		if (income_category[i] == data)
+		if (income_category[i] == data) {
 			test++;
+			if (i == income_category.size() - 1)
+				data = "기타^";
+		}
 
 	if (test == 1)
 		return true;
