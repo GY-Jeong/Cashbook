@@ -14,6 +14,7 @@ user::~user() {
 }
 
 void user::menu() {
+	system("cls");
 	int sel = 4;
 	cout << "1. 로그인" << endl;
 	cout << "2. 회원가입" << endl;
@@ -35,7 +36,7 @@ void user::menu() {
 		user::login();
 	}
 	else if (sel == 2) {
-		//user::signin();
+		user::sign_In();
 	}
 	else if (sel == 3) {
 		user::quit();
@@ -43,6 +44,7 @@ void user::menu() {
 }
 
 void user::login() {
+	system("cls");
 	string idpw;
 	string id;
 	char idid[SIZE];
@@ -171,8 +173,7 @@ void user::login() {
 			}
 		}
 		cout << "가계부 선택으로!!" << endl;
-		//user::select_Cashbook();
-		user::make_CashBook_public();
+		user::select_CashBook(id);
 	}
 
 }
@@ -465,4 +466,168 @@ void user::make_CashBook_public() {
 
 		sspub.close();
 	}
+}
+
+// 회원가입
+void user::sign_In() {
+	//기본 setting
+	ofstream file;
+	ifstream search_name;
+	system("cls");
+
+	string input, id, pw, line;
+	int offset;
+
+	// ID PW 입력
+	cout << "아이디와 패스워드를 입력해주세요." << endl;
+	cin >> input;
+
+	for (int i = 0; i < input.length(); i++) {
+		if (input[i] == '/') {
+			id = input.substr(0, i);
+			pw = input.substr(i + 1, input.length() - i);
+			break;
+		}
+		if (i == input.length() - 1) {
+			cout << "아이디와 패스워드를 다시 입력해주세요." << endl;
+			Sleep(2000);
+			user::sign_In();
+		}
+	}
+
+
+	if (id == "q" || pw == "q") {
+		user::menu();
+	}
+	// file : 쓰기용(ofstream), search_name : 찾기용(ifstream)
+	file.open("memberinformation.txt", ios::app);
+	search_name.open("memberinformation.txt");
+
+	if (file.is_open() == true && search_name.is_open() == true) {
+		//memberinformation.txt에서 동일 인물이 있을 경우 2초 후 다시 입력받음
+		while (!search_name.eof()) {
+			getline(search_name, line);
+			if ((offset = line.find(id, 0)) != string::npos) {
+				cout << "동일한 id가 있습니다." << endl;
+				file.close();
+				search_name.close();
+				Sleep(2000);
+				user::sign_In();
+			}
+		}
+
+		//id길이, pw길이, 소문자 확인
+		if (id.length() >= 5 && id.length() <= 12 &&
+			pw.length() >= 5 && pw.length() <= 12) {
+			for (int i = 0; i < id.length(); i++) {
+				if (id[i] < 'a' || id[i] > 'z') {
+					cout << "id는 소문자(영문)만 가능합니다." << endl;
+					file.close();
+					search_name.close();
+					Sleep(2000);
+					user::sign_In();
+				}
+				if (pw[i] < 'a' || pw[i] > 'z') {
+					cout << "pw는 소문자(영문)만 가능합니다." << endl;
+					file.close();
+					search_name.close();
+					Sleep(2000);
+					user::sign_In();
+				}
+			}
+		}
+		else {
+			cout << "아이디와 패스워드는 5자 이상 12자 이하 입니다." << endl;
+			file.close();
+			search_name.close();
+			Sleep(2000);
+			user::sign_In();
+		}
+	}
+
+	file << input << endl;
+	file.close();
+	search_name.close();
+	user::menu();
+}
+
+bool user::select_CashBook(string user_id) {
+	system("cls");
+
+	int select;
+	cout << user_id << "의 가계부" << endl;
+	cout << "1. My CashBook" << endl;
+	cout << "2. Public CashBook" << endl;
+	cout << "> ";
+	cin >> select;
+	if (select == 1) {
+		return 1;
+	}
+	else if (select == 2) {
+		user::select_CashBook_public(user_id);
+	}
+	else {
+		cout << "잘못 입력하였습니다." << endl;
+		Sleep(2000); // 2초 정지 후 다시 입력받음.
+		user::select_CashBook(user_id);
+	}
+}
+
+string user::select_CashBook_public(string user_id) {
+	ifstream search_file;
+	system("cls");
+
+	int select, offset;
+	int cnt = 0;
+	string line;
+	vector<string> files;
+
+	// txt파일 확인 후 각자의 공용 가계부 가져오기.
+	search_file.open("makehiddenfile.txt");
+	if (search_file.is_open() == true) {
+		//txt 파일에서 사람 찾기
+		while (!search_file.eof()) {
+			getline(search_file, line);
+			string file_name = "";
+			if ((offset = line.find(user_id, 0)) != string::npos) {
+				for (int i = 0; i < 6; i++) {
+					if (line[i] == '/') {
+						break;
+					}
+					else {
+						file_name += line[i];
+					}
+				}
+			}
+			if (file_name != "") {
+				files.push_back(file_name);
+			}
+			cnt++;
+			if (cnt > 10) {
+				break;
+			}
+		}
+	}
+	search_file.close();
+
+	cout << user_id << "의 가계부" << endl;
+	cout << "0. Make CashBook" << endl;
+	for (int i = 0; i < files.size(); i++) {
+		cout << i + 1 << ". " << files[i] << endl;
+	}
+	cout << "6. Logout" << endl;
+
+	cout << "> ";
+	cin >> select;
+
+	if (select == 0) {
+		user::make_CashBook_public();
+		return 0;
+	}
+	else if (select == 6) {
+		user::menu();
+		return 0;
+	}
+
+	return files[select];
 }
