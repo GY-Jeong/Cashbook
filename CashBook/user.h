@@ -35,9 +35,12 @@ public:
 	bool isQuitState = false;//종료 여부 체크
 	user();
 	~user();
-	void menu();//주프롬프트 추가된 부분
-	void login();
-	void logout();
-	void quit();
-	void make_CashBook_public();
+	void menu();// 주프롬프트 추가된 부분
+	void login(); // 로그인
+	void logout(); // 로그 아웃
+	void quit(); // 종료
+	void sign_In(); // 회원가입
+	bool select_CashBook(string user_id); // 가계부 선택
+	string select_CashBook_public(string user_id); // 공용 가계부 선택
+	void make_CashBook_public(); // 공용 가계부 만들기
 };
