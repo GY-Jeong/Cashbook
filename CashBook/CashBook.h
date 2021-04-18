@@ -13,7 +13,7 @@ public:
 	void showTotal(string user_id, string start_date, string end_date);
 	void searchIncomeCategory(string user_id, string start_date, string end_date, vector<Income> IncomeList);
 	void searchPayCategory(string user_id, string start_date, string end_date, vector<Pay> PayList);
-	void searchDetail(string categoty_name, vector<Income> category_incomelist, vector<Pay> category_paylist, bool is_pay);
+	void searchDetail(string user_id, string start_date, string end_date, string categoty_name, vector<Income> category_incomelist, vector<Pay> category_paylist, bool is_pay);
 private:
 	void deletePublicCashbook(string txt_name);
 };
