@@ -1,12 +1,7 @@
 #include "Income.h"
 
-Income::Income(string date, string price, string category, string memo)
-{
-	this->m_date = date;
-	this->m_price = price;
-	this->m_memo = memo;
-	this->m_category = category;
-}
+#define CLEAR system("cls")
+#define INPUT cout << "> "
 
 Income::Income()
 {
@@ -14,18 +9,20 @@ Income::Income()
 
 	while (1)
 	{
+		CLEAR;
 		if (isDataSetting) break;
 		cout << "<수입>" << endl;
 		cout << "1. 등록" << endl;
 		cout << "2. 삭제" << endl;
 		cout << "3. 뒤로가기" << endl;
+		INPUT;
 		cin >> select;
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
 		switch (select)
 		{
 		case 1:
-			cout << "날짜 , 금액, 카테고리, 내용을 형식에 맞게 순서대로 입력해주세요." << endl;
+			cout << "날짜, 금액, 카테고리, 내용을 형식에 맞게 순서대로 입력해주세요." << endl;
 			result = data_split1();//split함수 안에서 quit반응이 추가되어야함
 			if (result.empty()) continue;
 

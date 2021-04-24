@@ -551,7 +551,7 @@ void user::sign_In() {
 	user::menu();
 }
 
-bool user::select_CashBook(string user_id) {
+void user::select_CashBook(string user_id) {
 	system("cls");
 
 	int select;
@@ -565,7 +565,7 @@ bool user::select_CashBook(string user_id) {
 		cin >> select;
 		if (select == 1) {
 			Cashbook cb(user_id, "", false);
-			return 1;
+			// 메인 메뉴에서 뒤로가기하면 뭐나오지?
 		}
 		else if (select == 2) {
 			user::select_CashBook_public(user_id);
@@ -573,16 +573,13 @@ bool user::select_CashBook(string user_id) {
 		else if (select == 3)
 		{
 			logout();
-			return 1;
 		}
 		else {
 			cout << "잘못 입력하였습니다." << endl;
 			Sleep(2000); // 2초 정지 후 다시 입력받음.
 			user::select_CashBook(user_id);
 		}
-
 	}
-
 }
 
 string user::select_CashBook_public(string user_id) {

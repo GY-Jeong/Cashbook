@@ -40,7 +40,7 @@ public:
 	void logout(); // 로그 아웃
 	void quit(); // 종료
 	void sign_In(); // 회원가입
-	bool select_CashBook(string user_id); // 가계부 선택
+	void select_CashBook(string user_id); // 가계부 선택
 	string select_CashBook_public(string user_id); // 공용 가계부 선택
 	void make_CashBook_public(); // 공용 가계부 만들기
 };

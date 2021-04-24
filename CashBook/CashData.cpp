@@ -14,7 +14,7 @@ vector<string> cashData::data_split1()
 	vector<string> result;
 	while (1) {
 		string str;
-		cout << ">>> ";
+		cout << "> ";
 		getline(cin, str);
 		if (isquit(str)) break;
 		int count = -1;
@@ -179,9 +179,7 @@ vector<string> cashData::data_split2()
 		if (first.size() == 3) {
 			for (int i = 0; i < first.size(); i++)
 				second[i] = first[i];
-
 		}                                         //second에 first복사                                                 
-
 
 		for (int i = 0; i < second.size(); i++)
 			third[i] = second[i];
@@ -209,8 +207,6 @@ vector<string> cashData::data_split2()
 			}
 		}
 
-
-
 		//for (int i = 0; i < second.size(); i++) {
 		if (second[0] == "" || second[1] == "" || second[2] == "")
 		{
@@ -227,7 +223,6 @@ vector<string> cashData::data_split2()
 				printf("종료날짜  공백 허용 안함\n");
 				break;
 			}
-
 		}
 		result.push_back(second[0]);
 		result.push_back(second[1]);
@@ -236,8 +231,6 @@ vector<string> cashData::data_split2()
 		//}
 		//cout << second[2] << "\n";
 		break;
-
-
 	}
 	return result;
 }
@@ -340,10 +333,7 @@ bool cashData::keyword_search(string startdate, string enddate, string data,bool
 			//n이라면 그냥 리턴
 			return true;
 		}
-
 	}
-
-
 }
 
 string cashData::remove_mark(string str)
