@@ -1,5 +1,13 @@
 #include "Pay.h"
 
+Pay::Pay(string date, string price, string category, string memo)
+{
+	this->m_date = date;
+	this->m_price = price;
+	this->m_memo = memo;
+	this->m_category = category;
+}
+
 Pay::Pay()
 {
 	int select;
