@@ -95,7 +95,7 @@ void Cashbook::searchIncomeCategory(string user_id, string start_date, string en
 	vector<Income> category_incomelist[5];
 	for (Income element : IncomeList)
 	{
-		//category = element의 카테고리
+		//category = element의 카테고리 element.category
 		//category_income_total_money[category] += element.m_price
 		//categoty_incomelist[category].push_back(element)
 		//income_total_money += element.m_price
@@ -332,7 +332,7 @@ int get_difference_of_dates(string start_date, string end_date)
 
 	double diff = difftime(end, start);
 	cout << diff << endl;
-	tm_day = diff / (60 * 60 * 24);
+	tm_day = diff / (60.0f * 60.0f * 24.0f);
 
 	return tm_day;
 }
