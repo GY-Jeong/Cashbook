@@ -15,14 +15,15 @@ using namespace std;
 class cashData
 {
 private:
-	string m_date;
-	string m_price;
-	string m_memo;
-	vector<string> file_data;
 	//User current_user;
 	//CashBook current_cashbook;
 
 public:
+	string m_date;
+	string m_price;
+	string m_memo;
+	string m_category;
+	vector<string> file_data;
 	bool isSharedCashBook;
 	bool isDataSetting;
 	vector<string> pay_file_data;

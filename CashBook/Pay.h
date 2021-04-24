@@ -13,6 +13,7 @@ private:
 
 public:
 	Pay();//user_id 매개변수
+	Pay(string date, string price, string category, string memo);
 	bool pay_category_test(string data);
 
 

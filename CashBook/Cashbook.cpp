@@ -19,7 +19,8 @@ Cashbook::Cashbook(string user_id, string cashbook_name, bool isSharedCashBook)
 	this->isSharedCashBook = isSharedCashBook;
 	this->user_id = user_id;
 	this->cashbook_name = cashbook_name;
-
+	
+	//cd = cashData();
 	cd.isSharedCashBook = isSharedCashBook;
 
 	//cashdata setting
@@ -172,6 +173,20 @@ void Cashbook::showTotal(string start_date, string end_date)
 	vector<Pay> PayList;
 
 	// start date부터 end date까지 순회하며 리스트에 저장
+	//int pay_count = cd.pay_file_data.size();
+	//int income_count = cd.income_file_data.size();
+
+	//cout << pay_count << income_count << endl;
+
+	for (string pay_string : cd.pay_file_data)
+	{
+		cout << pay_string << endl;
+	}
+
+	for (string income_string : cd.income_file_data)
+	{
+		cout << income_string << endl;
+	}
 
 
 	cout << "사용자 ID : " << user_id << endl;
