@@ -57,6 +57,8 @@ void Cashbook::menu()
 					startSearch();
 					break;
 				}
+				case 4:
+					return;
 				default:
 				{
 					cout << "다시 입력해주세요" << endl;
@@ -448,7 +450,7 @@ int get_difference_of_dates(string start_date, string end_date)
 
 	double diff = difftime(end, start);
 	cout << diff << endl;
-	tm_day = diff / (60.0f * 60.0f * 24.0f);
+	tm_day = diff / double(86400);
 
 	return tm_day;
 }

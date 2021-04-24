@@ -5,6 +5,7 @@
 cashData::cashData()//현재 가계부 정보, 유저 정보 생성자로 넘겨받아야함
 {
 	isDataSetting = false;
+	readTextFile("test.txt");
 }
 
 vector<string> cashData::data_split1()
@@ -76,8 +77,6 @@ vector<string> cashData::data_split1()
 				break;
 			}
 		}
-
-
 
 		//	for (int i = 0; i < second.size(); i++) {
 		if (second[0] == "" || second[1] == "" || second[2] == "")

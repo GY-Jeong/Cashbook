@@ -194,7 +194,6 @@ void user::quit() {
 	exit(0);
 }
 
-
 void user::make_CashBook_public() {
 	string bookname;
 	string memlist;
@@ -556,23 +555,34 @@ bool user::select_CashBook(string user_id) {
 	system("cls");
 
 	int select;
-	cout << user_id << "의 가계부" << endl;
-	cout << "1. My CashBook" << endl;
-	cout << "2. Public CashBook" << endl;
-	cout << "> ";
-	cin >> select;
-	if (select == 1) {
-		Cashbook cb(user_id, "", false);
-		return 1;
+	while (1)
+	{
+		cout << user_id << "의 가계부" << endl;
+		cout << "1. My CashBook" << endl;
+		cout << "2. Public CashBook" << endl;
+		cout << "3. 로그아웃" << endl;
+		cout << "> ";
+		cin >> select;
+		if (select == 1) {
+			Cashbook cb(user_id, "", false);
+			return 1;
+		}
+		else if (select == 2) {
+			user::select_CashBook_public(user_id);
+		}
+		else if (select == 3)
+		{
+			logout();
+			return 1;
+		}
+		else {
+			cout << "잘못 입력하였습니다." << endl;
+			Sleep(2000); // 2초 정지 후 다시 입력받음.
+			user::select_CashBook(user_id);
+		}
+
 	}
-	else if (select == 2) {
-		user::select_CashBook_public(user_id);
-	}
-	else {
-		cout << "잘못 입력하였습니다." << endl;
-		Sleep(2000); // 2초 정지 후 다시 입력받음.
-		user::select_CashBook(user_id);
-	}
+
 }
 
 string user::select_CashBook_public(string user_id) {
