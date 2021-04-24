@@ -26,12 +26,10 @@ int main()
 	//ur.menu();
 	setting_data_directory();
 
-	//string user_id = "naeun";
-	//string cashbook_name = "nanni";
+	string user_id = "naeun";
+	string cashbook_name = "nanni";
 
-	//Cashbook cb(user_id, cashbook_name, 1);
-
-
+	Cashbook cb(user_id, cashbook_name, 1);
 }
 
 void setting_data_directory()
