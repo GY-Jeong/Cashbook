@@ -17,13 +17,13 @@ int main()
 	//string user_id = "user_id";
 	//element.inputTerm(user_id);
 
-	//user ur;
-	//ur.menu();
+	user ur;
+	ur.menu();
 
-	string user_id = "naeun";
-	string cashbook_name = "nanni";
+	//string user_id = "naeun";
+	//string cashbook_name = "nanni";
 
-	Cashbook cb(user_id, cashbook_name, 1);
+	//Cashbook cb(user_id, cashbook_name, 1);
 
 
 }
