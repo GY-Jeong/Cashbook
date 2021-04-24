@@ -14,8 +14,117 @@ using namespace std;
 vector<string> split(string str, char delimiter);
 int get_difference_of_dates(string start_date, string end_date);
 
+Cashbook::Cashbook(string user_id, string cashbook_name, bool isSharedCashBook)
+{
+	this->isSharedCashBook = isSharedCashBook;
+	this->user_id = user_id;
+	this->cashbook_name = cashbook_name;
+
+	cd.isSharedCashBook = isSharedCashBook;
+
+	//cashdata setting
+
+	menu();
+}
+
+void Cashbook::menu()
+{
+	int select;
+	if (!isSharedCashBook) { // false - 개인 가계부
+		while (1)
+		{
+			//user_id 출력
+			//cashbook_name 출력
+			cd.isDataSetting = false;
+			cout << "1. 소비" << endl;
+			cout << "2. 수입" << endl;
+			cout << "3. 조회" << endl;
+			cout << "4. 뒤로가기" << endl;
+			cin >> select;
+			switch (select) {
+				case 1:
+				{
+					Pay* pay = new Pay();//user.id 생성자로 넘겨줘야함
+					break;
+				}
+				case 2:
+				{
+					Income* income = new Income();
+					break;
+				}
+				case 3:
+				{
+					startSearch();
+					break;
+				}
+				default:
+				{
+					cout << "다시 입력해주세요" << endl;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+					break;
+				}
+			}
+		}
+	}
+	else { // true - 공용 가계부
+		while (1)
+		{
+			//user_id 출력
+			//cashbook_name 출력
+			cout << "0. 관리자 설정" << endl;
+			cout << "1. 소비" << endl;
+			cout << "2. 수입" << endl;
+			cout << "3. 조회" << endl;
+			cout << "4. 가계부 삭제" << endl;
+			cout << "5. 뒤로가기" << endl;
+			cin >> select;
+
+			//오류처리 필요 "a"
+			switch (select) {
+				case 0:
+				{
+					cout << "공유 가계부 관리자 설정" << endl;
+					break;
+				}
+				case 1:
+				{
+					Pay* pay = new Pay();
+					break;
+				}
+				case 2:
+				{
+					Income* income = new Income();
+					break;
+				}
+				case 3:
+				{
+					startSearch();
+					break;
+				}
+				case 4:
+				{
+					cout << "가계부 삭제" << endl;
+					break;
+				}
+				case 5:
+				{
+					cout << "뒤로 가기" << endl;
+					break;
+				}
+				default:
+				{
+					cout << "예외처리" << endl;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+				}
+			}
+		}
+	}
+}
+
 // 조회할 기간을 입력, 입력한 날짜들이 조건에 맞는지 확인.
-void Cashbook::inputTerm(string user_id)
+void Cashbook::startSearch()
 {
 	string input;
 	cout << "조회할 기간을 입력해주세요(최대 30일)" << endl;
@@ -37,7 +146,7 @@ InputRetry:
 			cout << "두 날짜의 차이 : " << difference_of_dates << endl;
 			if (difference_of_dates >= 0 && difference_of_dates <= 30)
 			{
-				showTotal(user_id, dates[0], dates[1]);
+				showTotal(dates[0], dates[1]);
 				return;
 			}
 			else goto InputError;
@@ -54,13 +163,15 @@ InputRetry:
 }
 
 // 총 수입과 지출을 보여줌.
-void Cashbook::showTotal(string user_id, string start_date, string end_date)
+void Cashbook::showTotal(string start_date, string end_date)
 {
 	unsigned int input, total_income_price = 0, total_pay_price = 0;
 	vector<Income> IncomeList;
 	vector<Pay> PayList;
 
 	// start date부터 end date까지 순회하며 리스트에 저장
+
+
 	cout << "사용자 ID : " << user_id << endl;
 	cout << start_date << " ~ " << end_date << " 해당 기간 내역입니다." << endl;
 	cout << "총 지출 : " << total_pay_price << " 총 수입 : " << total_income_price << endl;
@@ -72,13 +183,13 @@ InputRetry:
 	cin >> input;
 	switch (input) {
 	case 1:
-		searchIncomeCategory(user_id, start_date, end_date, IncomeList);
+		searchIncomeCategory(start_date, end_date, IncomeList);
 		break;
 	case 2:
-		searchPayCategory(user_id, start_date, end_date, PayList);
+		searchPayCategory(start_date, end_date, PayList);
 		break;
 	case 3:
-		inputTerm(user_id);
+		startSearch();
 		break;
 	default:
 		cout << "입력 형식 오류" << endl;
@@ -87,7 +198,7 @@ InputRetry:
 }
 
 // 수입 카테고리별 수입을 보여줌.
-void Cashbook::searchIncomeCategory(string user_id, string start_date, string end_date, vector<Income> IncomeList)
+void Cashbook::searchIncomeCategory(string start_date, string end_date, vector<Income> IncomeList)
 {
 	string input;
 	unsigned int income_total_money = 0, category;
@@ -114,12 +225,12 @@ SelectCategoryNumRetry:
 	cin >> input;
 	if (validQCheck(input))
 	{
-		showTotal(user_id, start_date, end_date);
+		showTotal(start_date, end_date);
 	}
 	else if (validNumberRange(input, 1, 5))
 	{
 		vector<string> income_category = { "월급","용돈","인센티브","아르바이트","기타(수입)" };
-		searchDetail(user_id, start_date, end_date, income_category[stoi(input) - 1], category_incomelist[stoi(input) - 1], {}, false);
+		searchDetail(start_date, end_date, income_category[stoi(input) - 1], category_incomelist[stoi(input) - 1], {}, false);
 	}
 	else
 	{
@@ -130,7 +241,7 @@ SelectCategoryNumRetry:
 }
 
 // 지출 카테고리별 지출을 보여줌.
-void Cashbook::searchPayCategory(string user_id, string start_date, string end_date, vector<Pay> PayList)
+void Cashbook::searchPayCategory(string start_date, string end_date, vector<Pay> PayList)
 {
 	string input;
 	unsigned int pay_total_money = 0, category;
@@ -158,12 +269,12 @@ SelectCategoryNumRetry:
 
 	if (validQCheck(input))
 	{
-		showTotal(user_id, start_date, end_date);
+		showTotal(start_date, end_date);
 	}
 	else if (validNumberRange(input, 1, 7))
 	{
 		vector<string> pay_category = { "식비", "교통", "문화", "오락", "편의점", "카페", "기타(지출)" };
-		searchDetail(user_id, start_date, end_date, pay_category[stoi(input) - 1], {}, category_paylist[stoi(input) - 1], true);
+		searchDetail(start_date, end_date, pay_category[stoi(input) - 1], {}, category_paylist[stoi(input) - 1], true);
 		return;
 	}
 	else
@@ -175,7 +286,7 @@ SelectCategoryNumRetry:
 }
 
 // 입력 받은 '상세 내역을 조회할 카테고리'의 상세 내역을 보여줌.
-void Cashbook::searchDetail(string user_id, string start_date, string end_date, string categoty_name, vector<Income> category_incomelist, vector<Pay> category_paylist, bool is_pay)
+void Cashbook::searchDetail(string start_date, string end_date, string categoty_name, vector<Income> category_incomelist, vector<Pay> category_paylist, bool is_pay)
 {
 	cout << categoty_name << "의 상세 내역입니다." << endl;
 	if (is_pay)
@@ -207,13 +318,13 @@ SelectYNRetry:
 		{
 			//parameter 넣기가 빡센데?
 			//searchDetail() 매개변수에 user_id, start_date, end_date를 추가하면 어떨까요..?
-			searchPayCategory(user_id, start_date, end_date, category_paylist);
+			searchPayCategory(start_date, end_date, category_paylist);
 			cout << "searchPayCategory()" << endl;
 		}
 		else
 		{
 			//parameter 넣기가 빡센데?
-			searchIncomeCategory(user_id, start_date, end_date, category_incomelist);
+			searchIncomeCategory(start_date, end_date, category_incomelist);
 			cout << "searchIncomeCategory()" << endl;
 		}
 		return;
@@ -233,7 +344,7 @@ void Cashbook::deletePublicCashbook(string txt_name)
 	cout << "삭제 하시겠습니까? (Y/N or y/n)" << endl;
 	cin >> input;
 
-	if (input == "y" or input == "Y") {	
+	if (input == "y" or input == "Y") {
 		// 현재 공유 가계부 삭제
 		char* c_txt_name = new char[txt_name.length() + 1];		// string을 char * 으로 변경
 		strcpy(c_txt_name, txt_name.c_str());
@@ -250,7 +361,7 @@ void Cashbook::deletePublicCashbook(string txt_name)
 			cout << "공유 가계부 삭제 실패" << endl;
 		}
 	}
-	else if (input == "n" or input == "N") {				
+	else if (input == "n" or input == "N") {
 		// 공유 가계부 메뉴 선택으로 돌아감
 		cout << "2초 후 개인 및 공유 가계부 화면으로 돌아갑니다." << endl;
 

@@ -152,7 +152,6 @@
   <ItemGroup>
     <ClInclude Include="CashData.h" />
     <ClInclude Include="Check.hpp" />
-    <ClInclude Include="Header.h" />
     <ClInclude Include="Income.h" />
     <ClInclude Include="Pay.h" />
     <ClInclude Include="user.h" />

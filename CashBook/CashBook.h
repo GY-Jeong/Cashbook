@@ -9,11 +9,17 @@ using namespace std;
 class Cashbook
 {
 public:
-	void inputTerm(string user_id);
-	void showTotal(string user_id, string start_date, string end_date);
-	void searchIncomeCategory(string user_id, string start_date, string end_date, vector<Income> IncomeList);
-	void searchPayCategory(string user_id, string start_date, string end_date, vector<Pay> PayList);
-	void searchDetail(string user_id, string start_date, string end_date, string categoty_name, vector<Income> category_incomelist, vector<Pay> category_paylist, bool is_pay);
+	Cashbook(string user_id, string cashbook_name, bool isSharedCashBook);
+	cashData cd;
+	void menu();
+	bool isSharedCashBook;
+	string user_id;
+	string cashbook_name;
+	void startSearch();
+	void showTotal(string start_date, string end_date);
+	void searchIncomeCategory(string start_date, string end_date, vector<Income> IncomeList);
+	void searchPayCategory(string start_date, string end_date, vector<Pay> PayList);
+	void searchDetail(string start_date, string end_date, string categoty_name, vector<Income> category_incomelist, vector<Pay> category_paylist, bool is_pay);
 private:
 	void deletePublicCashbook(string txt_name);
 };

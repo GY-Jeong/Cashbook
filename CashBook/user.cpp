@@ -1,6 +1,7 @@
 ﻿#include "user.h"
 #include <map>
 #include "Windows.h"
+#include "CashBook.h"
 
 #define SIZE 100
 #pragma warning(disable:4996)
@@ -25,7 +26,7 @@ void user::menu() {
 		cin >> sel;
 		if (sel < 1 || sel>3) {
 			cout << "다시 입력해주세요" << endl;
-			cout << ">";
+			cout << "> ";
 			continue;
 		}
 		else {
@@ -68,7 +69,7 @@ void user::login() {
 	*/
 	if (user::isLoginState == false) {
 		cout << "아이디와 비밀번호를 입력하세요" << endl;
-		cout << ">";
+		cout << "> ";
 		cin.clear();
 		while (user::isLoginState == false) {
 			idfail = false;
@@ -85,7 +86,7 @@ void user::login() {
 			}
 			else if (idpw.find("/") == string::npos) {
 				cout << "다시 입력해주세요" << endl;
-				cout << ">";
+				cout << "> ";
 				continue;
 			}
 			//cout << idpw << endl;
@@ -111,7 +112,7 @@ void user::login() {
 				}
 				if (idfail == true && user::isLoginState == false) {
 					cout << "다시 입력해주세요" << endl;
-					cout << ">";
+					cout << "> ";
 					cin.clear();
 					continue;
 				}
@@ -126,7 +127,7 @@ void user::login() {
 						}
 						if (pwfail == true && user::isLoginState == false) {
 							cout << "다시 입력해주세요" << endl;
-							cout << ">";
+							cout << "> ";
 							cin.clear();
 							continue;
 						}
@@ -146,7 +147,7 @@ void user::login() {
 							if (diff == true && user::isLoginState == false) {
 								cout << "아이디와 비밀번호가 일치하지않습니다." << endl;
 								cout << "다시 입력해주세요" << endl;
-								cout << ">";
+								cout << "> ";
 								cin.clear();
 								continue;
 							}
@@ -159,7 +160,7 @@ void user::login() {
 					}
 					else {
 						cout << "다시 입력해주세요" << endl;
-						cout << ">";
+						cout << "> ";
 						cin.clear();
 						continue;
 					}
@@ -167,7 +168,7 @@ void user::login() {
 			}
 			else {
 				cout << "다시 입력해주세요" << endl;
-				cout << ">";
+				cout << "> ";
 				cin.clear();
 				continue;
 			}
@@ -233,7 +234,7 @@ void user::make_CashBook_public() {
 	}
 
 	cout << "생성할 가계부 이름을 작성해주세요(영소문자 최대 5자)" << endl;
-	cout << ">";
+	cout << "> ";
 	while (nsuccess == false) {
 		namefail = false;
 		namesame = false;
@@ -255,7 +256,7 @@ void user::make_CashBook_public() {
 			}
 			if (namefail == true) {
 				cout << "다시 입력해주세요" << endl;
-				cout << ">";
+				cout << "> ";
 				continue;
 			}
 			for (int i = 0;i < allbook.size();i++) {
@@ -265,14 +266,14 @@ void user::make_CashBook_public() {
 			}
 			if (namesame == true) {
 				cout << "다시 입력해주세요" << endl;
-				cout << ">";
+				cout << "> ";
 				continue;
 			}
 			nsuccess = true;
 		}
 		else {
 			cout << "다시 입력해주세요" << endl;
-			cout << ">";
+			cout << "> ";
 			continue;
 		}
 	}
@@ -286,7 +287,7 @@ void user::make_CashBook_public() {
 	cout << "공용가계부 생성!!" << endl;
 	//멤버 입력받기
 	cout << "함께 쓸 사용자의 아이디를 입력해주세요. (최대 9 명)" << endl;
-	cout << ">";
+	cout << "> ";
 	while (memsuccess == false) {
 		notmem = false;
 		manybook = false;
@@ -326,7 +327,7 @@ void user::make_CashBook_public() {
 
 		if (minput.size() > 9) {//9명 초과
 			cout << "다시 입력해주세요" << endl;
-			cout << ">";
+			cout << "> ";
 			continue;
 		}
 		else {//회원정보에 없는 경우, 공용 가계부 이미 5개 있는 경우
@@ -380,7 +381,7 @@ void user::make_CashBook_public() {
 				}
 				if (manybook == true) {
 					cout << "다시 입력해주세요" << endl;
-					cout << ">";
+					cout << "> ";
 					continue;
 				}
 				for (int i = 0;i < minput.size();i++) {
@@ -392,7 +393,7 @@ void user::make_CashBook_public() {
 				notmem = true;
 				idcount = 0;
 				cout << "다시 입력해주세요" << endl;
-				cout << ">";
+				cout << "> ";
 				continue;
 			}
 		}
@@ -561,6 +562,7 @@ bool user::select_CashBook(string user_id) {
 	cout << "> ";
 	cin >> select;
 	if (select == 1) {
+		Cashbook cb(user_id, "", false);
 		return 1;
 	}
 	else if (select == 2) {

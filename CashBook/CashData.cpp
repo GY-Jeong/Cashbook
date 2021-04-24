@@ -5,79 +5,8 @@
 cashData::cashData()//현재 가계부 정보, 유저 정보 생성자로 넘겨받아야함
 {
 	isDataSetting = false;
-	isSharedCashBook = false;
-	//current_cashbook = CashBook
-	//current_user = User
 }
 
-void cashData::menu(bool isSharedCashBook)
-{
-	int select;
-	if (!isSharedCashBook) { // false - 개인 가계부
-		while (1)
-		{
-			//user_id 출력
-			//cashbook_name 출력
-			isDataSetting = false;
-			cout << "1. 소비" << endl;
-			cout << "2. 수입" << endl;
-			cout << "3. 조회" << endl;
-			cout << "4. 뒤로가기" << endl;
-			cin >> select;
-			if (select == 1)
-				Pay* pay = new Pay();//user.id 생성자로 넘겨줘야함
-			else if (select == 2)
-				Income* income = new Income();
-			else if (select == 3)
-			{
-				Cashbook cashbook = Cashbook();
-				cashbook.inputTerm("user_id");
-			}
-			else if (select == 4)
-				break;
-			else
-			{
-				cout << "다시 입력해주세요" << endl;
-				cin.clear();
-				cin.ignore(INT_MAX, '\n');
-			}
-		}
-	}
-	else { // true - 공용 가계부
-		while (1)
-		{
-			//user_id 출력
-			//cashbook_name 출력
-			cout << "0. 관리자 설정" << endl;
-			cout << "1. 소비" << endl;
-			cout << "2. 수입" << endl;
-			cout << "3. 조회" << endl;
-			cout << "4. 가계부 삭제" << endl;
-			cout << "5. 뒤로가기" << endl;
-			cin >> select;
-			//오류처리 필요 "a"
-			if (select == 1)
-				Pay* pay = new Pay();
-			else if (select == 2)
-				Income* income = new Income();
-			else if (select == 3) {
-				cout << "3 조회";
-			}
-			else if (select == 4) {
-				cout << "4 가계부 삭제";
-			}
-			else if (select == 5) {
-				break;
-			}
-			else
-			{
-				cout << "예외처리" << endl;
-				cin.clear();
-				cin.ignore(INT_MAX, '\n');
-			}
-		}
-	}
-}
 vector<string> cashData::data_split1()
 {
 	vector<string> result;
@@ -175,7 +104,6 @@ vector<string> cashData::data_split1()
 				break;
 			}
 		}
-
 
 
 		//else if (i == 0) {
@@ -314,8 +242,6 @@ vector<string> cashData::data_split2()
 	return result;
 }
 
-
-
 bool cashData::keyword_search(string startdate, string enddate, string data,bool search_what)
 {
 	bool isPaysearch = search_what;
@@ -419,6 +345,7 @@ bool cashData::keyword_search(string startdate, string enddate, string data,bool
 
 
 }
+
 string cashData::remove_mark(string str)
 {
 	if (str.find("^", 0) >= 0 && str.find("^", 0) <= 65) 
@@ -660,20 +587,21 @@ bool cashData::is3digit(string data)
 	else
 		return false;
 }
+
 void cashData::printprice_err()
 {
 	cout << "금액 형식 오류" << endl;
 }
+
 void cashData::printdate_err()
 {
 	cout << "날짜 형식 오류" << endl;
 }
+
 void cashData::printmemo_err()
 {
 	cout << "내용 형식 오류" << endl;
 }
-
-
 
 void cashData::readTextFile(string txt_name)
 {
@@ -735,7 +663,6 @@ void cashData::readTextFile(string txt_name)
 	readFile.close();
 }
 
-
 wstring s2ws(const string& s)
 {
 	int len;
@@ -747,6 +674,7 @@ wstring s2ws(const string& s)
 	delete[] buf;
 	return r;
 }
+
 void cashData::writeTextFile(string txt_name, string data)
 {
 	wstring stemp = s2ws(txt_name);
@@ -769,6 +697,7 @@ void cashData::writeTextFile(string txt_name, string data)
 	writeFile.close();
 	file_data.clear(); //내부 데이터 파일 초기화
 }
+
 void cashData::reWriteTextFile(string txt_name)
 {
 	//합치기
@@ -797,7 +726,6 @@ void cashData::reWriteTextFile(string txt_name)
 	file_data.clear(); //내부 데이터 파일 초기화
 }
 
-
 bool cashData::isquit(string& str) {
 	if (str == "q")
 		return true;
@@ -822,6 +750,7 @@ bool cashData::yesorno()
 	}
 	return false;
 }
+
 vector<string> cashData::split(string input, char delimiter)
 {
 	vector<string> answer;

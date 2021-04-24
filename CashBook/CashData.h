@@ -28,7 +28,6 @@ public:
 	vector<string> pay_file_data;
 	vector<string> income_file_data;
 	cashData();
-	void menu(bool flag);
 	vector<string> data_split1();
 	vector<string> data_split2();
 	bool date_test(string& data);
