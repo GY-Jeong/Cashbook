@@ -55,7 +55,7 @@ Pay::Pay()
 
 			if (date_validation(result[0], result[1])) {
 				readTextFile("test.txt");
-				keyword_search(result[0], result[1], result[2]);				//맨밑에서 y/n받음
+				keyword_search(result[0], result[1], result[2],true);				//맨밑에서 y/n받음
 				isDataSetting = true;//y/n 상관없이 흐름도상 분기로 이동
 			}
 			else {
@@ -94,8 +94,9 @@ bool Pay::pay_category_test(string data)
 	int test = 0;
 	cout << "category testing ";
 	for (int i = 0; i < pay_category.size(); i++)
-		if (pay_category[i] == data)
+		if (pay_category[i] == data) {
 			test++;
+		}
 
 	if (test == 1)
 		return true;

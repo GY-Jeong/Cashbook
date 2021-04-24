@@ -119,7 +119,7 @@ SelectCategoryNumRetry:
 	else if (validNumberRange(input, 1, 5))
 	{
 		vector<string> income_category = { "월급","용돈","인센티브","아르바이트","기타(수입)" };
-		searchDetail(income_category[stoi(input) - 1], category_incomelist[stoi(input) - 1], {}, false);
+		searchDetail(user_id, start_date, end_date, income_category[stoi(input) - 1], category_incomelist[stoi(input) - 1], {}, false);
 	}
 	else
 	{
@@ -163,7 +163,7 @@ SelectCategoryNumRetry:
 	else if (validNumberRange(input, 1, 7))
 	{
 		vector<string> pay_category = { "식비", "교통", "문화", "오락", "편의점", "카페", "기타(지출)" };
-		searchDetail(pay_category[stoi(input) - 1], {}, category_paylist[stoi(input) - 1], true);
+		searchDetail(user_id, start_date, end_date, pay_category[stoi(input) - 1], {}, category_paylist[stoi(input) - 1], true);
 		return;
 	}
 	else
@@ -175,7 +175,7 @@ SelectCategoryNumRetry:
 }
 
 // 입력 받은 '상세 내역을 조회할 카테고리'의 상세 내역을 보여줌.
-void Cashbook::searchDetail(string categoty_name, vector<Income> category_incomelist, vector<Pay> category_paylist, bool is_pay)
+void Cashbook::searchDetail(string user_id, string start_date, string end_date, string categoty_name, vector<Income> category_incomelist, vector<Pay> category_paylist, bool is_pay)
 {
 	cout << categoty_name << "의 상세 내역입니다." << endl;
 	if (is_pay)
@@ -206,13 +206,14 @@ SelectYNRetry:
 		if (is_pay)
 		{
 			//parameter 넣기가 빡센데?
-			//searchPayCategory();
+			//searchDetail() 매개변수에 user_id, start_date, end_date를 추가하면 어떨까요..?
+			searchPayCategory(user_id, start_date, end_date, category_paylist);
 			cout << "searchPayCategory()" << endl;
 		}
 		else
 		{
 			//parameter 넣기가 빡센데?
-			//searchIncomeCategory(,);
+			searchIncomeCategory(user_id, start_date, end_date, category_incomelist);
 			cout << "searchIncomeCategory()" << endl;
 		}
 		return;
@@ -227,9 +228,12 @@ SelectYNRetry:
 // 공용 가계부 삭제
 void Cashbook::deletePublicCashbook(string txt_name)
 {
-	cashData yn;
+	string input;
+
 	cout << "삭제 하시겠습니까? (Y/N or y/n)" << endl;
-	if (yn.yesorno()) {	//y를 누른 경우 yesorno()가 true
+	cin >> input;
+
+	if (input == "y" or input == "Y") {	
 		// 현재 공유 가계부 삭제
 		char* c_txt_name = new char[txt_name.length() + 1];		// string을 char * 으로 변경
 		strcpy(c_txt_name, txt_name.c_str());
@@ -243,9 +247,10 @@ void Cashbook::deletePublicCashbook(string txt_name)
 		}
 		else {
 			// 가계부 파일을 삭제하지 못한 상황
+			cout << "공유 가계부 삭제 실패" << endl;
 		}
 	}
-	else {					// n을 누른 경우 yesorno()가 false
+	else if (input == "n" or input == "N") {				
 		// 공유 가계부 메뉴 선택으로 돌아감
 		cout << "2초 후 개인 및 공유 가계부 화면으로 돌아갑니다." << endl;
 
