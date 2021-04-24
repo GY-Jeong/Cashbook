@@ -33,7 +33,7 @@ Cashbook::Cashbook(string user_id, string cashbook_name, bool isSharedCashBook)
 
 void Cashbook::menu()
 {
-	int select;
+	string select;
 	if (!isSharedCashBook) { // false - 개인 가계부
 		while (1)
 		{
@@ -46,9 +46,12 @@ void Cashbook::menu()
 			cout << "2. 수입" << endl;
 			cout << "3. 조회" << endl;
 			cout << "4. 뒤로가기" << endl;
+		InputRetry:
 			INPUT;
 			cin >> select;
-			switch (select) {
+			if (validNumberRange(select, 1, 4))
+			{
+				switch (stoi(select)) {
 				case 1:
 				{
 					CLEAR;
@@ -70,11 +73,17 @@ void Cashbook::menu()
 					return;
 				default:
 				{
-					cout << "다시 입력해주세요" << endl;
-					cin.clear();
-					cin.ignore(INT_MAX, '\n');
+					cout << "여기 들어오면 validcheck에서 문제있는거" << endl;
 					break;
 				}
+				}
+			}
+			else
+			{
+				cout << "다시 입력해주세요" << endl;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+				goto InputRetry;
 			}
 		}
 	}
@@ -92,11 +101,13 @@ void Cashbook::menu()
 			cout << "3. 조회" << endl;
 			cout << "4. 가계부 삭제" << endl;
 			cout << "5. 뒤로가기" << endl;
-			cout << "> ";
+		InputRetry_public:
+			INPUT;
 			cin >> select;
-
-			//오류처리 필요 "a"
-			switch (select) {
+			if (validNumberRange(select, 0, 5))
+			{
+				//오류처리 필요 "a"
+				switch (stoi(select)) {
 				case 0:
 				{
 					cout << "공유 가계부 관리자 설정" << endl;
@@ -128,11 +139,17 @@ void Cashbook::menu()
 				}
 				default:
 				{
-					cout << "예외처리" << endl;
-					cin.clear();
-					cin.ignore(INT_MAX, '\n');
+					cout << "여기 들어오면 validcheck에서 문제있는거" << endl;
 					break;
 				}
+				}
+			}
+			else
+			{
+				cout << "다시 입력해주세요" << endl;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+				goto InputRetry_public;
 			}
 		}
 	}
