@@ -195,6 +195,7 @@ void user::quit() {
 }
 
 void user::make_CashBook_public() {
+	system("cls");
 	string bookname;
 	string memlist;
 	char name[SIZE];
@@ -214,26 +215,26 @@ void user::make_CashBook_public() {
 
 	//회원정보 파일 불러오기
 	ifstream memfile("memberinformation.txt");
-	for (userInfo i;getline(memfile, i.infoId, '/') && getline(memfile, i.infoPw);) {
+	for (userInfo i; getline(memfile, i.infoId, '/') && getline(memfile, i.infoPw);) {
 		meminfo.push_back(i);
 	}
 
 	//공용가계부이름,멤버들 파일 불러오기->멤버수가 적어서 구조체 만큼 안될경우 아예 멤버넣을때 빈칸은 x로
 	ifstream pubfile("makehiddenfile.txt");
-	for (pubcash i;getline(pubfile, i.pubname, '/') && getline(pubfile, i.maker, '/') && getline(pubfile, i.m1, '/') && getline(pubfile, i.m2, '/') && getline(pubfile, i.m3, '/') && getline(pubfile, i.m4, '/') && getline(pubfile, i.m5, '/') && getline(pubfile, i.m6, '/') && getline(pubfile, i.m7, '/') && getline(pubfile, i.m8, '/') && getline(pubfile, i.m9);) {
+	for (pubcash i; getline(pubfile, i.pubname, '/') && getline(pubfile, i.maker, '/') && getline(pubfile, i.m1, '/') && getline(pubfile, i.m2, '/') && getline(pubfile, i.m3, '/') && getline(pubfile, i.m4, '/') && getline(pubfile, i.m5, '/') && getline(pubfile, i.m6, '/') && getline(pubfile, i.m7, '/') && getline(pubfile, i.m8, '/') && getline(pubfile, i.m9);) {
 		pubinfo.push_back(i);
 	}
 
 	//개인+공용 가계부 이름들만 모아놓음
-	for (int j = 0;j < meminfo.size();j++) {
+	for (int j = 0; j < meminfo.size(); j++) {
 		allbook.push_back(meminfo[j].infoId);
 	}
-	for (int j = 0;j < pubinfo.size();j++) {
+	for (int j = 0; j < pubinfo.size(); j++) {
 		allbook.push_back(pubinfo[j].pubname);
 	}
 
 	cout << "생성할 가계부 이름을 작성해주세요(영소문자 최대 5자)" << endl;
-	cout << "> ";
+	cout << ">";
 	while (nsuccess == false) {
 		namefail = false;
 		namesame = false;
@@ -248,31 +249,31 @@ void user::make_CashBook_public() {
 		else if (bookname.size() <= 5) {
 			strcpy(name, bookname.c_str());
 			//cout << name << endl;
-			for (int i = 0;i < strlen(name);i++) {
+			for (int i = 0; i < strlen(name); i++) {
 				if (name[i] < 97 || name[i] > 122) {//가계부이름 영어소문자검사
 					namefail = true;
 				}
 			}
 			if (namefail == true) {
 				cout << "다시 입력해주세요" << endl;
-				cout << "> ";
+				cout << ">";
 				continue;
 			}
-			for (int i = 0;i < allbook.size();i++) {
+			for (int i = 0; i < allbook.size(); i++) {
 				if (allbook[i].compare(bookname) == 0) {//가계부이름 중복여부 체크
 					namesame = true;
 				}
 			}
 			if (namesame == true) {
 				cout << "다시 입력해주세요" << endl;
-				cout << "> ";
+				cout << ">";
 				continue;
 			}
 			nsuccess = true;
 		}
 		else {
 			cout << "다시 입력해주세요" << endl;
-			cout << "> ";
+			cout << ">";
 			continue;
 		}
 	}
@@ -283,10 +284,10 @@ void user::make_CashBook_public() {
 	char savefilename[20];
 	strcpy(savefilename, sfilename.c_str());
 	ofstream sfile(savefilename);
-	cout << "공용가계부 생성!!" << endl;
+	//cout << "공용가계부 생성!!" << endl;
 	//멤버 입력받기
 	cout << "함께 쓸 사용자의 아이디를 입력해주세요. (최대 9 명)" << endl;
-	cout << "> ";
+	cout << ">";
 	while (memsuccess == false) {
 		notmem = false;
 		manybook = false;
@@ -320,18 +321,18 @@ void user::make_CashBook_public() {
 				minput.push_back(token2);
 			}
 		}
-		for (int i = 0;i < minput.size();i++) {
+		for (int i = 0; i < minput.size(); i++) {
 			bookcount.push_back(0);
 		}
 
 		if (minput.size() > 9) {//9명 초과
 			cout << "다시 입력해주세요" << endl;
-			cout << "> ";
+			cout << ">";
 			continue;
 		}
 		else {//회원정보에 없는 경우, 공용 가계부 이미 5개 있는 경우
-			for (int i = 0;i < minput.size();i++) {///회원 여부 확인
-				for (int j = 0;j < meminfo.size();j++) {
+			for (int i = 0; i < minput.size(); i++) {///회원 여부 확인
+				for (int j = 0; j < meminfo.size(); j++) {
 					if (minput[i].compare(meminfo[j].infoId) == 0) {
 						idcount += 1;
 					}
@@ -339,8 +340,8 @@ void user::make_CashBook_public() {
 			}
 			if (idcount == minput.size()) {
 				idcount = 0;
-				for (int i = 0;i < minput.size();i++) {///공용가계부 5개 이상 여부 확인
-					for (int j = 0;j < pubinfo.size();j++) {
+				for (int i = 0; i < minput.size(); i++) {///공용가계부 5개 이상 여부 확인
+					for (int j = 0; j < pubinfo.size(); j++) {
 						if (minput[i].compare(pubinfo[j].maker) == 0) {
 							bookcount[i] += 1;
 						}
@@ -373,17 +374,17 @@ void user::make_CashBook_public() {
 						}
 					}
 				}
-				for (int i = 0;i < bookcount.size();i++) {
+				for (int i = 0; i < bookcount.size(); i++) {
 					if (bookcount[i] >= 5) {
 						manybook = true;
 					}
 				}
 				if (manybook == true) {
 					cout << "다시 입력해주세요" << endl;
-					cout << "> ";
+					cout << ">";
 					continue;
 				}
-				for (int i = 0;i < minput.size();i++) {
+				for (int i = 0; i < minput.size(); i++) {
 					members.push_back(minput[i]);
 				}
 				memsuccess = true;
@@ -392,7 +393,7 @@ void user::make_CashBook_public() {
 				notmem = true;
 				idcount = 0;
 				cout << "다시 입력해주세요" << endl;
-				cout << "> ";
+				cout << ">";
 				continue;
 			}
 		}
@@ -443,7 +444,7 @@ void user::make_CashBook_public() {
 		ofstream spub("makehiddenfile.txt", ios::out | ios::app);
 
 		spub << bookname << "/" << loginedId << "/";
-		for (int i = 0;i < members.size() - 1;i++) {
+		for (int i = 0; i < members.size() - 1; i++) {
 			spub << members[i] << "/";
 		}
 		spub << members[8] << endl;
@@ -459,13 +460,14 @@ void user::make_CashBook_public() {
 				sspub << *it << "/";
 			}
 		}
-		for (int i = 0;i < 8 - members.size();i++) {
+		for (int i = 0; i < 8 - members.size(); i++) {
 			sspub << "x" << "/";
 		}
 		sspub << "x" << endl;
 
 		sspub.close();
 	}
+	user::select_CashBook_public(user::loginedId);
 }
 
 // 회원가입

@@ -3,6 +3,7 @@
 #include "Pay.h"
 #include "Income.h"
 #include "Check.hpp"
+#include "Admin.h"
 
 #include <stdlib.h>
 #include <ctime>
@@ -111,7 +112,8 @@ void Cashbook::menu()
 				switch (stoi(select)) {
 				case 0:
 				{
-					cout << "공유 가계부 관리자 설정" << endl;
+					//cout << "공유 가계부 관리자 설정" << endl;
+					Admin* admin = new Admin(user_id);
 					break;
 				}
 				case 1:
@@ -379,8 +381,7 @@ SelectCategoryNumRetry:
 
 // 입력 받은 '상세 내역을 조회할 카테고리'의 상세 내역을 보여줌.
 void Cashbook::searchDetail(string start_date, string end_date, string categoty_name, vector<vector<string>> category_list, \
-	vector<vector<string>> total_list, bool is_pay)
-{
+	vector<vector<string>> total_list, bool is_pay) {
 	CLEAR;
 	// 만약 공유 가계부라면 올린 사람도 올려야됨
 	//if(isSharedCashBook)
