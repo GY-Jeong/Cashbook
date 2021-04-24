@@ -23,7 +23,7 @@ int main()
 	string user_id = "naeun";
 	string cashbook_name = "nanni";
 
-	Cashbook cb(user_id, cashbook_name, 0);
+	Cashbook cb(user_id, cashbook_name, 1);
 
 
 }

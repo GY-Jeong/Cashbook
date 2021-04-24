@@ -77,13 +77,16 @@ void Cashbook::menu()
 		while (1)
 		{
 			//user_id 출력
+			cout << "사용자 ID: " << user_id << endl;
 			//cashbook_name 출력
+			cout << "가계부 이름: " << cashbook_name << endl;
 			cout << "0. 관리자 설정" << endl;
 			cout << "1. 소비" << endl;
 			cout << "2. 수입" << endl;
 			cout << "3. 조회" << endl;
 			cout << "4. 가계부 삭제" << endl;
 			cout << "5. 뒤로가기" << endl;
+			cout << "> ";
 			cin >> select;
 
 			//오류처리 필요 "a"
@@ -123,6 +126,7 @@ void Cashbook::menu()
 					cout << "예외처리" << endl;
 					cin.clear();
 					cin.ignore(INT_MAX, '\n');
+					break;
 				}
 			}
 		}
