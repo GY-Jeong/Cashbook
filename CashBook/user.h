@@ -21,6 +21,8 @@ public:
 	struct pubcash {
 		string pubname = "";
 		string maker = "";
+		vector<string> m;
+
 		string m1 = "";
 		string m2 = "";
 		string m3 = "";

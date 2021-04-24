@@ -107,6 +107,7 @@ void Cashbook::menu()
 			if (validNumberRange(select, 0, 5))
 			{
 				//오류처리 필요 "a"
+				//권한에 따라 들어갈 수 있는 권한 설정
 				switch (stoi(select)) {
 				case 0:
 				{
@@ -176,6 +177,27 @@ InputRetry:
 		// '/'로 구분된 string이 2개이고, 2개의 string 모두 유효한 날짜 데이터일 때
 		if (dates.size() == 2 && validDateCheck(dates[0]) && validDateCheck(dates[1]))
 		{
+			string start_year = split(dates[0], '-')[0];
+			string end_year = split(dates[1], '-')[0];
+
+			if (start_year.size() == 2)
+			{
+				int s_year = stoi(start_year);
+				if (s_year <= 99 && s_year >= 70)
+					dates[0] = "19" + dates[0];
+				else if (s_year <= 69 && s_year >= 0)
+					dates[0] = "20" + dates[0];
+			}
+
+			if (end_year.size() == 2)
+			{
+				int e_year = stoi(end_year);
+				if (e_year <= 99 && e_year >= 70)
+					dates[1] = "19" + dates[1];
+				else if (e_year <= 69 && e_year >= 0)
+					dates[1] = "20" + dates[1];
+			}
+
 			// 의미규칙, 30일 사이이고, dates[1]이 dates[0]보다 뒤일때)
 			int difference_of_dates = get_difference_of_dates(dates[0], dates[1]);
 			// cout << "두 날짜의 차이 : " << difference_of_dates << endl;
@@ -284,7 +306,7 @@ void Cashbook::searchIncomeCategory(string start_date, string end_date, vector<v
 		"4. 아르바이트 " , "5. 기타       " };
 	for (int i = 0; i < 5; i++)
 	{
-		cout << printlist[i] << category_income_total_money[i] << "원 (" << (category_income_total_money[i]/income_total_money)*100 << "%)" << endl;
+		cout << printlist[i] << category_income_total_money[i] << "원 (" << int(double(category_income_total_money[i])/double(income_total_money) * 100) << "%)" << endl;
 	}
 	cout << "상세 내역을 확인하시려면 카테고리 번호를 선택해주세요." << endl;
 
@@ -297,7 +319,7 @@ SelectCategoryNumRetry:
 	}
 	else if (validNumberRange(input, 1, 5))
 	{
-		searchDetail(start_date, end_date, income_category[stoi(input) - 1], category_incomelist[stoi(input) - 1], false);
+		searchDetail(start_date, end_date, income_category[stoi(input) - 1], category_incomelist[stoi(input) - 1], income_list, false);
 	}
 	else
 	{
@@ -331,7 +353,7 @@ void Cashbook::searchPayCategory(string start_date, string end_date, vector<vect
 		"4. 오락       ", "5. 편의점     ", "6. 카페       ",  "7. 기타       " };
 	for (int i = 0; i < 7;i++)
 	{
-		cout << printlist[i] << category_pay_total_money[i] << "원 (" << (category_pay_total_money[i] / pay_total_money) * 100 << "%)" << endl;
+		cout << printlist[i] << category_pay_total_money[i] << "원 (" << int(double(category_pay_total_money[i]) / double(pay_total_money) * 100) << "%)" << endl;
 	}
 	cout << "상세 내역을 확인하시려면 카테고리 번호를 선택해주세요." << endl;
 SelectCategoryNumRetry:
@@ -344,7 +366,7 @@ SelectCategoryNumRetry:
 	}
 	else if (validNumberRange(input, 1, 7))
 	{
-		searchDetail(start_date, end_date, pay_category[stoi(input) - 1], category_paylist[stoi(input) - 1], true);
+		searchDetail(start_date, end_date, pay_category[stoi(input) - 1], category_paylist[stoi(input) - 1], pay_list, true);
 		return;
 	}
 	else
@@ -356,9 +378,12 @@ SelectCategoryNumRetry:
 }
 
 // 입력 받은 '상세 내역을 조회할 카테고리'의 상세 내역을 보여줌.
-void Cashbook::searchDetail(string start_date, string end_date, string categoty_name, vector<vector<string>> category_list, bool is_pay)
+void Cashbook::searchDetail(string start_date, string end_date, string categoty_name, vector<vector<string>> category_list, \
+	vector<vector<string>> total_list, bool is_pay)
 {
 	CLEAR;
+	// 만약 공유 가계부라면 올린 사람도 올려야됨
+	//if(isSharedCashBook)
 	cout << categoty_name << "의 상세 내역입니다." << endl;
 	for (vector<string> element : category_list)
 	{
@@ -382,16 +407,11 @@ SelectYNRetry:
 	{
 		if (is_pay)
 		{
-			//parameter 넣기가 빡센데?
-			//searchDetail() 매개변수에 user_id, start_date, end_date를 추가하면 어떨까요..?
-			//searchPayCategory(start_date, end_date, category_paylist);
-			cout << "searchPayCategory()" << endl;
+			searchPayCategory(start_date, end_date, total_list);
 		}
 		else
 		{
-			//parameter 넣기가 빡센데?
-			//searchIncomeCategory(start_date, end_date, category_incomelist);
-			cout << "searchIncomeCategory()" << endl;
+			searchIncomeCategory(start_date, end_date, total_list);
 		}
 		return;
 	}
