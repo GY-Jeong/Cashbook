@@ -432,8 +432,8 @@ SelectYNRetry:
 // 공용 가계부 삭제
 bool Cashbook::deletePublicCashbook()
 {
-	//string txt_name = cashbook_name + ".txt";
-	//string M_txt_name = cashbook_name + "_M.txt";
+	//string txt_name = "./data/public/" + cashbook_name + ".txt";
+	//string M_txt_name = "./data/public/ + cashbook_name + "_M.txt";
 
 	string txt_name = "./data/public/hell.txt";
 	string M_txt_name = "./data/public/hell_M.txt";
