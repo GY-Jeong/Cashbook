@@ -118,11 +118,13 @@ void Cashbook::menu()
 				}
 				case 1:
 				{
+					CLEAR;
 					Pay* pay = new Pay();
 					break;
 				}
 				case 2:
 				{
+					CLEAR;
 					Income* income = new Income();
 					break;
 				}
@@ -478,20 +480,21 @@ int get_difference_of_dates(string start_date, string end_date)
 
 	vector<string> start_date_list = split(start_date, '-');
 
-	if (start_date_list[0].size() == 2)
-	{
-		//YY-MM-DD
-		s_year = stoi(start_date_list[0]);
-		if (s_year <= 99 && s_year >= 70)
-			s_year += 1900;
-		else if (s_year <= 69 && s_year >= 0)
-			s_year += 2000;
-	}
-	else
-	{
-		s_year = stoi(start_date_list[0]);
-	}
+	//if (start_date_list[0].size() == 2)
+	//{
+	//	//YY-MM-DD
+	//	s_year = stoi(start_date_list[0]);
+	//	if (s_year <= 99 && s_year >= 70)
+	//		s_year += 1900;
+	//	else if (s_year <= 69 && s_year >= 0)
+	//		s_year += 2000;
+	//}
+	//else
+	//{
+	//	s_year = stoi(start_date_list[0]);
+	//}
 
+	s_year = stoi(start_date_list[0]);
 	s_month = stoi(start_date_list[1]);
 	s_day = stoi(start_date_list[2]);
 
@@ -505,20 +508,21 @@ int get_difference_of_dates(string start_date, string end_date)
 
 	vector<string> end_date_list = split(end_date, '-');
 
-	if (end_date_list[0].size() == 2)
-	{
-		//YY-MM-DD
-		e_year = stoi(end_date_list[0]);
-		if (e_year <= 99 && e_year >= 70)
-			e_year += 1900;
-		else if (e_year <= 69 && e_year >= 0)
-			e_year += 2000;
-	}
-	else
-	{
-		e_year = stoi(end_date_list[0]);
-	}
+	//if (end_date_list[0].size() == 2)
+	//{
+	//	//YY-MM-DD
+	//	e_year = stoi(end_date_list[0]);
+	//	if (e_year <= 99 && e_year >= 70)
+	//		e_year += 1900;
+	//	else if (e_year <= 69 && e_year >= 0)
+	//		e_year += 2000;
+	//}
+	//else
+	//{
+	//	e_year = stoi(end_date_list[0]);
+	//}
 
+	e_year = stoi(end_date_list[0]);
 	e_month = stoi(end_date_list[1]);
 	e_day = stoi(end_date_list[2]);
 

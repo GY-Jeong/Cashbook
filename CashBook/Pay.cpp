@@ -1,5 +1,8 @@
 #include "Pay.h"
 
+#define CLEAR system("cls")
+#define INPUT cout << "> "
+
 Pay::Pay(string date, string price, string category, string memo)
 {
 	this->m_date = date;
@@ -18,6 +21,7 @@ Pay::Pay()
 		cout << "1. 등록" << endl;
 		cout << "2. 삭제" << endl;
 		cout << "3. 뒤로가기" << endl;
+		INPUT;
 		cin >> select;
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
@@ -39,6 +43,7 @@ Pay::Pay()
 						readTextFile("test.txt");							//y->개인 가계부 그냥 저장
 						writeTextFile("test.txt", data_format);
 						cout << "저장이 완료되었습니다." << endl;
+						readTextFile("test.txt");
 					}
 					else {
 						//공용 가계부
@@ -46,6 +51,7 @@ Pay::Pay()
 						readTextFile("test.txt");
 						writeTextFile("test.txt", data_format);
 						cout << "저장이 완료되었습니다." << endl;
+						readTextFile("test.txt");
 					}
 				}
 				else {				//n-> 저장 안함

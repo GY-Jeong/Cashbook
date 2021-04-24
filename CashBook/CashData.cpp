@@ -321,6 +321,7 @@ bool cashData::keyword_search(string startdate, string enddate, string data,bool
 					income_file_data[matched_index.at(select - 1)].clear();
 				//다시 합치기
 				reWriteTextFile("test.txt");
+				readTextFile("test.txt");
 				cout << "삭제가 완료되었습니다." << endl;
 			}
 			else {
