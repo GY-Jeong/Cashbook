@@ -312,7 +312,7 @@ bool cashData::keyword_search(string startdate, string enddate, string data,bool
 			cin >> select;
 			cin.clear();
 			cin.ignore(INT_MAX, '\n');
-			cout << "삭제 하시겠습니까? ";
+			cout << "삭제 하시겠습니까? (Y/N or y/n)";
 			if (yesorno()) {
 				//yes
 				if(isPaysearch)

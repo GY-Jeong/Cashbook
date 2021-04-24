@@ -7,6 +7,8 @@
 
 #include <stdlib.h>
 #include <ctime>
+#include <iostream>
+#include <io.h>
 
 #pragma warning(disable:4996)
 #define CLEAR system("cls")
@@ -135,7 +137,9 @@ void Cashbook::menu()
 				}
 				case 4:
 				{
-					cout << "가계부 삭제" << endl;
+					bool check = deletePublicCashbook();
+					if (check) return;
+					// 소멸자 호출하는게 낫나?
 					break;
 				}
 				case 5:
@@ -426,12 +430,18 @@ SelectYNRetry:
 }
 
 // 공용 가계부 삭제
-void Cashbook::deletePublicCashbook(string txt_name)
+bool Cashbook::deletePublicCashbook()
 {
+	//string txt_name = cashbook_name + ".txt";
+	//string M_txt_name = cashbook_name + "_M.txt";
+
+	string txt_name = "./data/public/hell.txt";
+	string M_txt_name = "./data/public/hell_M.txt";
 	CLEAR;
 	string input;
-
 	cout << "삭제 하시겠습니까? (Y/N or y/n)" << endl;
+SelectYNRetry_delete:
+	INPUT;
 	cin >> input;
 
 	if (input == "y" or input == "Y") {
@@ -439,127 +449,56 @@ void Cashbook::deletePublicCashbook(string txt_name)
 		char* c_txt_name = new char[txt_name.length() + 1];		// string을 char * 으로 변경
 		strcpy(c_txt_name, txt_name.c_str());
 
-		if (remove(c_txt_name) == 0) {							// 삭제할 공유 가계부 경로
-			cout << "공유 가계부를 삭제했습니다." << endl;
-			cout << "2초 후 공유 가계부 선택 화면으로 돌아갑니다." << endl;
+		char* c_M_txt_name = new char[M_txt_name.length() + 1];		// string을 char * 으로 변경
+		strcpy(c_M_txt_name, M_txt_name.c_str());
 
-			Sleep(2000);
-			// 삭제 후 공유 가계부 선택 화면으로 돌아가기
+		bool check = true;
+
+		if (access(c_txt_name, 00) == -1)
+		{
+			cout << c_txt_name << "이 존재하지 않음" << endl;
 		}
-		else {
-			// 가계부 파일을 삭제하지 못한 상황
-			cout << "공유 가계부 삭제 실패" << endl;
+		else
+		{
+			if (remove(c_txt_name) == 0) {							// 삭제할 공유 가계부 경로
+				cout << c_txt_name << "삭제 성공" << endl;
+			}
+			else {
+				// 가계부 파일을 삭제하지 못한 상황
+				cout << c_txt_name << "삭제 실패" << endl;
+			}
 		}
+
+		if (access(c_M_txt_name, 00) == -1)
+		{
+			cout << c_M_txt_name << "이 존재하지 않음" << endl;
+		}
+		else
+		{
+			if (remove(c_M_txt_name) == 0) {							// 삭제할 공유 가계부 경로
+				cout << c_M_txt_name << "삭제 성공" << endl;
+			}
+			else {
+				// 가계부 파일을 삭제하지 못한 상황
+				cout << c_M_txt_name << "삭제 실패" << endl;
+			}
+		}
+
+		cout << "공유 가계부를 삭제했습니다." << endl;
+		cout << "2초 후 공유 가계부 선택 화면으로 돌아갑니다." << endl;
+		Sleep(2000);
+		return true;
+		// 삭제 후 공유 가계부 선택 화면으로 돌아가기
 	}
 	else if (input == "n" or input == "N") {
 		// 공유 가계부 메뉴 선택으로 돌아감
 		cout << "2초 후 개인 및 공유 가계부 화면으로 돌아갑니다." << endl;
-
 		Sleep(2000);
+		return false;
 	}
-}
-
-vector<string> split(string str, char delimiter) {
-	vector<string> internal;
-	stringstream ss(str);
-	string temp;
-
-	while (getline(ss, temp, delimiter)) {
-		internal.push_back(temp);
-	}
-
-	return internal;
-}
-
-int get_difference_of_dates(string start_date, string end_date)
-{
-	time_t start, end;
-	struct tm stime, etime;
-	int tm_day;
-	int s_year, s_month, s_day, e_year, e_month, e_day;
-
-	vector<string> start_date_list = split(start_date, '-');
-
-	//if (start_date_list[0].size() == 2)
-	//{
-	//	//YY-MM-DD
-	//	s_year = stoi(start_date_list[0]);
-	//	if (s_year <= 99 && s_year >= 70)
-	//		s_year += 1900;
-	//	else if (s_year <= 69 && s_year >= 0)
-	//		s_year += 2000;
-	//}
-	//else
-	//{
-	//	s_year = stoi(start_date_list[0]);
-	//}
-
-	s_year = stoi(start_date_list[0]);
-	s_month = stoi(start_date_list[1]);
-	s_day = stoi(start_date_list[2]);
-
-	stime.tm_year = s_year - 1900;
-	stime.tm_mon = s_month - 1;
-	stime.tm_mday = s_day;
-	stime.tm_hour = 0;
-	stime.tm_min = 0;
-	stime.tm_sec = 0;
-	stime.tm_isdst = 0; //썸머타임 사용안함
-
-	vector<string> end_date_list = split(end_date, '-');
-
-	//if (end_date_list[0].size() == 2)
-	//{
-	//	//YY-MM-DD
-	//	e_year = stoi(end_date_list[0]);
-	//	if (e_year <= 99 && e_year >= 70)
-	//		e_year += 1900;
-	//	else if (e_year <= 69 && e_year >= 0)
-	//		e_year += 2000;
-	//}
-	//else
-	//{
-	//	e_year = stoi(end_date_list[0]);
-	//}
-
-	e_year = stoi(end_date_list[0]);
-	e_month = stoi(end_date_list[1]);
-	e_day = stoi(end_date_list[2]);
-
-	etime.tm_year = e_year - 1900;
-	etime.tm_mon = e_month - 1;
-	etime.tm_mday = e_day;
-	etime.tm_hour = 0;
-	etime.tm_min = 0;
-	etime.tm_sec = 0;
-	etime.tm_isdst = 0; //썸머타임 사용안함
-
-	//printf("%d %d %d %d %d %d\n", s_year, s_month, s_day, e_year, e_month, e_day);
-	start = mktime(&stime);
-	end = mktime(&etime);
-
-	double diff = difftime(end, start);
-	// cout << diff << endl;
-	tm_day = diff / double(86400);
-
-	return tm_day;
-}
-
-int getIndex(vector<string> v, string K)
-{
-	auto it = find(v.begin(), v.end(), K);
-
-	// If element was found
-	if (it != v.end())
+	else
 	{
-		// calculating the index
-		// of K
-		int index = it - v.begin();
-		return index;
-	}
-	else {
-		// If the element is not
-		// present in the vector
-		return -1;
+		cout << "입력 형식 오류" << endl;
+		goto SelectYNRetry_delete;
 	}
 }

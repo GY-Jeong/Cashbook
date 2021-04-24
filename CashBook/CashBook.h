@@ -22,5 +22,5 @@ public:
 	void searchDetail(string start_date, string end_date, string categoty_name, vector<vector<string>> category_list, vector<vector<string>> total_list,\
 		bool is_pay);
 private:
-	void deletePublicCashbook(string txt_name);
+	bool deletePublicCashbook();
 };
