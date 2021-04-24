@@ -13,7 +13,7 @@ private:
 
 public:
 	Income();
-	Income::Income(string date, string price, string category, string memo);
+	Income(string date, string price, string category, string memo);
 	bool income_category_test(string& data);
 
 
