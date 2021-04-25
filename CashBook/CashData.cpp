@@ -304,7 +304,7 @@ bool cashData::keyword_search(string startdate, string enddate, string data, boo
 		}
 		if (matching_count == 0) {
 			cout << "데이터가 없습니다. " << endl;
-			Sleep(1000);
+			//Sleep(1000);
 			return false;
 		}
 		else {
