@@ -74,6 +74,12 @@ void user::login() {
 
 	//회원정보 파일 불러오기
 	ifstream mfile("./data/memberinformation.txt");
+	if (mfile.peek() == std::ifstream::traits_type::eof()) {
+		cout << "가계부 가입자가 없습니다." << endl;
+		mfile.close();
+		Sleep(2000);
+		user::menu();
+	}
 	for (userInfo i;getline(mfile, i.infoId, '/') && getline(mfile, i.infoPw);) {
 		minfo.push_back(i);
 	}
