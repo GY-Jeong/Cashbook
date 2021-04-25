@@ -17,9 +17,10 @@ public:
 	string cashbook_name;
 	void startSearch();
 	void showTotal(string start_date, string end_date);
-	void searchIncomeCategory(string start_date, string end_date, vector<Income> IncomeList);
-	void searchPayCategory(string start_date, string end_date, vector<Pay> PayList);
-	void searchDetail(string start_date, string end_date, string categoty_name, vector<Income> category_incomelist, vector<Pay> category_paylist, bool is_pay);
+	void searchIncomeCategory(string start_date, string end_date, vector<vector<string>> income_list);
+	void searchPayCategory(string start_date, string end_date, vector<vector<string>> pay_list);
+	void searchDetail(string start_date, string end_date, string categoty_name, vector<vector<string>> category_list, vector<vector<string>> total_list,\
+		bool is_pay);
 private:
-	void deletePublicCashbook(string txt_name);
+	bool deletePublicCashbook();
 };

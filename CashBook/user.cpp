@@ -152,7 +152,7 @@ void user::login() {
 								continue;
 							}
 							else if (user::isLoginState == true) {
-								cout << "Log In!!" << endl;
+								//cout << "Log In!!" << endl;
 								cin.clear();
 								break;
 							}
@@ -173,7 +173,7 @@ void user::login() {
 				continue;
 			}
 		}
-		cout << "가계부 선택으로!!" << endl;
+		//cout << "가계부 선택으로!!" << endl;
 		user::select_CashBook(id);
 	}
 
@@ -194,7 +194,9 @@ void user::quit() {
 	exit(0);
 }
 
+
 void user::make_CashBook_public() {
+	system("cls");
 	string bookname;
 	string memlist;
 	char name[SIZE];
@@ -279,11 +281,11 @@ void user::make_CashBook_public() {
 	stringstream sss;
 	cin.clear();
 	sss << bookname << ".txt";
-	string sfilename = sss.str();
-	char savefilename[20];
+	string sfilename = "./data/public/" + sss.str();
+	char savefilename[40];
 	strcpy(savefilename, sfilename.c_str());
-	ofstream sfile(savefilename);
-	cout << "공용가계부 생성!!" << endl;
+	ofstream sstfile(savefilename);
+	//cout << "공용가계부 생성!!" << endl;
 	//멤버 입력받기
 	cout << "함께 쓸 사용자의 아이디를 입력해주세요. (최대 9 명)" << endl;
 	cout << "> ";
@@ -402,8 +404,8 @@ void user::make_CashBook_public() {
 		string sstr = bookname + "_M";
 		stringstream save;
 		save << sstr << ".txt";
-		string smfilename = save.str();
-		char savemfilename[20];
+		string smfilename = "./data/public/" + save.str();
+		char savemfilename[40];
 		strcpy(savemfilename, smfilename.c_str());
 		ofstream smfile(savemfilename);
 
@@ -420,8 +422,8 @@ void user::make_CashBook_public() {
 		string ssstr = bookname + "_M";
 		stringstream savem;
 		savem << ssstr << ".txt";
-		string ssmfilename = savem.str();
-		char ssavemfilename[20];
+		string ssmfilename = "./data/public/"+savem.str();
+		char ssavemfilename[40];
 		strcpy(ssavemfilename, ssmfilename.c_str());
 		ofstream ssmfile(ssavemfilename);
 
@@ -466,6 +468,7 @@ void user::make_CashBook_public() {
 
 		sspub.close();
 	}
+	user::select_CashBook_public(user::loginedId);
 }
 
 // 회원가입
@@ -481,6 +484,10 @@ void user::sign_In() {
 	// ID PW 입력
 	cout << "아이디와 패스워드를 입력해주세요." << endl;
 	cin >> input;
+	cin.clear();
+	if (input == "q") {
+		user::menu();
+	}
 
 	for (int i = 0; i < input.length(); i++) {
 		if (input[i] == '/') {
@@ -495,10 +502,8 @@ void user::sign_In() {
 		}
 	}
 
-
-	if (id == "q" || pw == "q") {
-		user::menu();
-	}
+	cout << id << "  " << pw << endl;
+	
 	// file : 쓰기용(ofstream), search_name : 찾기용(ifstream)
 	file.open("memberinformation.txt", ios::app);
 	search_name.open("memberinformation.txt");
@@ -548,44 +553,55 @@ void user::sign_In() {
 	file << input << endl;
 	file.close();
 	search_name.close();
+
+	stringstream st;
+	cin.clear();
+	st << id << ".txt";
+	string stfilename = "./data/private/"+st.str();
+	char stsavefilename[40];
+	strcpy(stsavefilename, stfilename.c_str());
+	ofstream sstfile(stsavefilename);
+	//cout << "개인가계부 생성!!" << endl;
 	user::menu();
 }
 
-bool user::select_CashBook(string user_id) {
+void user::select_CashBook(string user_id) {
 	system("cls");
 
 	int select;
-	while (1)
-	{
-		cout << user_id << "의 가계부" << endl;
-		cout << "1. My CashBook" << endl;
-		cout << "2. Public CashBook" << endl;
-		cout << "3. 로그아웃" << endl;
-		cout << "> ";
+	cout << user_id << "의 가계부" << endl;
+	cout << "1. My CashBook" << endl;
+	cout << "2. Public CashBook" << endl;
+	cout << "3. Log out" << endl;
+	cout << "> ";
+	while (1) {
+		cin.clear();
 		cin >> select;
+		cin.clear();
 		if (select == 1) {
-			Cashbook cb(user_id, "", false);
-			return 1;
+			user::is_All = false;
+			user::currentBook = user::loginedId;
+			Cashbook cb(user::loginedId, user::currentBook, user::is_All);
+			user::select_CashBook(user_id);
 		}
 		else if (select == 2) {
 			user::select_CashBook_public(user_id);
 		}
-		else if (select == 3)
-		{
-			logout();
-			return 1;
+		else if (select == 3) {
+			user::logout();
+			break;
 		}
 		else {
 			cout << "잘못 입력하였습니다." << endl;
+			cout << "다시 입력해주세요" << endl;
+			cout << "> ";
 			Sleep(2000); // 2초 정지 후 다시 입력받음.
-			user::select_CashBook(user_id);
+			continue;
 		}
-
 	}
-
 }
 
-string user::select_CashBook_public(string user_id) {
+void user::select_CashBook_public(string user_id) {
 	ifstream search_file;
 	system("cls");
 
@@ -593,6 +609,7 @@ string user::select_CashBook_public(string user_id) {
 	int cnt = 0;
 	string line;
 	vector<string> files;
+	user::is_All = false;
 
 	// txt파일 확인 후 각자의 공용 가계부 가져오기.
 	search_file.open("makehiddenfile.txt");
@@ -622,24 +639,32 @@ string user::select_CashBook_public(string user_id) {
 	}
 	search_file.close();
 
-	cout << user_id << "의 가계부" << endl;
-	cout << "0. Make CashBook" << endl;
-	for (int i = 0; i < files.size(); i++) {
-		cout << i + 1 << ". " << files[i] << endl;
-	}
-	cout << "6. Logout" << endl;
+	while (1) {
+		cout << user_id << "의 가계부" << endl;
+		cout << "0. Make CashBook" << endl;
+		for (int i = 0; i < files.size(); i++) {
+			cout << i + 1 << ". " << files[i] << endl;
+		}
+		cout << "6. 뒤로 가기" << endl;
 
-	cout << "> ";
-	cin >> select;
+		cout << "> ";
+		cin >> select;
 
-	if (select == 0) {
-		user::make_CashBook_public();
-		return 0;
+		if (select == 0) {
+			user::make_CashBook_public();
+			break;
+		}
+		else if (select == 6) {
+			break;
+		}
+		else {
+			user::is_All = true;
+			user::currentBook = files[select - 1];
+			Cashbook cbcb(user::loginedId, user::currentBook, user::is_All);
+			user::select_CashBook(user_id);
+		}
 	}
-	else if (select == 6) {
-		user::menu();
-		return 0;
+	if (select == 6) {
+		user::select_CashBook(user_id);
 	}
-
-	return files[select];
 }
