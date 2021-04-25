@@ -130,14 +130,30 @@ void Cashbook::menu()
 				case 1:
 				{
 					CLEAR;
-					Pay* pay = new Pay();
-					break;
+					if (user_authority == 2) {
+						cout << "해당 권한이 없습니다." << endl;
+						cout << "1.5초 뒤 공유 가계부 화면으로 돌아갑니다." << endl;
+						Sleep(1500);
+						break;			//공유 가계부 화면으로 복귀
+					}
+					else {
+						Pay* pay = new Pay();
+						break;
+					}
 				}
 				case 2:
 				{
 					CLEAR;
-					Income* income = new Income();
-					break;
+					if (user_authority == 2) {
+						cout << "해당 권한이 없습니다." << endl;
+						cout << "1.5초 뒤 공유 가계부 화면으로 돌아갑니다." << endl;
+						Sleep(1500);
+						break;			//공유 가계부 화면으로 복귀
+					}
+					else {
+						Income* income = new Income();
+						break;
+					}
 				}
 				case 3:
 				{
