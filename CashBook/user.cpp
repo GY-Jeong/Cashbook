@@ -485,6 +485,9 @@ void user::sign_In() {
 	cout << "아이디와 패스워드를 입력해주세요." << endl;
 	cin >> input;
 	cin.clear();
+	if (input == "q") {
+		user::menu();
+	}
 
 	for (int i = 0; i < input.length(); i++) {
 		if (input[i] == '/') {
@@ -500,9 +503,7 @@ void user::sign_In() {
 	}
 
 	cout << id << "  " << pw << endl;
-	if (id == "q" || pw == "q") {
-		user::menu();
-	}
+	
 	// file : 쓰기용(ofstream), search_name : 찾기용(ifstream)
 	file.open("memberinformation.txt", ios::app);
 	search_name.open("memberinformation.txt");
