@@ -23,7 +23,7 @@ Admin::Admin(string user_id, string cashbook_name) {
 		cin >> select;
 		//cin.clear();
 		//cin.ignore(INT_MAX, '\n');
-	
+
 		if (validNumberRange(select, 1, 3)) {
 			switch (stoi(select)) {
 			case 1:		//관리자 등록
@@ -38,7 +38,6 @@ Admin::Admin(string user_id, string cashbook_name) {
 			}
 			case 3:		//뒤로 가기
 				return;
-
 			default:	//잘못된 입력을 받았을 때
 			{
 				cout << "여기에 들어올 일 없음" << endl;
@@ -55,13 +54,13 @@ Admin::Admin(string user_id, string cashbook_name) {
 	}
 }
 
-void Admin::enrollAdministrator(string cashbook_name) 
+void Admin::enrollAdministrator(string cashbook_name)
 {
 	CLEAR;
 	string input;
 	int i = 1;
 	vector<string> nonAdmin = makeList(cashbook_name, 2);
-	
+
 	cout << "< 관리자가 아닌 회원들의 목록 >" << endl;
 
 	//관리자가 아닌 회원들의 목록 출력 
@@ -115,7 +114,7 @@ ReleaseAdminRetry:
 	INPUT;
 	cin >> input;
 	if (validQCheck(input)) return;
-	else 
+	else
 	{
 		//삭제
 		vector<string> idx2name;
@@ -125,7 +124,7 @@ ReleaseAdminRetry:
 
 		for (string element : v)
 		{
-			if(!validNumberRange(element, 1, 1+admin.size()))
+			if (!validNumberRange(element, 1, 1 + admin.size()))
 			{
 				cout << "다시 입력해주세요" << endl;
 				goto ReleaseAdminRetry;
@@ -136,7 +135,7 @@ ReleaseAdminRetry:
 	}
 }
 
-vector<string> Admin::makeList(string cashbook_name, int authority) 
+vector<string> Admin::makeList(string cashbook_name, int authority)
 {
 	vector<string> list;
 
@@ -145,7 +144,7 @@ vector<string> Admin::makeList(string cashbook_name, int authority)
 	char line[15];
 
 	ifile.open(txtName);
-	if (ifile.is_open()) 
+	if (ifile.is_open())
 	{
 		while (ifile.getline(line, sizeof(line)))
 		{

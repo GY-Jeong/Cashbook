@@ -32,7 +32,7 @@ void setting_data_directory()
 	{
 		int nResult = mkdir("./data");
 
-		if(nResult == 0)
+		if (nResult == 0)
 			cout << "데이터 디렉토리 생성" << endl;
 		else
 			cout << "데이터 디렉토리 생성 실패" << endl;

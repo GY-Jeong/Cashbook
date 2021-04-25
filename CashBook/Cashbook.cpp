@@ -352,7 +352,7 @@ void Cashbook::searchIncomeCategory(string start_date, string end_date, vector<v
 		"4. 아르바이트 " , "5. 기타       " };
 	for (int i = 0; i < 5; i++)
 	{
-		if(income_total_money != 0)
+		if (income_total_money != 0)
 			cout << printlist[i] << category_income_total_money[i] << "원 (" << int(double(category_income_total_money[i]) / double(income_total_money) * 100) << "%)" << endl;
 		else
 			cout << printlist[i] << category_income_total_money[i] << "원 (0%)" << endl;
@@ -549,7 +549,7 @@ SelectYNRetry_delete:
 void Cashbook::modify_hidden_file()
 {
 	vector<string> writelist;
-	ifstream search_file;	
+	ifstream search_file;
 	string line;
 	string txt_name = "./data/makehiddenfile.txt";
 	search_file.open(txt_name);
@@ -597,4 +597,3 @@ int Cashbook::getAuthority(string cashbook_name, string user_id)
 	}
 	return user_authority;
 }
-		

@@ -30,7 +30,7 @@ void user::menu() {
 	if (!readmm) {
 		ofstream openfile("./data/makehiddenfile.txt");
 	}
-	
+
 	string select;
 	cout << "1. 로그인" << endl;
 	cout << "2. 회원가입" << endl;
@@ -302,7 +302,7 @@ void user::make_CashBook_public() {
 			continue;
 		}
 	}
-	
+
 	//cout << "공용가계부 생성!!" << endl;
 	//멤버 입력받기
 	cout << "함께 쓸 사용자의 아이디를 입력해주세요. (최대 9 명)" << endl;

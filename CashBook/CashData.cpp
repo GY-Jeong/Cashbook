@@ -235,7 +235,7 @@ vector<string> cashData::data_split2()
 	return result;
 }
 
-bool cashData::keyword_search(string startdate, string enddate, string data,bool search_what)
+bool cashData::keyword_search(string startdate, string enddate, string data, bool search_what)
 {
 	bool isPaysearch = search_what;
 	int matching_count = 0, matching_sub = 0;
@@ -290,57 +290,79 @@ bool cashData::keyword_search(string startdate, string enddate, string data,bool
 		else {
 			for (int k = 0; k < income_file_data.size(); k++) {
 				if (income_file_data[k].find(data) >= 0 && income_file_data[k].find(data) < income_file_data[k].size())
-						{
-							matching_sub = stoi(income_file_data[k].substr(0, 4) + income_file_data[k].substr(5, 2) + income_file_data[k].substr(8, 2));
-							if (matching_sub >= s_sub && matching_sub <= e_sub) {
-								matched_index.push_back(k);
-								matching_count++;
-								//remove_mark(income_file_data[k]);
-								//matched_index[matching_count++] = k;
-								cout << matching_count << ". " << remove_mark(income_file_data[k]) << endl;
-							}
-						}
+				{
+					matching_sub = stoi(income_file_data[k].substr(0, 4) + income_file_data[k].substr(5, 2) + income_file_data[k].substr(8, 2));
+					if (matching_sub >= s_sub && matching_sub <= e_sub) {
+						matched_index.push_back(k);
+						matching_count++;
+						//remove_mark(income_file_data[k]);
+						//matched_index[matching_count++] = k;
+						cout << matching_count << ". " << remove_mark(income_file_data[k]) << endl;
+					}
+				}
 			}
 		}
 		if (matching_count == 0) {
 			cout << "데이터가 없습니다. " << endl;
+			Sleep(1000);
 			return false;
 		}
 		else {
-			int select;
-			cout << ">>> ";
-			cin >> select;
-			cin.clear();
-			cin.ignore(INT_MAX, '\n');
-			cout << "삭제 하시겠습니까? (Y/N or y/n)";
-			if (yesorno()) {
-				//yes
-				if(isPaysearch)
-					pay_file_data[matched_index.at(select-1)].clear();
-				else
-					income_file_data[matched_index.at(select - 1)].clear();
-				//다시 합치기
-				reWriteTextFile(txt_file);
-				readTextFile(txt_file);
-				cout << "삭제가 완료되었습니다." << endl;
+			while (1) {
+				int select;
+				cout << ">>> ";
+				cin >> select;
+
+				if (!cin) {
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+					cout << "범위에 맞지 않는 번호" << endl;
+					continue;
+				}
+				if (isPaysearch) {
+					if (select > matching_count || select < matching_count) {
+						cout << "범위에 맞지 않는 번호" << endl;
+						continue;
+					}
+				}
+				else {
+					if (select > matching_count || select < matching_count) {
+						cout << "범위에 맞지 않는 번호" << endl;
+						continue;
+					}
+				}
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+				cout << "삭제 하시겠습니까? (Y/N or y/n)";
+				if (yesorno()) {
+					//yes
+					if (isPaysearch)
+						pay_file_data[matched_index.at(select - 1)].clear();
+					else
+						income_file_data[matched_index.at(select - 1)].clear();
+					//다시 합치기
+					reWriteTextFile(txt_file);
+					readTextFile(txt_file);
+					cout << "삭제가 완료되었습니다." << endl;
+				}
+				else {
+					cout << "삭제하지 않습니다." << endl;
+				}
+				//y라면 rewrite 
+				//n이라면 그냥 리턴
+				//y라면 인덱스 찾아 삭제 진행
+				//file_data[select - 1].clear();
+				//n이라면 그냥 리턴
+				return true;
 			}
-			else {
-				cout << "삭제하지 않습니다." << endl;
-			}
-			//y라면 rewrite 
-			//n이라면 그냥 리턴
-			//y라면 인덱스 찾아 삭제 진행
-			//file_data[select - 1].clear();
-			//n이라면 그냥 리턴
-			return true;
 		}
 	}
 }
 
 string cashData::remove_mark(string str)
 {
-	if (str.find("^", 0) >= 0 && str.find("^", 0) <= 65) 
-		str.erase(remove(str.begin(), str.end(), '^'),str.end());
+	if (str.find("^", 0) >= 0 && str.find("^", 0) <= 65)
+		str.erase(remove(str.begin(), str.end(), '^'), str.end());
 
 	return str;
 }
@@ -612,10 +634,10 @@ void cashData::readTextFile(string txt_name)
 
 			if (!readFile.eof())
 			{
-				if ((str.find("^", 0) >= 0 && str.find("^", 0) <= 65) 
-					|| (str.find("월급", 0) >= 0 && str.find("월급", 0) <= 65) 
-					|| (str.find("용돈", 0) >= 0 && str.find("용돈", 0) <= 65) 
-					|| (str.find("인센티브", 0) >= 0 && str.find("인센티브", 0) <= 65) 
+				if ((str.find("^", 0) >= 0 && str.find("^", 0) <= 65)
+					|| (str.find("월급", 0) >= 0 && str.find("월급", 0) <= 65)
+					|| (str.find("용돈", 0) >= 0 && str.find("용돈", 0) <= 65)
+					|| (str.find("인센티브", 0) >= 0 && str.find("인센티브", 0) <= 65)
 					|| (str.find("아르바이트", 0) >= 0 && str.find("아르바이트", 0) <= 65)
 					)
 				{

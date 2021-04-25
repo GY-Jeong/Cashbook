@@ -68,7 +68,7 @@ Pay::Pay(bool isShared, string user_id, string cashbook_name, string txt_file)
 
 			if (date_validation(result[0], result[1])) {
 				readTextFile(txt_file);
-				keyword_search(result[0], result[1], result[2],true);				//맨밑에서 y/n받음
+				keyword_search(result[0], result[1], result[2], true);				//맨밑에서 y/n받음
 				isDataSetting = true;//y/n 상관없이 흐름도상 분기로 이동
 			}
 			else {

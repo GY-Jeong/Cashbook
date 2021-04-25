@@ -14,7 +14,7 @@ using namespace std;
 class user {
 private:
 	bool isLoginState = false;//로그인 여부 체크
-	
+
 public:
 	struct userInfo {//회원정보 파일 불러올 때 사용
 		string infoId = "";
