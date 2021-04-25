@@ -5,7 +5,7 @@ class Income
 	:public cashData
 {
 private:
-	vector<string>income_category = { "월급","용돈","인센티브","아르바이트","기타" };
+	vector<string> income_category = { "월급","용돈","인센티브","아르바이트","기타" };
 	string keyword;
 	vector<string> result;
 	string user_id = "user_id";
@@ -13,7 +13,6 @@ private:
 
 public:
 	Income();
-	Income::Income(string date, string price, string category, string memo);
 	bool income_category_test(string& data);
 
 
