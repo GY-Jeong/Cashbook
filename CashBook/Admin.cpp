@@ -11,14 +11,6 @@
 Admin::Admin(string user_id, string cashbook_name) {
 	string select;
 
-	// 권한 확인이 필요한 부분
-	if ( !getAuthority(cashbook_name, user_id)) {
-		cout << "해당 권한이 없습니다." << endl;
-		cout << "1.5초 뒤 공유 가계부 화면으로 돌아갑니다." << endl;
-		Sleep(1500);
-		return;			//공유 가계부 화면으로 복귀
-	}
-
 	while (1) {
 		CLEAR;
 		cout << "사용자 ID: " << user_id << endl;
@@ -202,30 +194,4 @@ void Admin::changeAuthority(string cashbook_name, vector<string> user_list, int 
 	writeFile.close();
 
 	return;
-}
-
-bool Admin::getAuthority(string cashbook_name, string user_id)
-{
-	int user_authority = 0;
-
-	string txtName = "./data/public/" + cashbook_name + "_M.txt";
-	ifstream ifile;
-	char line[15];
-
-	ifile.open(txtName);
-	if (ifile.is_open())
-	{
-		while (ifile.getline(line, sizeof(line)))
-		{
-			vector<string> data = split(line, '/');
-
-			if (data[0] == user_id)
-				user_authority = stoi(data[1]);
-		}
-	}
-
-	if (user_authority != 0)
-		return false;
-	else
-		return true;
 }

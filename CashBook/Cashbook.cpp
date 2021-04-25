@@ -26,7 +26,7 @@ Cashbook::Cashbook(string user_id, string cashbook_name, bool isSharedCashBook)
 	this->isSharedCashBook = isSharedCashBook;
 	this->user_id = user_id;
 	this->cashbook_name = cashbook_name;
-	this->user_authority = 0;
+	this->user_authority = getAuthority(cashbook_name, user_id);
 	//cd = cashData();
 	cd.isSharedCashBook = isSharedCashBook;
 
@@ -115,9 +115,17 @@ void Cashbook::menu()
 				switch (stoi(select)) {
 				case 0:
 				{
-					//cout << "공유 가계부 관리자 설정" << endl;
-					Admin* admin = new Admin(user_id, cashbook_name);
-					break;
+					if (user_authority != 0) {
+						cout << "해당 권한이 없습니다." << endl;
+						cout << "1.5초 뒤 공유 가계부 화면으로 돌아갑니다." << endl;
+						Sleep(1500);
+						break;			//공유 가계부 화면으로 복귀
+					}
+					else {
+						//cout << "공유 가계부 관리자 설정" << endl;
+						Admin* admin = new Admin(user_id, cashbook_name);
+						break;
+					}
 				}
 				case 1:
 				{
@@ -138,10 +146,18 @@ void Cashbook::menu()
 				}
 				case 4:
 				{
-					bool check = deletePublicCashbook();
-					if (check) return;
-					// 소멸자 호출하는게 낫나?
-					break;
+					if (user_authority != 0) {
+						cout << "해당 권한이 없습니다." << endl;
+						cout << "1.5초 뒤 공유 가계부 화면으로 돌아갑니다." << endl;
+						Sleep(1500);
+						break;			//공유 가계부 화면으로 복귀
+					}
+					else {
+						bool check = deletePublicCashbook();
+						if (check) return;
+						// 소멸자 호출하는게 낫나?
+						break;
+					}
 				}
 				case 5:
 				{
@@ -434,16 +450,6 @@ SelectYNRetry:
 // 공용 가계부 삭제
 bool Cashbook::deletePublicCashbook()
 {
-	/*
-	// 권한 확인이 필요한 부분
-	if (!getAuthority(cashbook_name, user_id)) {
-		cout << "해당 권한이 없습니다." << endl;
-		cout << "1.5초 뒤 공유 가계부 화면으로 돌아갑니다." << endl;
-		Sleep(1500);
-		return false;			//공유 가계부 화면으로 복귀
-	}
-	*/
-
 	string txt_name = "./data/public/" + cashbook_name + ".txt";
 	string M_txt_name = "./data/public/" + cashbook_name + "_M.txt";
 
@@ -544,5 +550,27 @@ void Cashbook::modify_hidden_file()
 	}
 	writeFile.close();
 	return;
+}
+
+int Cashbook::getAuthority(string cashbook_name, string user_id)
+{
+	int user_authority = 0;
+
+	string txtName = "./data/public/" + cashbook_name + "_M.txt";
+	ifstream ifile;
+	char line[15];
+
+	ifile.open(txtName);
+	if (ifile.is_open())
+	{
+		while (ifile.getline(line, sizeof(line)))
+		{
+			vector<string> data = split(line, '/');
+
+			if (data[0] == user_id)
+				user_authority = stoi(data[1]);
+		}
+	}
+	return user_authority;
 }
 		
