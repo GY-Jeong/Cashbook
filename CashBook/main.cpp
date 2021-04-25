@@ -14,22 +14,15 @@ void setting_data_directory();
 
 int main()
 {
-	//string cashbook_name = "temp_cashbook";
-	//Cashbook element = Cashbook();
-	//cashData cd;
-	//cd.menu(false);
-	//cd.readTextFile("test2.txt");
-	//string user_id = "user_id";
-	//element.inputTerm(user_id);
-
-	//user ur;
-	//ur.menu();
 	setting_data_directory();
 
-	string user_id = "naeun";
-	string cashbook_name = "nanni";
+	user ur;
+	ur.menu();
 
-	Cashbook cb(user_id, cashbook_name, 1);
+	//string user_id = "naeun";
+	//string cashbook_name = "nanni";
+
+	//Cashbook cb(user_id, cashbook_name, 1);
 }
 
 void setting_data_directory()

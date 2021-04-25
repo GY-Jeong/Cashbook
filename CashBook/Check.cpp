@@ -5,6 +5,111 @@ using namespace std;
 
 bool isLeapyear(int);
 
+vector<string> split(string str, char delimiter) {
+	vector<string> internal;
+	stringstream ss(str);
+	string temp;
+
+	while (getline(ss, temp, delimiter)) {
+		internal.push_back(temp);
+	}
+
+	return internal;
+}
+
+int getIndex(vector<string> v, string K)
+{
+	auto it = find(v.begin(), v.end(), K);
+
+	// If element was found
+	if (it != v.end())
+	{
+		// calculating the index
+		// of K
+		int index = it - v.begin();
+		return index;
+	}
+	else {
+		// If the element is not
+		// present in the vector
+		return -1;
+	}
+}
+
+int get_difference_of_dates(string start_date, string end_date)
+{
+	time_t start, end;
+	struct tm stime, etime;
+	int tm_day;
+	int s_year, s_month, s_day, e_year, e_month, e_day;
+
+	vector<string> start_date_list = split(start_date, '-');
+
+	//if (start_date_list[0].size() == 2)
+	//{
+	//	//YY-MM-DD
+	//	s_year = stoi(start_date_list[0]);
+	//	if (s_year <= 99 && s_year >= 70)
+	//		s_year += 1900;
+	//	else if (s_year <= 69 && s_year >= 0)
+	//		s_year += 2000;
+	//}
+	//else
+	//{
+	//	s_year = stoi(start_date_list[0]);
+	//}
+
+	s_year = stoi(start_date_list[0]);
+	s_month = stoi(start_date_list[1]);
+	s_day = stoi(start_date_list[2]);
+
+	stime.tm_year = s_year - 1900;
+	stime.tm_mon = s_month - 1;
+	stime.tm_mday = s_day;
+	stime.tm_hour = 0;
+	stime.tm_min = 0;
+	stime.tm_sec = 0;
+	stime.tm_isdst = 0; //썸머타임 사용안함
+
+	vector<string> end_date_list = split(end_date, '-');
+
+	//if (end_date_list[0].size() == 2)
+	//{
+	//	//YY-MM-DD
+	//	e_year = stoi(end_date_list[0]);
+	//	if (e_year <= 99 && e_year >= 70)
+	//		e_year += 1900;
+	//	else if (e_year <= 69 && e_year >= 0)
+	//		e_year += 2000;
+	//}
+	//else
+	//{
+	//	e_year = stoi(end_date_list[0]);
+	//}
+
+	e_year = stoi(end_date_list[0]);
+	e_month = stoi(end_date_list[1]);
+	e_day = stoi(end_date_list[2]);
+
+	etime.tm_year = e_year - 1900;
+	etime.tm_mon = e_month - 1;
+	etime.tm_mday = e_day;
+	etime.tm_hour = 0;
+	etime.tm_min = 0;
+	etime.tm_sec = 0;
+	etime.tm_isdst = 0; //썸머타임 사용안함
+
+	//printf("%d %d %d %d %d %d\n", s_year, s_month, s_day, e_year, e_month, e_day);
+	start = mktime(&stime);
+	end = mktime(&etime);
+
+	double diff = difftime(end, start);
+	// cout << diff << endl;
+	tm_day = diff / double(86400);
+
+	return tm_day;
+}
+
 bool validQCheck(string input)
 {
 	return input == "q";
