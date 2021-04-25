@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include "CashBook.h"
 
 using namespace std;
 
@@ -34,7 +35,9 @@ public:
 		string m9 = "";
 	};
 	string loginedId;//현재 로그인한 이용자 id 표시
+	string currentBook;//현재 가계부 이름 표시
 	bool isQuitState = false;//종료 여부 체크
+	bool is_All;
 	user();
 	~user();
 	void menu();// 주프롬프트 추가된 부분
@@ -43,6 +46,6 @@ public:
 	void quit(); // 종료
 	void sign_In(); // 회원가입
 	void select_CashBook(string user_id); // 가계부 선택
-	string select_CashBook_public(string user_id); // 공용 가계부 선택
+	void select_CashBook_public(string user_id); // 공용 가계부 선택
 	void make_CashBook_public(); // 공용 가계부 만들기
 };
