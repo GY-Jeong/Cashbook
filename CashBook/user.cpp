@@ -1,5 +1,6 @@
 ﻿#include "user.h"
 #include "Windows.h"
+#include "Check.hpp"
 #include <map>
 
 #define SIZE 100
@@ -29,32 +30,33 @@ void user::menu() {
 	if (!readmm) {
 		ofstream openfile("./data/makehiddenfile.txt");
 	}
-
-	int sel = 4;
+	
+	string select;
 	cout << "1. 로그인" << endl;
 	cout << "2. 회원가입" << endl;
-	cout << "3. 종료" << endl;
-	cout << "> ";
-
-	while (sel < 1 || sel>3) {
-		cin >> sel;
-		if (sel < 1 || sel>3) {
-			cout << "다시 입력해주세요" << endl;
-			Sleep(2000);
-			continue;
+	cout << "3. 프로그램 종료" << endl;
+LoginInputRetry:
+	INPUT;
+	cin >> select;
+	if (validNumberRange(select, 1, 3))
+	{
+		int sel = stoi(select);
+		if (sel == 1) {
+			user::login();
 		}
-		else {
-			break;
+		else if (sel == 2) {
+			user::sign_In();
+		}
+		else if (sel == 3) {
+			user::quit();
 		}
 	}
-	if (sel == 1) {
-		user::login();
-	}
-	else if (sel == 2) {
-		user::sign_In();
-	}
-	else if (sel == 3) {
-		user::quit();
+	else
+	{
+		cout << "다시 입력해주세요" << endl;
+		cin.clear();
+		cin.ignore(INT_MAX, '\n');
+		goto LoginInputRetry;
 	}
 }
 
@@ -165,7 +167,7 @@ void user::login() {
 							}
 
 							if (diff == true && user::isLoginState == false) {
-								cout << "아이디와 비밀번호가 일치하지않습니다." << endl;
+								cout << "아이디와 비밀번호가 일치하지 않습니다." << endl;
 								//cout << "다시 입력해주세요" << endl;
 								cout << "> ";
 								//Sleep(2000);
