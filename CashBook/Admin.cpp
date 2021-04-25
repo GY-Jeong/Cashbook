@@ -71,8 +71,8 @@ void Admin::enrollAdministrator(string cashbook_name)
 		i++;
 	}
 
-	cout << "> 관리자로 등록할 회원의 번호를 입력하세요: ";
-
+	cout << "관리자로 등록할 회원의 번호를 입력하세요" << endl;
+	INPUT;
 	cin >> input;
 
 	if (validQCheck(input)) 

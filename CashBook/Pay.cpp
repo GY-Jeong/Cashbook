@@ -3,21 +3,14 @@
 #define CLEAR system("cls")
 #define INPUT cout << "> "
 
-Pay::Pay(string date, string price, string category, string memo)
-{
-	this->m_date = date;
-	this->m_price = price;
-	this->m_memo = memo;
-	this->m_category = category;
-}
-
 Pay::Pay()
 {
 	int select;
 	while (1)
 	{
+		CLEAR;
 		if (isDataSetting) break;
-		cout << "<소비>" << endl;
+		cout << "< 소비 >" << endl;
 		cout << "1. 등록" << endl;
 		cout << "2. 삭제" << endl;
 		cout << "3. 뒤로가기" << endl;
@@ -28,7 +21,7 @@ Pay::Pay()
 		switch (select)
 		{
 		case 1:
-			cout << "날짜 , 금액, 카테고리, 내용을 형식에 맞게 순서대로 입력해주세요." << endl;
+			cout << "날짜, 금액, 카테고리, 내용을 형식에 맞게 순서대로 입력해주세요." << endl;
 			result = data_split1();//split함수 안에서 quit반응이 추가되어야함
 			if (result.empty()) continue;
 
