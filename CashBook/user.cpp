@@ -505,6 +505,7 @@ void user::sign_In() {
 
 	// ID PW 입력
 	cout << "아이디와 패스워드를 입력해주세요." << endl;
+	INPUT;
 	cin >> input;
 	cin.clear();
 	if (input == "q") {
@@ -592,9 +593,9 @@ void user::select_CashBook(string user_id) {
 
 	int select;
 	cout << user_id << "의 가계부" << endl;
-	cout << "1. My CashBook" << endl;
-	cout << "2. Public CashBook" << endl;
-	cout << "3. Log out" << endl;
+	cout << "1. 개인 가계부" << endl;
+	cout << "2. 공용 가계부" << endl;
+	cout << "3. 로그아웃" << endl;
 	cout << "> ";
 	while (1) {
 		cin.clear();

@@ -432,11 +432,9 @@ SelectYNRetry:
 // 공용 가계부 삭제
 bool Cashbook::deletePublicCashbook()
 {
-	//string txt_name = "./data/public/" + cashbook_name + ".txt";
-	//string M_txt_name = "./data/public/ + cashbook_name + "_M.txt";
+	string txt_name = "./data/public/" + cashbook_name + ".txt";
+	string M_txt_name = "./data/public/" + cashbook_name + "_M.txt";
 
-	string txt_name = "./data/public/hell.txt";
-	string M_txt_name = "./data/public/hell_M.txt";
 	CLEAR;
 	string input;
 	cout << "삭제 하시겠습니까? (Y/N or y/n)" << endl;
@@ -468,6 +466,24 @@ SelectYNRetry_delete:
 				cout << c_txt_name << "삭제 실패" << endl;
 			}
 		}
+
+		if (access(c_M_txt_name, 00) == -1)
+		{
+			cout << c_M_txt_name << "이 존재하지 않음" << endl;
+		}
+		else
+		{
+			if (remove(c_M_txt_name) == 0) {							// 삭제할 공유 가계부 경로
+				cout << c_M_txt_name << "삭제 성공" << endl;
+			}
+			else {
+				// 가계부 파일을 삭제하지 못한 상황
+				cout << c_M_txt_name << "삭제 실패" << endl;
+			}
+		}
+
+		//hidden 읽어와서 해당 line 삭제 필요
+
 		cout << "공유 가계부를 삭제했습니다." << endl;
 		cout << "2초 후 공유 가계부 선택 화면으로 돌아갑니다." << endl;
 		Sleep(2000);
