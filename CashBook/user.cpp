@@ -1,9 +1,10 @@
 ﻿#include "user.h"
-#include <map>
 #include "Windows.h"
-#include "CashBook.h"
+#include <map>
 
 #define SIZE 100
+#define CLEAR system("cls")
+#define INPUT cout << "> "
 #pragma warning(disable:4996)
 
 user::user() {
@@ -16,6 +17,19 @@ user::~user() {
 
 void user::menu() {
 	system("cls");
+
+	ifstream read;
+	read.open("./data/memberinformation.txt");
+	if (!read) {
+		ofstream ofile("./data/memberinformation.txt");
+	}
+
+	ifstream readmm;
+	readmm.open("./data/makehiddenfile.txt");
+	if (!readmm) {
+		ofstream openfile("./data/makehiddenfile.txt");
+	}
+
 	int sel = 4;
 	cout << "1. 로그인" << endl;
 	cout << "2. 회원가입" << endl;
@@ -26,7 +40,7 @@ void user::menu() {
 		cin >> sel;
 		if (sel < 1 || sel>3) {
 			cout << "다시 입력해주세요" << endl;
-			cout << "> ";
+			Sleep(2000);
 			continue;
 		}
 		else {
@@ -58,7 +72,13 @@ void user::login() {
 	userInfo information;
 
 	//회원정보 파일 불러오기
-	ifstream mfile("memberinformation.txt");
+	ifstream mfile("./data/memberinformation.txt");
+	if (mfile.peek() == std::ifstream::traits_type::eof()) {
+		cout << "가계부 가입자가 없습니다." << endl;
+		mfile.close();
+		Sleep(2000);
+		user::menu();
+	}
 	for (userInfo i;getline(mfile, i.infoId, '/') && getline(mfile, i.infoPw);) {
 		minfo.push_back(i);
 	}
@@ -86,7 +106,7 @@ void user::login() {
 			}
 			else if (idpw.find("/") == string::npos) {
 				cout << "다시 입력해주세요" << endl;
-				cout << "> ";
+				Sleep(2000);
 				continue;
 			}
 			//cout << idpw << endl;
@@ -112,7 +132,7 @@ void user::login() {
 				}
 				if (idfail == true && user::isLoginState == false) {
 					cout << "다시 입력해주세요" << endl;
-					cout << "> ";
+					Sleep(2000);
 					cin.clear();
 					continue;
 				}
@@ -127,7 +147,7 @@ void user::login() {
 						}
 						if (pwfail == true && user::isLoginState == false) {
 							cout << "다시 입력해주세요" << endl;
-							cout << "> ";
+							Sleep(2000);
 							cin.clear();
 							continue;
 						}
@@ -147,7 +167,7 @@ void user::login() {
 							if (diff == true && user::isLoginState == false) {
 								cout << "아이디와 비밀번호가 일치하지않습니다." << endl;
 								cout << "다시 입력해주세요" << endl;
-								cout << "> ";
+								Sleep(2000);
 								cin.clear();
 								continue;
 							}
@@ -160,7 +180,7 @@ void user::login() {
 					}
 					else {
 						cout << "다시 입력해주세요" << endl;
-						cout << "> ";
+						Sleep(2000);
 						cin.clear();
 						continue;
 					}
@@ -168,7 +188,7 @@ void user::login() {
 			}
 			else {
 				cout << "다시 입력해주세요" << endl;
-				cout << "> ";
+				Sleep(2000);
 				cin.clear();
 				continue;
 			}
@@ -184,6 +204,7 @@ void user::logout() {
 		user::isLoginState = false;
 		user::loginedId = "";
 		cout << "로그아웃" << endl;
+		Sleep(2000);
 	}
 	user::menu();
 }
@@ -215,13 +236,13 @@ void user::make_CashBook_public() {
 	vector<string> allbook;//개인+공용 가계부이름들만 모음
 
 	//회원정보 파일 불러오기
-	ifstream memfile("memberinformation.txt");
+	ifstream memfile("./data/memberinformation.txt");
 	for (userInfo i;getline(memfile, i.infoId, '/') && getline(memfile, i.infoPw);) {
 		meminfo.push_back(i);
 	}
 
 	//공용가계부이름,멤버들 파일 불러오기->멤버수가 적어서 구조체 만큼 안될경우 아예 멤버넣을때 빈칸은 x로
-	ifstream pubfile("makehiddenfile.txt");
+	ifstream pubfile("./data/makehiddenfile.txt");
 	for (pubcash i;getline(pubfile, i.pubname, '/') && getline(pubfile, i.maker, '/') && getline(pubfile, i.m1, '/') && getline(pubfile, i.m2, '/') && getline(pubfile, i.m3, '/') && getline(pubfile, i.m4, '/') && getline(pubfile, i.m5, '/') && getline(pubfile, i.m6, '/') && getline(pubfile, i.m7, '/') && getline(pubfile, i.m8, '/') && getline(pubfile, i.m9);) {
 		pubinfo.push_back(i);
 	}
@@ -257,7 +278,7 @@ void user::make_CashBook_public() {
 			}
 			if (namefail == true) {
 				cout << "다시 입력해주세요" << endl;
-				cout << "> ";
+				Sleep(2000);
 				continue;
 			}
 			for (int i = 0;i < allbook.size();i++) {
@@ -267,14 +288,14 @@ void user::make_CashBook_public() {
 			}
 			if (namesame == true) {
 				cout << "다시 입력해주세요" << endl;
-				cout << "> ";
+				Sleep(2000);
 				continue;
 			}
 			nsuccess = true;
 		}
 		else {
 			cout << "다시 입력해주세요" << endl;
-			cout << "> ";
+			Sleep(2000);
 			continue;
 		}
 	}
@@ -328,7 +349,7 @@ void user::make_CashBook_public() {
 
 		if (minput.size() > 9) {//9명 초과
 			cout << "다시 입력해주세요" << endl;
-			cout << "> ";
+			Sleep(2000);
 			continue;
 		}
 		else {//회원정보에 없는 경우, 공용 가계부 이미 5개 있는 경우
@@ -382,7 +403,7 @@ void user::make_CashBook_public() {
 				}
 				if (manybook == true) {
 					cout << "다시 입력해주세요" << endl;
-					cout << "> ";
+					Sleep(2000);
 					continue;
 				}
 				for (int i = 0;i < minput.size();i++) {
@@ -394,7 +415,7 @@ void user::make_CashBook_public() {
 				notmem = true;
 				idcount = 0;
 				cout << "다시 입력해주세요" << endl;
-				cout << "> ";
+				Sleep(2000);
 				continue;
 			}
 		}
@@ -422,7 +443,7 @@ void user::make_CashBook_public() {
 		string ssstr = bookname + "_M";
 		stringstream savem;
 		savem << ssstr << ".txt";
-		string ssmfilename = "./data/public/"+savem.str();
+		string ssmfilename = "./data/public/" + savem.str();
 		char ssavemfilename[40];
 		strcpy(ssavemfilename, ssmfilename.c_str());
 		ofstream ssmfile(ssavemfilename);
@@ -442,7 +463,7 @@ void user::make_CashBook_public() {
 	}
 	//가계부개수 체크를 위해 사용하는 파일 작성
 	if (members.size() == 9) {
-		ofstream spub("makehiddenfile.txt", ios::out | ios::app);
+		ofstream spub("./data/makehiddenfile.txt", ios::out | ios::app);
 
 		spub << bookname << "/" << loginedId << "/";
 		for (int i = 0;i < members.size() - 1;i++) {
@@ -453,7 +474,7 @@ void user::make_CashBook_public() {
 		spub.close();
 	}
 	else {
-		ofstream sspub("makehiddenfile.txt", ios::out | ios::app);
+		ofstream sspub("./data/makehiddenfile.txt", ios::out | ios::app);
 
 		sspub << bookname << "/" << loginedId << "/";
 		if (!members.empty()) {
@@ -483,6 +504,7 @@ void user::sign_In() {
 
 	// ID PW 입력
 	cout << "아이디와 패스워드를 입력해주세요." << endl;
+	INPUT;
 	cin >> input;
 	cin.clear();
 	if (input == "q") {
@@ -503,10 +525,10 @@ void user::sign_In() {
 	}
 
 	cout << id << "  " << pw << endl;
-	
+
 	// file : 쓰기용(ofstream), search_name : 찾기용(ifstream)
-	file.open("memberinformation.txt", ios::app);
-	search_name.open("memberinformation.txt");
+	file.open("./data/memberinformation.txt", ios::app);
+	search_name.open("./data/memberinformation.txt");
 
 	if (file.is_open() == true && search_name.is_open() == true) {
 		//memberinformation.txt에서 동일 인물이 있을 경우 2초 후 다시 입력받음
@@ -557,7 +579,7 @@ void user::sign_In() {
 	stringstream st;
 	cin.clear();
 	st << id << ".txt";
-	string stfilename = "./data/private/"+st.str();
+	string stfilename = "./data/private/" + st.str();
 	char stsavefilename[40];
 	strcpy(stsavefilename, stfilename.c_str());
 	ofstream sstfile(stsavefilename);
@@ -570,9 +592,9 @@ void user::select_CashBook(string user_id) {
 
 	int select;
 	cout << user_id << "의 가계부" << endl;
-	cout << "1. My CashBook" << endl;
-	cout << "2. Public CashBook" << endl;
-	cout << "3. Log out" << endl;
+	cout << "1. 개인 가계부" << endl;
+	cout << "2. 공용 가계부" << endl;
+	cout << "3. 로그아웃" << endl;
 	cout << "> ";
 	while (1) {
 		cin.clear();
@@ -612,7 +634,7 @@ void user::select_CashBook_public(string user_id) {
 	user::is_All = false;
 
 	// txt파일 확인 후 각자의 공용 가계부 가져오기.
-	search_file.open("makehiddenfile.txt");
+	search_file.open("./data/makehiddenfile.txt");
 	if (search_file.is_open() == true) {
 		//txt 파일에서 사람 찾기
 		while (!search_file.eof()) {
@@ -640,6 +662,7 @@ void user::select_CashBook_public(string user_id) {
 	search_file.close();
 
 	while (1) {
+		system("cls");
 		cout << user_id << "의 가계부" << endl;
 		cout << "0. Make CashBook" << endl;
 		for (int i = 0; i < files.size(); i++) {
@@ -649,6 +672,7 @@ void user::select_CashBook_public(string user_id) {
 
 		cout << "> ";
 		cin >> select;
+		cin.clear();
 
 		if (select == 0) {
 			user::make_CashBook_public();
@@ -656,6 +680,12 @@ void user::select_CashBook_public(string user_id) {
 		}
 		else if (select == 6) {
 			break;
+		}
+		else if (select > 6) {
+			cout << "잘못 입력하였습니다." << endl;
+			cout << "다시 입력해주세요" << endl;
+			Sleep(2000); // 2초 정지 후 다시 입력받음.
+			continue;
 		}
 		else {
 			user::is_All = true;

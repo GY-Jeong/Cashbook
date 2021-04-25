@@ -21,6 +21,8 @@ public:
 	void searchPayCategory(string start_date, string end_date, vector<vector<string>> pay_list);
 	void searchDetail(string start_date, string end_date, string categoty_name, vector<vector<string>> category_list, vector<vector<string>> total_list,\
 		bool is_pay);
+	void modify_hidden_file();
 private:
+	int user_authority;
 	bool deletePublicCashbook();
 };

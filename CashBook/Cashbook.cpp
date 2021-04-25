@@ -9,6 +9,7 @@
 #include <ctime>
 #include <iostream>
 #include <io.h>
+#include <string>
 
 #pragma warning(disable:4996)
 #define CLEAR system("cls")
@@ -25,7 +26,7 @@ Cashbook::Cashbook(string user_id, string cashbook_name, bool isSharedCashBook)
 	this->isSharedCashBook = isSharedCashBook;
 	this->user_id = user_id;
 	this->cashbook_name = cashbook_name;
-
+	this->user_authority = 0;
 	//cd = cashData();
 	cd.isSharedCashBook = isSharedCashBook;
 
@@ -389,12 +390,13 @@ SelectCategoryNumRetry:
 void Cashbook::searchDetail(string start_date, string end_date, string categoty_name, vector<vector<string>> category_list, \
 	vector<vector<string>> total_list, bool is_pay) {
 	CLEAR;
-	// 만약 공유 가계부라면 올린 사람도 올려야됨
-	//if(isSharedCashBook)
 	cout << categoty_name << "의 상세 내역입니다." << endl;
 	for (vector<string> element : category_list)
 	{
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
+			// 만약 공유 가계부라면 올린 사람도 올려야됨
+			// 공유일때만 i==4 (올린 사람) 내역 출력, 이 부분 테스트 필요
+			if (!isSharedCashBook && i == 4) continue;
 			if (i == 2) continue;
 			cout << element[i] << "\t";
 		}
@@ -432,11 +434,19 @@ SelectYNRetry:
 // 공용 가계부 삭제
 bool Cashbook::deletePublicCashbook()
 {
-	//string txt_name = "./data/public/" + cashbook_name + ".txt";
-	//string M_txt_name = "./data/public/ + cashbook_name + "_M.txt";
+	/*
+	// 권한 확인이 필요한 부분
+	if (!getAuthority(cashbook_name, user_id)) {
+		cout << "해당 권한이 없습니다." << endl;
+		cout << "1.5초 뒤 공유 가계부 화면으로 돌아갑니다." << endl;
+		Sleep(1500);
+		return false;			//공유 가계부 화면으로 복귀
+	}
+	*/
 
-	string txt_name = "./data/public/hell.txt";
-	string M_txt_name = "./data/public/hell_M.txt";
+	string txt_name = "./data/public/" + cashbook_name + ".txt";
+	string M_txt_name = "./data/public/" + cashbook_name + "_M.txt";
+
 	CLEAR;
 	string input;
 	cout << "삭제 하시겠습니까? (Y/N or y/n)" << endl;
@@ -468,6 +478,25 @@ SelectYNRetry_delete:
 				cout << c_txt_name << "삭제 실패" << endl;
 			}
 		}
+
+		if (access(c_M_txt_name, 00) == -1)
+		{
+			cout << c_M_txt_name << "이 존재하지 않음" << endl;
+		}
+		else
+		{
+			if (remove(c_M_txt_name) == 0) {							// 삭제할 공유 가계부 경로
+				cout << c_M_txt_name << "삭제 성공" << endl;
+			}
+			else {
+				// 가계부 파일을 삭제하지 못한 상황
+				cout << c_M_txt_name << "삭제 실패" << endl;
+			}
+		}
+
+		//hidden 읽어와서 해당 line 삭제 필요
+		modify_hidden_file();
+
 		cout << "공유 가계부를 삭제했습니다." << endl;
 		cout << "2초 후 공유 가계부 선택 화면으로 돌아갑니다." << endl;
 		Sleep(2000);
@@ -486,3 +515,34 @@ SelectYNRetry_delete:
 		goto SelectYNRetry_delete;
 	}
 }
+
+void Cashbook::modify_hidden_file()
+{
+	vector<string> writelist;
+	ifstream search_file;	
+	string line;
+	string txt_name = "./data/makehiddenfile.txt";
+	search_file.open(txt_name);
+	if (search_file.is_open() == true) {
+		while (!search_file.eof()) {
+			getline(search_file, line);
+			cout << line << endl;
+			if (line != "" && split(line, '/')[0] == cashbook_name) continue;
+			writelist.push_back(line);
+		}
+	}
+	search_file.close();
+
+	// 파일에 쓰면됨
+	ofstream writeFile(txt_name.data());
+	if (writeFile.is_open()) {
+		for (string element : writelist)
+		{
+			cout << element << endl;
+			writeFile << element << "\n";
+		}
+	}
+	writeFile.close();
+	return;
+}
+		

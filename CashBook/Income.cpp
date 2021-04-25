@@ -11,7 +11,7 @@ Income::Income()
 	{
 		CLEAR;
 		if (isDataSetting) break;
-		cout << "<수입>" << endl;
+		cout << "< 수입 >" << endl;
 		cout << "1. 등록" << endl;
 		cout << "2. 삭제" << endl;
 		cout << "3. 뒤로가기" << endl;

@@ -216,3 +216,4 @@ void printdate_err()
 {
 	cout << "날짜 형식 오류 " << endl;
 }
+
