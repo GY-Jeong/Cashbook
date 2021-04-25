@@ -2,6 +2,9 @@
 #include "Check.hpp"
 #include "Admin.h"
 
+#include <algorithm>
+#include <io.h>
+
 #define CLEAR system("cls")
 #define INPUT cout << "> "
 
@@ -58,10 +61,8 @@ void Admin::enrollAdministrator(string cashbook_name)
 {
 	CLEAR;
 	string input;
-	vector<string> splitInput;
 	int i = 1;
-	vector<string> nonAdmin;
-	nonAdmin = makeList(cashbook_name, 2);
+	vector<string> nonAdmin = makeList(cashbook_name, 2);
 	
 	cout << "< 관리자가 아닌 회원들의 목록 >" << endl;
 
@@ -72,23 +73,28 @@ void Admin::enrollAdministrator(string cashbook_name)
 	}
 
 	cout << "관리자로 등록할 회원의 번호를 입력하세요" << endl;
+EnrollAdminRetry:
 	INPUT;
 	cin >> input;
 
-	if (validQCheck(input)) 
+	if (validQCheck(input)) return;
+	else
 	{
-		//뒤로 가기
-		return;
-	}
-	else 
-	{
-		//해결되지 않은 부분
-		vector<string> splitInput = split(input, '/');
-		//등록
-		//for (int data : splitInput) {			//split 데이터 동안
-			//if()								//splitInput 값이 
-			//changeAuthority(cashbook_name, nonAdmin[stoi(input) - 1], 1);
-		//}
+		vector<string> idx2name;
+		vector<string> v = split(input, '/');
+		sort(v.begin(), v.end());
+		v.erase(unique(v.begin(), v.end()), v.end());
+
+		for (string element : v)
+		{
+			if (!validNumberRange(element, 1, 1 + nonAdmin.size()))
+			{
+				cout << "다시 입력해주세요" << endl;
+				goto EnrollAdminRetry;
+			}
+			idx2name.push_back(nonAdmin[stoi(element) - 1]);
+		}
+		changeAuthority(cashbook_name, idx2name, 1);
 	}
 }
 
@@ -96,8 +102,7 @@ void Admin::releaseAdministrator(string cashbook_name) {
 	CLEAR;
 	string input;
 	int i = 1;
-	vector<string> admin;
-	admin = makeList(cashbook_name, 1);
+	vector<string> admin = makeList(cashbook_name, 1);
 
 	cout << "< 관리자인 회원들의 목록 >" << endl;
 
@@ -108,27 +113,36 @@ void Admin::releaseAdministrator(string cashbook_name) {
 	}
 
 	cout << "관리자에서 해제할 회원의 번호를 입력하세요" << endl;
+ReleaseAdminRetry:
 	INPUT;
-
 	cin >> input;
-
-	if (validQCheck(input)) 
-	{
-		//뒤로 가기
-		return;
-	}
+	if (validQCheck(input)) return;
 	else 
 	{
 		//삭제
-		
+		vector<string> idx2name;
+		vector<string> v = split(input, '/');
+		sort(v.begin(), v.end());
+		v.erase(unique(v.begin(), v.end()), v.end());
+
+		for (string element : v)
+		{
+			if(!validNumberRange(element, 1, 1+admin.size()))
+			{
+				cout << "다시 입력해주세요" << endl;
+				goto ReleaseAdminRetry;
+			}
+			idx2name.push_back(admin[stoi(element) - 1]);
+		}
+		changeAuthority(cashbook_name, idx2name, 2);
 	}
 }
 
-vector<string> makeList(string cashbook_name, int authority) 
+vector<string> Admin::makeList(string cashbook_name, int authority) 
 {
 	vector<string> list;
 
-	string txtName = cashbook_name + "_M.txt";
+	string txtName = "./data/public/" + cashbook_name + "_M.txt";
 	ifstream ifile;
 	char line[15];
 
@@ -147,9 +161,11 @@ vector<string> makeList(string cashbook_name, int authority)
 	return list;
 }
 
-void changeAuthority(string cashbook_name, string user_id, int authority)
+void Admin::changeAuthority(string cashbook_name, vector<string> user_list, int authority)
 {
-	string txtName = cashbook_name + "_M.txt";
+	vector<string> name_list;
+	vector<string> authority_list;
+	string txtName = "./data/public/" + cashbook_name + "_M.txt";
 	ifstream ifile;
 	char line[15];
 
@@ -159,11 +175,25 @@ void changeAuthority(string cashbook_name, string user_id, int authority)
 		while (ifile.getline(line, sizeof(line)))
 		{
 			vector<string> data = split(line, '/');
-
-			if (data[0] == user_id) {
-				data[1] = authority;
-			}
+			name_list.push_back(data[0]);
+			if (find(user_list.begin(), user_list.end(), data[0]) != user_list.end())
+				authority_list.push_back(to_string(authority));
+			else
+				authority_list.push_back(data[1]);
 		}
 	}
+
+	// 파일에 쓰면됨
+	ofstream writeFile(txtName.data());
+	if (writeFile.is_open()) {
+		int s = name_list.size();
+		for (int i = 0; i < s; i++)
+		{
+			writeFile << name_list[i] << "/" << authority_list[i] << "\n";
+		}
+		writeFile.close();
+	}
+
+	return;
 }
 
