@@ -180,6 +180,7 @@ void Admin::changeAuthority(string cashbook_name, vector<string> user_list, int 
 				authority_list.push_back(data[1]);
 		}
 	}
+	ifile.close();
 
 	// 파일에 쓰면됨
 	ofstream writeFile(txtName.data());
@@ -189,8 +190,8 @@ void Admin::changeAuthority(string cashbook_name, vector<string> user_list, int 
 		{
 			writeFile << name_list[i] << "/" << authority_list[i] << "\n";
 		}
-		writeFile.close();
 	}
+	writeFile.close();
 
 	return;
 }

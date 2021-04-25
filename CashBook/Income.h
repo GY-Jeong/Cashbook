@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Pay.h"
 
 class Income
@@ -14,8 +15,6 @@ private:
 public:
 	Income();
 	bool income_category_test(string& data);
-
-
 	void printcategory_err();
 	string printdata(vector<string> input);
 };

@@ -21,6 +21,7 @@ Pay::Pay()
 		switch (select)
 		{
 		case 1:
+			CLEAR;
 			cout << "날짜, 금액, 카테고리, 내용을 형식에 맞게 순서대로 입력해주세요." << endl;
 			result = data_split1();//split함수 안에서 quit반응이 추가되어야함
 			if (result.empty()) continue;
@@ -56,6 +57,7 @@ Pay::Pay()
 			data_format.clear();
 			break;
 		case 2:
+			CLEAR;
 			cout << "시작날짜, 종료날짜, 키워드를 형식에 맞게 순서대로 입력해주세요." << endl;
 			result = data_split2();
 			if (result.empty()) continue;

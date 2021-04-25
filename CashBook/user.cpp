@@ -1,7 +1,6 @@
 ﻿#include "user.h"
-#include <map>
 #include "Windows.h"
-#include "CashBook.h"
+#include <map>
 
 #define SIZE 100
 #define CLEAR system("cls")

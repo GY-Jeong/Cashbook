@@ -9,6 +9,7 @@
 #include <ctime>
 #include <iostream>
 #include <io.h>
+#include <string>
 
 #pragma warning(disable:4996)
 #define CLEAR system("cls")
@@ -25,7 +26,7 @@ Cashbook::Cashbook(string user_id, string cashbook_name, bool isSharedCashBook)
 	this->isSharedCashBook = isSharedCashBook;
 	this->user_id = user_id;
 	this->cashbook_name = cashbook_name;
-
+	this->user_authority = 0;
 	//cd = cashData();
 	cd.isSharedCashBook = isSharedCashBook;
 
@@ -389,12 +390,13 @@ SelectCategoryNumRetry:
 void Cashbook::searchDetail(string start_date, string end_date, string categoty_name, vector<vector<string>> category_list, \
 	vector<vector<string>> total_list, bool is_pay) {
 	CLEAR;
-	// 만약 공유 가계부라면 올린 사람도 올려야됨
-	//if(isSharedCashBook)
 	cout << categoty_name << "의 상세 내역입니다." << endl;
 	for (vector<string> element : category_list)
 	{
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
+			// 만약 공유 가계부라면 올린 사람도 올려야됨
+			// 공유일때만 i==4 (올린 사람) 내역 출력, 이 부분 테스트 필요
+			if (!isSharedCashBook && i == 4) continue;
 			if (i == 2) continue;
 			cout << element[i] << "\t";
 		}
@@ -483,6 +485,7 @@ SelectYNRetry_delete:
 		}
 
 		//hidden 읽어와서 해당 line 삭제 필요
+		modify_hidden_file();
 
 		cout << "공유 가계부를 삭제했습니다." << endl;
 		cout << "2초 후 공유 가계부 선택 화면으로 돌아갑니다." << endl;
@@ -502,3 +505,34 @@ SelectYNRetry_delete:
 		goto SelectYNRetry_delete;
 	}
 }
+
+void Cashbook::modify_hidden_file()
+{
+	vector<string> writelist;
+	ifstream search_file;	
+	string line;
+	string txt_name = "./data/makehiddenfile.txt";
+	search_file.open(txt_name);
+	if (search_file.is_open() == true) {
+		while (!search_file.eof()) {
+			getline(search_file, line);
+			cout << line << endl;
+			if (line != "" && split(line, '/')[0] == cashbook_name) continue;
+			writelist.push_back(line);
+		}
+	}
+	search_file.close();
+
+	// 파일에 쓰면됨
+	ofstream writeFile(txt_name.data());
+	if (writeFile.is_open()) {
+		for (string element : writelist)
+		{
+			cout << element << endl;
+			writeFile << element << "\n";
+		}
+	}
+	writeFile.close();
+	return;
+}
+		

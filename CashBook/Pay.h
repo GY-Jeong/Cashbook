@@ -1,4 +1,5 @@
 #pragma once
+
 #include "cashData.h"
 
 class Pay
@@ -14,10 +15,7 @@ private:
 public:
 	Pay();//user_id 매개변수
 	bool pay_category_test(string data);
-
-
 	void printcategory_err();
 	string printdata(vector<string> input);
-
 };
 #pragma once
