@@ -26,6 +26,7 @@ public:
 	vector<string> file_data;
 	bool isSharedCashBook;
 	bool isDataSetting;
+	string txt_file;
 	vector<string> pay_file_data;
 	vector<string> income_file_data;
 	cashData();
@@ -50,7 +51,6 @@ public:
 	bool yesorno();
 	bool isquit(string& data);
 	vector<string> split(string str, char delimiter);
-	bool getAuthority(string cashbook_name, string user_id);
 	string& trimString(string& str, string& chars);
 	string& rightTrim(string& str, string& chars);
 	string& leftTrim(string& str, string& chars);

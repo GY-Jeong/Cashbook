@@ -3,8 +3,12 @@
 #define CLEAR system("cls")
 #define INPUT cout << "> "
 
-Pay::Pay()
+Pay::Pay(bool isShared, string user_id, string cashbook_name, string txt_file)
 {
+	this->isSharedCashBook = isShared;
+	this->user_id = user_id;
+	this->cashbook_name = cashbook_name;
+
 	int select;
 	while (1)
 	{
@@ -34,18 +38,18 @@ Pay::Pay()
 					//yes
 					if (!isSharedCashBook) {
 						//개인 가계부
-						readTextFile("test.txt");							//y->개인 가계부 그냥 저장
-						writeTextFile("test.txt", data_format);
+						readTextFile(txt_file);							//y->개인 가계부 그냥 저장
+						writeTextFile(txt_file, data_format);
 						cout << "저장이 완료되었습니다." << endl;
-						readTextFile("test.txt");
+						readTextFile(txt_file);
 					}
 					else {
 						//공용 가계부
-						data_format = data_format + user_id;				//y->공용 가계부 user_id 붙여서 저장
-						readTextFile("test.txt");
-						writeTextFile("test.txt", data_format);
+						data_format = data_format + "/" + user_id;				//y->공용 가계부 user_id 붙여서 저장
+						readTextFile(txt_file);
+						writeTextFile(txt_file, data_format);
 						cout << "저장이 완료되었습니다." << endl;
-						readTextFile("test.txt");
+						readTextFile(txt_file);
 					}
 				}
 				else {				//n-> 저장 안함
@@ -63,7 +67,7 @@ Pay::Pay()
 			if (result.empty()) continue;
 
 			if (date_validation(result[0], result[1])) {
-				readTextFile("test.txt");
+				readTextFile(txt_file);
 				keyword_search(result[0], result[1], result[2],true);				//맨밑에서 y/n받음
 				isDataSetting = true;//y/n 상관없이 흐름도상 분기로 이동
 			}

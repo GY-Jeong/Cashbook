@@ -5,7 +5,7 @@
 cashData::cashData()//현재 가계부 정보, 유저 정보 생성자로 넘겨받아야함
 {
 	isDataSetting = false;
-	readTextFile("test.txt");
+	//readTextFile(txt_file);
 	//원래는 조금 다름
 }
 
@@ -320,8 +320,8 @@ bool cashData::keyword_search(string startdate, string enddate, string data,bool
 				else
 					income_file_data[matched_index.at(select - 1)].clear();
 				//다시 합치기
-				reWriteTextFile("test.txt");
-				readTextFile("test.txt");
+				reWriteTextFile(txt_file);
+				readTextFile(txt_file);
 				cout << "삭제가 완료되었습니다." << endl;
 			}
 			else {
@@ -453,8 +453,6 @@ bool cashData::price_test(string& data)
 	smatch matches;
 
 	if (regex_match(data, matches, ex1)) {
-
-
 		if (matches[3] == "," && matches[5] == ",") {
 			if (is3digit(matches[4]) && is3digit(matches[6]))
 				data = (string)matches[1] + (string)matches[2] + (string)matches[4] + (string)matches[6];

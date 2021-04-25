@@ -27,11 +27,15 @@ Cashbook::Cashbook(string user_id, string cashbook_name, bool isSharedCashBook)
 	this->user_id = user_id;
 	this->cashbook_name = cashbook_name;
 	this->user_authority = getAuthority(cashbook_name, user_id);
-	//cd = cashData();
+
 	cd.isSharedCashBook = isSharedCashBook;
+	if (isSharedCashBook)
+		cd.txt_file = "./data/public/" + cashbook_name + ".txt";
+	else
+		cd.txt_file = "./data/private/" + user_id + ".txt";
+	cd.readTextFile(cd.txt_file);
 
 	//cashdata setting
-
 	menu();
 }
 
@@ -59,13 +63,13 @@ void Cashbook::menu()
 				case 1:
 				{
 					CLEAR;
-					Pay* pay = new Pay();//user.id 생성자로 넘겨줘야함
+					Pay* pay = new Pay(isSharedCashBook, user_id, cashbook_name, cd.txt_file);//user.id 생성자로 넘겨줘야함
 					break;
 				}
 				case 2:
 				{
 					CLEAR;
-					Income* income = new Income();
+					Income* income = new Income(isSharedCashBook, user_id, cashbook_name, cd.txt_file);
 					break;
 				}
 				case 3:
@@ -137,7 +141,7 @@ void Cashbook::menu()
 						break;			//공유 가계부 화면으로 복귀
 					}
 					else {
-						Pay* pay = new Pay();
+						Pay* pay = new Pay(isSharedCashBook, user_id, cashbook_name, cd.txt_file);
 						break;
 					}
 				}
@@ -151,7 +155,7 @@ void Cashbook::menu()
 						break;			//공유 가계부 화면으로 복귀
 					}
 					else {
-						Income* income = new Income();
+						Income* income = new Income(isSharedCashBook, user_id, cashbook_name, cd.txt_file);
 						break;
 					}
 				}
@@ -200,6 +204,7 @@ void Cashbook::menu()
 // 조회할 기간을 입력, 입력한 날짜들이 조건에 맞는지 확인.
 void Cashbook::startSearch()
 {
+	cd.readTextFile(cd.txt_file);
 	CLEAR;
 	string input;
 	cout << "조회할 기간을 입력해주세요(최대 30일)" << endl;
@@ -347,7 +352,10 @@ void Cashbook::searchIncomeCategory(string start_date, string end_date, vector<v
 		"4. 아르바이트 " , "5. 기타       " };
 	for (int i = 0; i < 5; i++)
 	{
-		cout << printlist[i] << category_income_total_money[i] << "원 (" << int(double(category_income_total_money[i]) / double(income_total_money) * 100) << "%)" << endl;
+		if(income_total_money != 0)
+			cout << printlist[i] << category_income_total_money[i] << "원 (" << int(double(category_income_total_money[i]) / double(income_total_money) * 100) << "%)" << endl;
+		else
+			cout << printlist[i] << category_income_total_money[i] << "원 (0%)" << endl;
 	}
 	cout << "상세 내역을 확인하시려면 카테고리 번호를 선택해주세요." << endl;
 
@@ -425,10 +433,10 @@ void Cashbook::searchDetail(string start_date, string end_date, string categoty_
 	cout << categoty_name << "의 상세 내역입니다." << endl;
 	for (vector<string> element : category_list)
 	{
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) {
 			// 만약 공유 가계부라면 올린 사람도 올려야됨
 			// 공유일때만 i==4 (올린 사람) 내역 출력, 이 부분 테스트 필요
-			if (!isSharedCashBook && i == 4) continue;
+			if (!isSharedCashBook && i == 3) continue;
 			if (i == 2) continue;
 			cout << element[i] << "\t";
 		}
