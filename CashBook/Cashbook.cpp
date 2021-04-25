@@ -25,7 +25,7 @@ Cashbook::Cashbook(string user_id, string cashbook_name, bool isSharedCashBook)
 	this->isSharedCashBook = isSharedCashBook;
 	this->user_id = user_id;
 	this->cashbook_name = cashbook_name;
-	
+
 	//cd = cashData();
 	cd.isSharedCashBook = isSharedCashBook;
 
@@ -314,7 +314,7 @@ void Cashbook::searchIncomeCategory(string start_date, string end_date, vector<v
 		"4. 아르바이트 " , "5. 기타       " };
 	for (int i = 0; i < 5; i++)
 	{
-		cout << printlist[i] << category_income_total_money[i] << "원 (" << int(double(category_income_total_money[i])/double(income_total_money) * 100) << "%)" << endl;
+		cout << printlist[i] << category_income_total_money[i] << "원 (" << int(double(category_income_total_money[i]) / double(income_total_money) * 100) << "%)" << endl;
 	}
 	cout << "상세 내역을 확인하시려면 카테고리 번호를 선택해주세요." << endl;
 
@@ -468,73 +468,6 @@ SelectYNRetry_delete:
 				cout << c_txt_name << "삭제 실패" << endl;
 			}
 		}
-
-		Sleep(2000);
-	}
-}
-
-int get_difference_of_dates(string start_date, string end_date)
-{
-	time_t start, end;
-	struct tm stime, etime;
-	int tm_day;
-	int s_year, s_month, s_day, e_year, e_month, e_day;
-
-	vector<string> start_date_list = split(start_date, '-');
-
-	if (start_date_list[0].size() == 2)
-	{
-		//YY-MM-DD
-		s_year = stoi(start_date_list[0]);
-		if (s_year <= 99 && s_year >= 70)
-			s_year += 1900;
-		else if (s_year <= 69 && s_year >= 0)
-			s_year += 2000;
-	}
-	else
-	{
-		s_year = stoi(start_date_list[0]);
-	}
-
-	s_month = stoi(start_date_list[1]);
-	s_day = stoi(start_date_list[2]);
-
-	stime.tm_year = s_year - 1900;
-	stime.tm_mon = s_month - 1;
-	stime.tm_mday = s_day;
-	stime.tm_hour = 0;
-	stime.tm_min = 0;
-	stime.tm_sec = 0;
-	stime.tm_isdst = 0; //썸머타임 사용안함
-
-	vector<string> end_date_list = split(end_date, '-');
-
-	if (end_date_list[0].size() == 2)
-	{
-		//YY-MM-DD
-		e_year = stoi(end_date_list[0]);
-		if (e_year <= 99 && e_year >= 70)
-			e_year += 1900;
-		else if (e_year <= 69 && e_year >= 0)
-			e_year += 2000;
-	}
-	else
-	{
-		e_year = stoi(end_date_list[0]);
-	}
-	{
-		//YY-MM-DD
-		e_year = stoi(end_date_list[0]);
-		if (e_year <= 99 && e_year >= 70)
-			e_year += 1900;
-		else if (e_year <= 69 && e_year >= 0)
-			e_year += 2000;
-	}
-	else
-	{
-		e_year = stoi(end_date_list[0]);
-	}
-
 		cout << "공유 가계부를 삭제했습니다." << endl;
 		cout << "2초 후 공유 가계부 선택 화면으로 돌아갑니다." << endl;
 		Sleep(2000);
@@ -553,4 +486,3 @@ int get_difference_of_dates(string start_date, string end_date)
 		goto SelectYNRetry_delete;
 	}
 }
-
