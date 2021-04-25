@@ -281,10 +281,10 @@ void user::make_CashBook_public() {
 	stringstream sss;
 	cin.clear();
 	sss << bookname << ".txt";
-	string sfilename = sss.str();
-	char savefilename[20];
+	string sfilename = "./data/public/" + sss.str();
+	char savefilename[40];
 	strcpy(savefilename, sfilename.c_str());
-	ofstream sfile(savefilename);
+	ofstream sstfile(savefilename);
 	//cout << "공용가계부 생성!!" << endl;
 	//멤버 입력받기
 	cout << "함께 쓸 사용자의 아이디를 입력해주세요. (최대 9 명)" << endl;
@@ -404,8 +404,8 @@ void user::make_CashBook_public() {
 		string sstr = bookname + "_M";
 		stringstream save;
 		save << sstr << ".txt";
-		string smfilename = save.str();
-		char savemfilename[20];
+		string smfilename = "./data/public/" + save.str();
+		char savemfilename[40];
 		strcpy(savemfilename, smfilename.c_str());
 		ofstream smfile(savemfilename);
 
@@ -422,8 +422,8 @@ void user::make_CashBook_public() {
 		string ssstr = bookname + "_M";
 		stringstream savem;
 		savem << ssstr << ".txt";
-		string ssmfilename = savem.str();
-		char ssavemfilename[20];
+		string ssmfilename = "./data/public/"+savem.str();
+		char ssavemfilename[40];
 		strcpy(ssavemfilename, ssmfilename.c_str());
 		ofstream ssmfile(ssavemfilename);
 
@@ -556,8 +556,8 @@ void user::sign_In() {
 	stringstream st;
 	cin.clear();
 	st << id << ".txt";
-	string stfilename = st.str();
-	char stsavefilename[20];
+	string stfilename = "./data/private/"+st.str();
+	char stsavefilename[40];
 	strcpy(stsavefilename, stfilename.c_str());
 	ofstream sstfile(stsavefilename);
 	//cout << "개인가계부 생성!!" << endl;
