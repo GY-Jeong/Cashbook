@@ -299,13 +299,7 @@ void user::make_CashBook_public() {
 			continue;
 		}
 	}
-	stringstream sss;
-	cin.clear();
-	sss << bookname << ".txt";
-	string sfilename = "./data/public/" + sss.str();
-	char savefilename[40];
-	strcpy(savefilename, sfilename.c_str());
-	ofstream sstfile(savefilename);
+	
 	//cout << "공용가계부 생성!!" << endl;
 	//멤버 입력받기
 	cout << "함께 쓸 사용자의 아이디를 입력해주세요. (최대 9 명)" << endl;
@@ -325,6 +319,11 @@ void user::make_CashBook_public() {
 			onemem = true;
 			memsuccess = true;
 			break;
+		}
+		else if (memlist == "q") {
+			onemem = true;
+			memsuccess = true;
+			user::select_CashBook_public(loginedId);
 		}
 
 		stringstream sss(memlist);
@@ -489,6 +488,13 @@ void user::make_CashBook_public() {
 
 		sspub.close();
 	}
+	stringstream sss;
+	cin.clear();
+	sss << bookname << ".txt";
+	string sfilename = "./data/public/" + sss.str();
+	char savefilename[40];
+	strcpy(savefilename, sfilename.c_str());
+	ofstream sstfile(savefilename);
 	user::select_CashBook_public(user::loginedId);
 }
 
