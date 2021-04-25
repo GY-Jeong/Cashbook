@@ -8,8 +8,6 @@
 #define CLEAR system("cls")
 #define INPUT cout << "> "
 
-vector<string> makeList(string cashbook_name, int authority);
-
 Admin::Admin(string user_id, string cashbook_name) {
 	string select;
 
