@@ -637,7 +637,8 @@ void user::select_CashBook_public(string user_id) {
 	ifstream search_file;
 	system("cls");
 
-	int select, offset;
+	string select;
+	int offset;
 	int cnt = 0;
 	string line;
 	vector<string> files;
@@ -679,32 +680,38 @@ void user::select_CashBook_public(string user_id) {
 			cout << i + 1 << ". " << files[i] << endl;
 		}
 		cout << "6. 뒤로 가기" << endl;
-
+	SelectCashbookPublicRetry:
+		INPUT;
 		cout << "> ";
 		cin >> select;
 		cin.clear();
-
-		if (select == 0) {
-			user::make_CashBook_public();
-			break;
-		}
-		else if (select == 6) {
-			break;
-		}
-		else if (select > 6) {
-			cout << "잘못 입력하였습니다." << endl;
-			cout << "다시 입력해주세요" << endl;
-			Sleep(2000); // 2초 정지 후 다시 입력받음.
-			continue;
+		if (validNumberRange(select, 0, 6)) {
+			int sel = stoi(select);
+			if (sel == 0) {
+				user::make_CashBook_public();
+				break;
+			}
+			else if (sel == 6) {
+				user::select_CashBook(user_id);
+				break;
+			}
+			else if (sel > files.size() && sel != 6) {
+				cout << "다시 입력해주세요" << endl;
+				Sleep(2000); // 2초 정지 후 다시 입력받음.
+				continue;
+			}
+			else {
+				user::is_All = true;
+				user::currentBook = files[sel - 1];
+				Cashbook cbcb(user::loginedId, user::currentBook, user::is_All);
+				user::select_CashBook(user_id);
+			}
 		}
 		else {
-			user::is_All = true;
-			user::currentBook = files[select - 1];
-			Cashbook cbcb(user::loginedId, user::currentBook, user::is_All);
-			user::select_CashBook(user_id);
+			cout << "다시 입력해주세요" << endl;
+			cin.clear();
+			cin.ignore(INT_MAX, '\n');
+			goto SelectCashbookPublicRetry;
 		}
-	}
-	if (select == 6) {
-		user::select_CashBook(user_id);
 	}
 }
