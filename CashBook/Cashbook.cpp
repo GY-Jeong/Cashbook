@@ -434,6 +434,16 @@ SelectYNRetry:
 // 공용 가계부 삭제
 bool Cashbook::deletePublicCashbook()
 {
+	/*
+	// 권한 확인이 필요한 부분
+	if (!getAuthority(cashbook_name, user_id)) {
+		cout << "해당 권한이 없습니다." << endl;
+		cout << "1.5초 뒤 공유 가계부 화면으로 돌아갑니다." << endl;
+		Sleep(1500);
+		return false;			//공유 가계부 화면으로 복귀
+	}
+	*/
+
 	string txt_name = "./data/public/" + cashbook_name + ".txt";
 	string M_txt_name = "./data/public/" + cashbook_name + "_M.txt";
 

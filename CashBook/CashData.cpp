@@ -755,6 +755,34 @@ vector<string> cashData::split(string input, char delimiter)
 	return answer;
 }
 
+/*
+bool cashData::getAuthority(string cashbook_name, string user_id)
+{
+	int user_authority = 0;
+
+	string txtName = "./data/public/" + cashbook_name + "_M.txt";
+	ifstream ifile;
+	char line[15];
+
+	ifile.open(txtName);
+	if (ifile.is_open())
+	{
+		while (ifile.getline(line, sizeof(line)))
+		{
+			vector<string> data = split(line, '/');
+
+			if (data[0] == user_id)
+				user_authority = stoi(data[1]);
+		}
+	}
+
+	if (user_authority != 0)
+		return false;
+	else
+		return true;
+}
+*/
+
 string& cashData::trimString(string& str, string& chars)
 {
 	return leftTrim(rightTrim(str, chars), chars);
@@ -769,3 +797,4 @@ string& cashData::leftTrim(string& str, string& chars)
 	str.erase(0, str.find_first_not_of(chars));
 	return str;
 }
+
