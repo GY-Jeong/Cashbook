@@ -89,6 +89,7 @@ void user::login() {
 	*/
 	if (user::isLoginState == false) {
 		cout << "아이디와 비밀번호를 입력하세요" << endl;
+		cout << "> ";
 		cin.clear();
 		while (user::isLoginState == false) {
 			idfail = false;
@@ -96,7 +97,6 @@ void user::login() {
 			diff = false;
 			vector<string> input;
 			cin.clear();
-			cout << "> ";
 			cin >> idpw;
 			cin.clear();
 			if (idpw == "q") {
@@ -166,8 +166,9 @@ void user::login() {
 
 							if (diff == true && user::isLoginState == false) {
 								cout << "아이디와 비밀번호가 일치하지않습니다." << endl;
-								cout << "다시 입력해주세요" << endl;
-								Sleep(2000);
+								//cout << "다시 입력해주세요" << endl;
+								cout << "> ";
+								//Sleep(2000);
 								cin.clear();
 								continue;
 							}
