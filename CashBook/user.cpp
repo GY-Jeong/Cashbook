@@ -599,16 +599,19 @@ void user::sign_In() {
 void user::select_CashBook(string user_id) {
 	system("cls");
 
-	int select;
+	string input;
 	cout << user_id << "의 가계부" << endl;
 	cout << "1. 개인 가계부" << endl;
 	cout << "2. 공용 가계부" << endl;
 	cout << "3. 로그아웃" << endl;
-	cout << "> ";
-	while (1) {
-		cin.clear();
-		cin >> select;
-		cin.clear();
+SelectCashbookRetry:
+	INPUT;
+	cin.clear();
+	cin >> input;
+	cin.clear();
+	if (validNumberRange(input, 1, 3))
+	{
+		int select = stoi(input);
 		if (select == 1) {
 			user::is_All = false;
 			user::currentBook = user::loginedId;
@@ -620,14 +623,12 @@ void user::select_CashBook(string user_id) {
 		}
 		else if (select == 3) {
 			user::logout();
-			break;
 		}
 		else {
-			cout << "잘못 입력하였습니다." << endl;
 			cout << "다시 입력해주세요" << endl;
-			cout << "> ";
-			Sleep(2000); // 2초 정지 후 다시 입력받음.
-			continue;
+			cin.clear();
+			cin.ignore(INT_MAX, '\n');
+			goto SelectCashbookRetry;
 		}
 	}
 }
