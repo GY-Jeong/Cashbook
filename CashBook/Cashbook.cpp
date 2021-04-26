@@ -402,7 +402,10 @@ void Cashbook::searchPayCategory(string start_date, string end_date, vector<vect
 		"4. 오락       ", "5. 편의점     ", "6. 카페       ",  "7. 기타       " };
 	for (int i = 0; i < 7;i++)
 	{
-		cout << printlist[i] << category_pay_total_money[i] << "원 (" << int(double(category_pay_total_money[i]) / double(pay_total_money) * 100) << "%)" << endl;
+		if (pay_total_money != 0)
+			cout << printlist[i] << category_pay_total_money[i] << "원 (" << int(double(category_pay_total_money[i]) / double(pay_total_money) * 100) << "%)" << endl;
+		else
+			cout << printlist[i] << category_pay_total_money[i] << "원 (0%)" << endl;
 	}
 	cout << "상세 내역을 확인하시려면 카테고리 번호를 선택해주세요." << endl;
 SelectCategoryNumRetry:

@@ -382,7 +382,7 @@ bool isLeapyear(int year)
 bool cashData::date_test(string& data)
 {
 	int year = 0, month = 0, day = 0;
-	cout << "date testing ";
+	//cout << "date testing ";
 	//	cin >> data;
 		//테스트용 매개변수 대체
 	regex ex1("(\\d{2})-(\\d{2})-(\\d{2})");
@@ -399,7 +399,7 @@ bool cashData::date_test(string& data)
 		else if (year <= 69 && year >= 0)
 			year += 2000;
 		else {
-			printdate_err();
+			//printdate_err();
 			return false;
 		}
 		data = to_string(year) + "-" + (string)matches[2] + "-" + (string)matches[3];
@@ -474,7 +474,7 @@ bool cashData::price_test(string& data)
 	//string data;
 	//string result;
 	//테스트용 매개변수로 대체
-	cout << "price testing ";
+	//cout << "price testing ";
 	//cin >> data;
 	regex ex1("([1-9]{1})(\\d{0,2})([,]?)(\\d{0,3})([,]?)(\\d{0,3})");
 	smatch matches;
@@ -484,7 +484,7 @@ bool cashData::price_test(string& data)
 			if (is3digit(matches[4]) && is3digit(matches[6]))
 				data = (string)matches[1] + (string)matches[2] + (string)matches[4] + (string)matches[6];
 			else {
-				printprice_err();
+				// printprice_err();
 				return false;
 			}
 		}
@@ -492,7 +492,7 @@ bool cashData::price_test(string& data)
 			if (is3digit(matches[4]) && matches[6] == "")
 				data = (string)matches[1] + (string)matches[2] + (string)matches[4];
 			else {
-				printprice_err();
+				// printprice_err();
 				return false;
 			}
 		}
@@ -500,7 +500,7 @@ bool cashData::price_test(string& data)
 			if (matches[4] == "" && is3digit(matches[6]))
 				data = (string)matches[1] + (string)matches[2] + (string)matches[6];
 			else {
-				printprice_err();
+				// printprice_err();
 				return false;
 			}
 		}
@@ -508,13 +508,13 @@ bool cashData::price_test(string& data)
 			if (matches[4] == "" && matches[6] == "") {
 				int num = stoi((string)matches[1] + (string)matches[2]);
 				if (num < 100) {
-					printprice_err();
+					// printprice_err();
 					return false;
 				}
 				data = (string)matches[1] + (string)matches[2];
 			}
 			else {
-				printprice_err();
+				// printprice_err();
 				return false;
 			}
 		}
@@ -532,7 +532,7 @@ bool cashData::memo_test(string data)
 {
 	//string data = "a하b kkk ㅎcㅏ";
 	//매개변수 data
-	cout << "memo testing " << endl;
+	//cout << "memo testing " << endl;
 	//string result;
 	char* sub_str = new char[10]{ "" };
 	int k = 0;

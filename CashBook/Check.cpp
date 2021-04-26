@@ -128,7 +128,7 @@ bool validNumberRange(string number, int start, int end)
 bool validDateCheck(string data)
 {
 	int year = 0, month = 0, day = 0;
-	cout << "date testing ";
+	//cout << "date testing ";
 	regex ex1("(\\d{2})-(\\d{2})-(\\d{2})");
 	regex ex2("(\\d{4})-(\\d{2})-(\\d{2})");
 	smatch matches;
@@ -143,7 +143,7 @@ bool validDateCheck(string data)
 		else if (year <= 69 && year >= 0)
 			year += 2000;
 		else {
-			printdate_err();
+			// printdate_err();
 			return false;
 		}
 		data = to_string(year) + "-" + (string)matches[2] + "-" + (string)matches[3];
@@ -152,29 +152,29 @@ bool validDateCheck(string data)
 		//연도 4자리 매칭
 		year = stoi(matches[1]);
 		if (year == 0) {
-			printdate_err();
+			// printdate_err();
 			return false;
 		}
 		else if (year < 1900 || year > 2100) {
-			printdate_err();
+			// printdate_err();
 			return false;
 		}
 		month = stoi(matches[2]);
 		day = stoi(matches[3]);
 	}
 	else {
-		cout << "date matching fail" << endl;
-		printdate_err();
+		// cout << "date matching fail" << endl;
+		// printdate_err();
 		return false;
 	}
 
 	//기본 날짜 검사
 	if (month <= 0 || month > 12) {
-		printdate_err();
+		// printdate_err();
 		return false;
 	}
 	if (day <= 0 || day > 31) {
-		printdate_err();
+		// printdate_err();
 		return false;
 	}
 
@@ -193,13 +193,13 @@ bool validDateCheck(string data)
 	case 2:
 		if (isLeapyear(year)) {//윤년이면
 			if (day == 30 || day == 31) {
-				printdate_err();
+				// printdate_err();
 				return false;
 			}
 		}
 		else {//윤년이 아니면 
 			if (day == 29 || day == 30 || day == 31) {
-				printdate_err();
+				// printdate_err();
 				return false;
 			}
 		}
