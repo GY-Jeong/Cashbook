@@ -17,7 +17,10 @@ vector<string> cashData::data_split1()
 		string str;
 		cout << "> ";
 		getline(cin, str);
-		if (isquit(str)) break;
+		if (isquit(str)) {
+			(isDataSetting) = true;
+			break;
+		}
 		int count = -1;
 		int slash = 0;
 		for (int i = 0; i < str.size(); i++)
@@ -148,7 +151,10 @@ vector<string> cashData::data_split2()
 	while (1) {
 		string str;
 		getline(cin, str);
-		if (isquit(str)) break;
+		if (isquit(str)) {
+			(isDataSetting) = true;
+			break;
+		}
 		int count = -1;
 		int slash = 0;
 
