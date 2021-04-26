@@ -405,6 +405,7 @@ void user::make_CashBook_public() {
 				}
 				if (manybook == true) {
 					cout << "공용 가계부 최대 개수를 초과한 사용자가 존재합니다" << endl;
+					cout << "다시 입력해주세요" << endl;
 					Sleep(2000);
 					continue;
 				}
