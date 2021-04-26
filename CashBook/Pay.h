@@ -6,7 +6,7 @@ class Pay
 	:public cashData
 {
 private:
-	vector<string>pay_category = { "식비","교통","문화","오락","편의점","기타" };
+	vector<string>pay_category = { "식비","교통","문화","오락","편의점","카페","기타" };
 	string keyword;
 	vector<string> result;
 	string user_id = "user_id";

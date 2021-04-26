@@ -109,7 +109,7 @@ string Pay::printdata(vector<string> input)
 bool Pay::pay_category_test(string data)
 {
 	int test = 0;
-	cout << "category testing ";
+	//cout << "category testing ";
 	for (int i = 0; i < pay_category.size(); i++)
 		if (pay_category[i] == data) {
 			test++;
@@ -125,5 +125,7 @@ bool Pay::pay_category_test(string data)
 
 void Pay::printcategory_err()
 {
-	cout << "카테고리 형식 오류" << endl;
+	cout << "카테고리 형식이 맞지 않습니다." << endl;
+    Sleep(1000);
+    system("cls");
 }

@@ -441,7 +441,7 @@ bool cashData::date_test(string& data)
 		day = stoi(matches[3]);
 	}
 	else {
-		cout << "date matching fail" << endl;
+		//cout << "date matching fail" << endl;
 		printdate_err();
 		return false;
 	}
@@ -506,7 +506,7 @@ bool cashData::price_test(string& data)
 			if (is3digit(matches[4]) && is3digit(matches[6]))
 				data = (string)matches[1] + (string)matches[2] + (string)matches[4] + (string)matches[6];
 			else {
-				// printprice_err();
+				 printprice_err();
 				return false;
 			}
 		}
@@ -514,7 +514,7 @@ bool cashData::price_test(string& data)
 			if (is3digit(matches[4]) && matches[6] == "")
 				data = (string)matches[1] + (string)matches[2] + (string)matches[4];
 			else {
-				// printprice_err();
+				 printprice_err();
 				return false;
 			}
 		}
@@ -522,7 +522,7 @@ bool cashData::price_test(string& data)
 			if (matches[4] == "" && is3digit(matches[6]))
 				data = (string)matches[1] + (string)matches[2] + (string)matches[6];
 			else {
-				// printprice_err();
+				//	 printprice_err();
 				return false;
 			}
 		}
@@ -543,7 +543,7 @@ bool cashData::price_test(string& data)
 	}
 	else {
 		printprice_err();
-		cout << "price matching fail" << endl;
+		//cout << "price matching fail" << endl;
 		return false;
 	}
 	//cout << result << endl;
@@ -592,7 +592,7 @@ bool cashData::memo_test(string data)
 		return true;
 	}
 	else {
-		cout << "memo matching fail" << endl;
+		//cout << "memo matching fail" << endl;
 		printmemo_err();
 		return false;
 	}
@@ -629,16 +629,22 @@ bool cashData::is3digit(string data)
 void cashData::printprice_err()
 {
 	cout << "금액 형식이 맞지 않습니다." << endl;
+	Sleep(1000);
+	system("cls");
 }
 
 void cashData::printdate_err()
 {
 	cout << "날짜 형식이 맞지 않습니다." << endl;
+	Sleep(1000);
+	system("cls");
 }
 
 void cashData::printmemo_err()
 {
 	cout << "내용 형식이 맞지 않습니다." << endl;
+	Sleep(1000);
+	system("cls");
 }
 
 void cashData::readTextFile(string txt_name)
