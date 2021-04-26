@@ -114,7 +114,7 @@ string Income::printdata(vector<string> input)
 bool Income::income_category_test(string& data)
 {
 	int test = 0;
-	cout << "category testing ";
+	//cout << "category testing ";
 	for (int i = 0; i < income_category.size(); i++)
 		if (income_category[i] == data) {
 			test++;
@@ -132,5 +132,7 @@ bool Income::income_category_test(string& data)
 
 void Income::printcategory_err()
 {
-	cout << "카테고리 형식 오류" << endl;
+	cout << "카테고리 형식이 맞지 않습니다." << endl;
+	Sleep(1000);
+	system("cls");
 }
