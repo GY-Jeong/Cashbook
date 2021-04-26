@@ -522,7 +522,7 @@ bool cashData::price_test(string& data)
 			if (matches[4] == "" && is3digit(matches[6]))
 				data = (string)matches[1] + (string)matches[2] + (string)matches[6];
 			else {
-				 printprice_err();
+				//	 printprice_err();
 				return false;
 			}
 		}
@@ -530,13 +530,13 @@ bool cashData::price_test(string& data)
 			if (matches[4] == "" && matches[6] == "") {
 				int num = stoi((string)matches[1] + (string)matches[2]);
 				if (num < 100) {
-					 printprice_err();
+					// printprice_err();
 					return false;
 				}
 				data = (string)matches[1] + (string)matches[2];
 			}
 			else {
-				 printprice_err();
+				// printprice_err();
 				return false;
 			}
 		}
