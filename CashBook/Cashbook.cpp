@@ -499,31 +499,31 @@ SelectYNRetry_delete:
 
 		if (access(c_txt_name, 00) == -1)
 		{
-			cout << c_txt_name << "이 존재하지 않음" << endl;
+			//cout << c_txt_name << "이 존재하지 않음" << endl;
 		}
 		else
 		{
 			if (remove(c_txt_name) == 0) {							// 삭제할 공유 가계부 경로
-				cout << c_txt_name << "삭제 성공" << endl;
+				//cout << c_txt_name << "삭제 성공" << endl;
 			}
 			else {
 				// 가계부 파일을 삭제하지 못한 상황
-				cout << c_txt_name << "삭제 실패" << endl;
+				//cout << c_txt_name << "삭제 실패" << endl;
 			}
 		}
 
 		if (access(c_M_txt_name, 00) == -1)
 		{
-			cout << c_M_txt_name << "이 존재하지 않음" << endl;
+			//cout << c_M_txt_name << "이 존재하지 않음" << endl;
 		}
 		else
 		{
 			if (remove(c_M_txt_name) == 0) {							// 삭제할 공유 가계부 경로
-				cout << c_M_txt_name << "삭제 성공" << endl;
+				//cout << c_M_txt_name << "삭제 성공" << endl;
 			}
 			else {
 				// 가계부 파일을 삭제하지 못한 상황
-				cout << c_M_txt_name << "삭제 실패" << endl;
+				//cout << c_M_txt_name << "삭제 실패" << endl;
 			}
 		}
 
@@ -559,7 +559,7 @@ void Cashbook::modify_hidden_file()
 	if (search_file.is_open() == true) {
 		while (!search_file.eof()) {
 			getline(search_file, line);
-			cout << line << endl;
+			//cout << line << endl;
 			if (line != "" && split(line, '/')[0] == cashbook_name) continue;
 			writelist.push_back(line);
 		}
@@ -585,7 +585,7 @@ int Cashbook::getAuthority(string cashbook_name, string user_id)
 
 	string txtName = "./data/public/" + cashbook_name + "_M.txt";
 	ifstream ifile;
-	char line[15];
+	char line[35];
 
 	ifile.open(txtName);
 	if (ifile.is_open())
