@@ -36,7 +36,8 @@ public:
 	bool price_test(string& data);
 	bool memo_test(string data);
 	bool date_validation(string& startdate, string& enddate);
-	bool keyword_search(string startdate, string enddate, string data, bool search_what);
+	bool keyword_search(string startdate, string enddate, string data, bool search_what, string txt_file);
+	string abc(string str);
 
 	bool is3digit(string data);
 	void printdate_err();
