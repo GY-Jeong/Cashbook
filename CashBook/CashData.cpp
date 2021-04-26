@@ -405,7 +405,7 @@ bool cashData::date_test(string& data)
 		else if (year <= 69 && year >= 0)
 			year += 2000;
 		else {
-			printdate_err();
+			//printdate_err();
 			return false;
 		}
 		data = to_string(year) + "-" + (string)matches[2] + "-" + (string)matches[3];
@@ -490,7 +490,7 @@ bool cashData::price_test(string& data)
 			if (is3digit(matches[4]) && is3digit(matches[6]))
 				data = (string)matches[1] + (string)matches[2] + (string)matches[4] + (string)matches[6];
 			else {
-				printprice_err();
+				// printprice_err();
 				return false;
 			}
 		}
@@ -498,7 +498,7 @@ bool cashData::price_test(string& data)
 			if (is3digit(matches[4]) && matches[6] == "")
 				data = (string)matches[1] + (string)matches[2] + (string)matches[4];
 			else {
-				printprice_err();
+				// printprice_err();
 				return false;
 			}
 		}
@@ -506,7 +506,7 @@ bool cashData::price_test(string& data)
 			if (matches[4] == "" && is3digit(matches[6]))
 				data = (string)matches[1] + (string)matches[2] + (string)matches[6];
 			else {
-				printprice_err();
+				// printprice_err();
 				return false;
 			}
 		}
@@ -514,13 +514,13 @@ bool cashData::price_test(string& data)
 			if (matches[4] == "" && matches[6] == "") {
 				int num = stoi((string)matches[1] + (string)matches[2]);
 				if (num < 100) {
-					printprice_err();
+					// printprice_err();
 					return false;
 				}
 				data = (string)matches[1] + (string)matches[2];
 			}
 			else {
-				printprice_err();
+				// printprice_err();
 				return false;
 			}
 		}
