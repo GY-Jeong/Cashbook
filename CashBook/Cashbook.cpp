@@ -436,10 +436,10 @@ void Cashbook::searchDetail(string start_date, string end_date, string categoty_
 	cout << categoty_name << "의 상세 내역입니다." << endl;
 	for (vector<string> element : category_list)
 	{
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			// 만약 공유 가계부라면 올린 사람도 올려야됨
 			// 공유일때만 i==4 (올린 사람) 내역 출력, 이 부분 테스트 필요
-			if (!isSharedCashBook && i == 3) continue;
+			if (!isSharedCashBook && i == 4) continue;
 			if (i == 2) continue;
 			cout << element[i] << "\t";
 		}
