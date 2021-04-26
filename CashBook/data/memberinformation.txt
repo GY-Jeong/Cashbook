@@ -1,3 +1,6 @@
 hello/password
 nanni/password
 aaaaa/password
+abcde/abcde
+happy/python
+qwerty/keyboard
