@@ -404,7 +404,7 @@ void user::make_CashBook_public() {
 					}
 				}
 				if (manybook == true) {
-					cout << "다시 입력해주세요" << endl;
+					cout << "공용 가계부 최대 개수를 초과한 사용자가 존재합니다" << endl;
 					Sleep(2000);
 					continue;
 				}
@@ -682,6 +682,45 @@ void user::select_CashBook_public(string user_id) {
 
 	while (1) {
 		system("cls");
+		vector<pubcash> ucount;//공용가계부이름, 속한 멤버들 비교
+		pubcash userbook;
+		int makerbook = 0;
+		ifstream ucountfile("./data/makehiddenfile.txt");
+		for (pubcash i;getline(ucountfile, i.pubname, '/') && getline(ucountfile, i.maker, '/') && getline(ucountfile, i.m1, '/') && getline(ucountfile, i.m2, '/') && getline(ucountfile, i.m3, '/') && getline(ucountfile, i.m4, '/') && getline(ucountfile, i.m5, '/') && getline(ucountfile, i.m6, '/') && getline(ucountfile, i.m7, '/') && getline(ucountfile, i.m8, '/') && getline(ucountfile, i.m9);) {
+			ucount.push_back(i);
+		}
+		for (int j = 0;j < ucount.size();j++) {
+			if (loginedId.compare(ucount[j].maker) == 0) {
+				makerbook += 1;
+			}
+			if (loginedId.compare(ucount[j].m1) == 0) {
+				makerbook += 1;
+			}
+			if (loginedId.compare(ucount[j].m2) == 0) {
+				makerbook += 1;
+			}
+			if (loginedId.compare(ucount[j].m3) == 0) {
+				makerbook += 1;
+			}
+			if (loginedId.compare(ucount[j].m4) == 0) {
+				makerbook += 1;
+			}
+			if (loginedId.compare(ucount[j].m5) == 0) {
+				makerbook += 1;
+			}
+			if (loginedId.compare(ucount[j].m6) == 0) {
+				makerbook += 1;
+			}
+			if (loginedId.compare(ucount[j].m7) == 0) {
+				makerbook += 1;
+			}
+			if (loginedId.compare(ucount[j].m8) == 0) {
+				makerbook += 1;
+			}
+			if (loginedId.compare(ucount[j].m9) == 0) {
+				makerbook += 1;
+			}
+		}
 		cout << user_id << "의 가계부" << endl;
 		cout << "0. Make CashBook" << endl;
 		for (int i = 0; i < files.size(); i++) {
@@ -695,8 +734,16 @@ void user::select_CashBook_public(string user_id) {
 		if (validNumberRange(select, 0, 6)) {
 			int sel = stoi(select);
 			if (sel == 0) {
-				user::make_CashBook_public();
-				break;
+				if (makerbook >= 5) {
+					cout << "공용 가계부 최대 개수를 초과하였습니다" << endl;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+					goto SelectCashbookPublicRetry;
+				}
+				else {
+					user::make_CashBook_public();
+					break;
+				}
 			}
 			else if (sel == 6) {
 				user::select_CashBook(user_id);
