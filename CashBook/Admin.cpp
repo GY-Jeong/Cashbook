@@ -84,7 +84,7 @@ EnrollAdminRetry:
 
 		for (string element : v)
 		{
-			if (!validNumberRange(element, 1, 1 + nonAdmin.size()))
+			if (!validNumberRange(element, 1, nonAdmin.size()))
 			{
 				cout << "다시 입력해주세요" << endl;
 				goto EnrollAdminRetry;
@@ -124,7 +124,7 @@ ReleaseAdminRetry:
 
 		for (string element : v)
 		{
-			if (!validNumberRange(element, 1, 1 + admin.size()))
+			if (!validNumberRange(element, 1, admin.size()))
 			{
 				cout << "다시 입력해주세요" << endl;
 				goto ReleaseAdminRetry;

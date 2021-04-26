@@ -690,7 +690,6 @@ void user::select_CashBook_public(string user_id) {
 		cout << "6. 뒤로 가기" << endl;
 	SelectCashbookPublicRetry:
 		INPUT;
-		cout << "> ";
 		cin >> select;
 		cin.clear();
 		if (validNumberRange(select, 0, 6)) {
