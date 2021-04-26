@@ -29,7 +29,6 @@ Pay::Pay(bool isShared, string user_id, string cashbook_name, string txt_file)
                 cout << "날짜, 금액, 카테고리, 내용을 형식에 맞게 순서대로 입력해주세요." << endl;
                 result = data_split1();//split함수 안에서 quit반응이 추가되어야함
                 if (result.empty()) continue;
-
                 if (date_test(result[0]) && price_test(result[1]) && pay_category_test(result[2]) && memo_test(result[3])) {
                     system("cls");
                     data_format = Pay::printdata(result);

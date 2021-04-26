@@ -9,7 +9,6 @@ cashData::cashData()//현재 가계부 정보, 유저 정보 생성자로 넘겨받아야함
 	//원래는 조금 다름
 }
 
-
 vector<string> cashData::data_split1()
 {
 	vector<string> result;
@@ -250,7 +249,6 @@ vector<string> cashData::data_split2()
 		result.push_back(second[0]);
 		result.push_back(second[1]);
 		result.push_back(second[2]);
-
 		//}
 		//cout << second[2] << "\n";
 		break;
