@@ -9,6 +9,7 @@ cashData::cashData()//현재 가계부 정보, 유저 정보 생성자로 넘겨받아야함
 	//원래는 조금 다름
 }
 
+
 vector<string> cashData::data_split1()
 {
 	vector<string> result;
@@ -235,7 +236,7 @@ vector<string> cashData::data_split2()
 	return result;
 }
 
-bool cashData::keyword_search(string startdate, string enddate, string data, bool search_what)
+bool cashData::keyword_search(string startdate, string enddate, string data, bool search_what, string txt_file)
 {
 	bool isPaysearch = search_what;
 	int matching_count = 0, matching_sub = 0;
@@ -274,8 +275,9 @@ bool cashData::keyword_search(string startdate, string enddate, string data, boo
 		cout << endl << "<검색 결과>" << endl;
 		if (isPaysearch) {//pay_file_data search
 			for (int k = 0; k < pay_file_data.size(); k++) {
-
-				if (pay_file_data[k].find(data) >= 0 && pay_file_data[k].find(data) < pay_file_data[k].size())
+				//split 된 데이터를 가져와서 pay_file_data대신에 넣어야함
+				string key_word = abc(pay_file_data[k]);
+				if (key_word.find(data) >= 0 && key_word.find(data) < key_word.size())
 				{
 					matching_sub = stoi(pay_file_data[k].substr(0, 4) + pay_file_data[k].substr(5, 2) + pay_file_data[k].substr(8, 2));
 					if (matching_sub >= s_sub && matching_sub <= e_sub) {
@@ -289,7 +291,8 @@ bool cashData::keyword_search(string startdate, string enddate, string data, boo
 		}
 		else {
 			for (int k = 0; k < income_file_data.size(); k++) {
-				if (income_file_data[k].find(data) >= 0 && income_file_data[k].find(data) < income_file_data[k].size())
+				string key_word = abc(income_file_data[k]);
+				if (key_word.find(data) >= 0 && key_word.find(data) < key_word.size())
 				{
 					matching_sub = stoi(income_file_data[k].substr(0, 4) + income_file_data[k].substr(5, 2) + income_file_data[k].substr(8, 2));
 					if (matching_sub >= s_sub && matching_sub <= e_sub) {
@@ -304,7 +307,7 @@ bool cashData::keyword_search(string startdate, string enddate, string data, boo
 		}
 		if (matching_count == 0) {
 			cout << "데이터가 없습니다. " << endl;
-			//Sleep(1000);
+			Sleep(1000);
 			return false;
 		}
 		else {
@@ -341,6 +344,8 @@ bool cashData::keyword_search(string startdate, string enddate, string data, boo
 					else
 						income_file_data[matched_index.at(select - 1)].clear();
 					//다시 합치기
+					file_data = pay_file_data;
+					file_data.insert(file_data.end(), income_file_data.begin(), income_file_data.end());
 					reWriteTextFile(txt_file);
 					readTextFile(txt_file);
 					cout << "삭제가 완료되었습니다." << endl;
@@ -674,6 +679,8 @@ void cashData::readTextFile(string txt_name)
 	readFile.close();
 }
 
+
+
 wstring s2ws(const string& s)
 {
 	int len;
@@ -773,6 +780,11 @@ vector<string> cashData::split(string input, char delimiter)
 	}
 
 	return answer;
+}
+
+string cashData::abc(string str) {
+	vector<string> first = split(str, '/');
+	return first[3];
 }
 
 string& cashData::trimString(string& str, string& chars)

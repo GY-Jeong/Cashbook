@@ -604,25 +604,33 @@ void user::select_CashBook(string user_id) {
 	cout << "1. 개인 가계부" << endl;
 	cout << "2. 공용 가계부" << endl;
 	cout << "3. 로그아웃" << endl;
-SelectCashbookRetry:
-	INPUT;
-	cin.clear();
-	cin >> input;
-	cin.clear();
-	if (validNumberRange(input, 1, 3))
-	{
-		int select = stoi(input);
-		if (select == 1) {
-			user::is_All = false;
-			user::currentBook = user::loginedId;
-			Cashbook cb(user::loginedId, user::currentBook, user::is_All);
-			user::select_CashBook(user_id);
-		}
-		else if (select == 2) {
-			user::select_CashBook_public(user_id);
-		}
-		else if (select == 3) {
-			user::logout();
+	while (1) {
+	SelectCashbookRetry:
+		INPUT;
+		cin.clear();
+		cin >> input;
+		cin.clear();
+		if (validNumberRange(input, 1, 3))
+		{
+			int select = stoi(input);
+			if (select == 1) {
+				user::is_All = false;
+				user::currentBook = user::loginedId;
+				Cashbook cb(user::loginedId, user::currentBook, user::is_All);
+				user::select_CashBook(user_id);
+			}
+			else if (select == 2) {
+				user::select_CashBook_public(user_id);
+			}
+			else if (select == 3) {
+				user::logout();
+			}
+			else {
+				cout << "다시 입력해주세요" << endl;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+				goto SelectCashbookRetry;
+			}
 		}
 		else {
 			cout << "다시 입력해주세요" << endl;
