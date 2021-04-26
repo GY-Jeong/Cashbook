@@ -141,7 +141,7 @@ vector<string> Admin::makeList(string cashbook_name, int authority)
 
 	string txtName = "./data/public/" + cashbook_name + "_M.txt";
 	ifstream ifile;
-	char line[15];
+	char line[35];
 
 	ifile.open(txtName);
 	if (ifile.is_open())
@@ -164,7 +164,7 @@ void Admin::changeAuthority(string cashbook_name, vector<string> user_list, int 
 	vector<string> authority_list;
 	string txtName = "./data/public/" + cashbook_name + "_M.txt";
 	ifstream ifile;
-	char line[15];
+	char line[35];
 
 	ifile.open(txtName);
 	if (ifile.is_open())
