@@ -86,25 +86,35 @@ vector<string> cashData::data_split1()
 		//	for (int i = 0; i < second.size(); i++) {
 		if (second[0] == "" || second[1] == "" || second[2] == "")
 		{
-			printf("데이터 개수 오류입니다.\n");
+			printf("데이터 개수가 맞지 않습니다.\n");
+			Sleep(1000);
+			system("cls");
 			break;
 		}
 		if (slash == 3 && first.size() == 3)
 		{
-			printf("마지막 슬래쉬는 필요없음");
+			printf("데이터 개수가 맞지 않습니다.");
+			Sleep(1000);
+			system("cls");
 			break;
 		}//새로추가
 		if (count >= 0) {
 			if (count == 0) {
-				printf("날짜 공백 허용 안함\n");
+				printf("날짜 형식이 맞지 않습니다.\n");
+				Sleep(1000);
+				system("cls");
 				break;
 			}
 			if (count == 1) {
-				printf("금액  공백 허용 안함\n");
+				printf("금액 형식이 맞지 않습니다.\n");
+				Sleep(1000);
+				system("cls");
 				break;
 			}
 			if (count == 2) {
-				printf("카테고리 공백 허용 안함\n");
+				printf("카테고리 형식이 맞지 않습니다.\n");
+				Sleep(1000);
+				system("cls");
 				break;
 			}
 		}
@@ -217,17 +227,23 @@ vector<string> cashData::data_split2()
 		//for (int i = 0; i < second.size(); i++) {
 		if (second[0] == "" || second[1] == "" || second[2] == "")
 		{
-			printf("데이터 개수 오류입니다.\n");
+			printf("데이터 개수가 맞지 않습니다.\n");
+			Sleep(1000);
+			system("cls");
 			break;
 		}
 
 		if (count >= 0) {
 			if (count == 0) {
-				printf("시작날짜 공백 허용 안함\n");
+				printf("날짜 형식이 맞지 않습니다.\n");
+				Sleep(1000);
+				system("cls");
 				break;
 			}
 			if (count == 1) {
-				printf("종료날짜  공백 허용 안함\n");
+				printf("날짜 형식이 맞지 않습니다.\n");
+				Sleep(1000);
+				system("cls");
 				break;
 			}
 		}
