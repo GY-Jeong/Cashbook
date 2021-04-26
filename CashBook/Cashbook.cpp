@@ -571,7 +571,7 @@ void Cashbook::modify_hidden_file()
 	if (writeFile.is_open()) {
 		for (string element : writelist)
 		{
-			cout << element << endl;
+			//cout << element << endl;
 			writeFile << element << "\n";
 		}
 	}
