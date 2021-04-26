@@ -388,7 +388,7 @@ bool isLeapyear(int year)
 bool cashData::date_test(string& data)
 {
 	int year = 0, month = 0, day = 0;
-	cout << "date testing ";
+	//cout << "date testing ";
 	//	cin >> data;
 		//테스트용 매개변수 대체
 	regex ex1("(\\d{2})-(\\d{2})-(\\d{2})");
@@ -480,7 +480,7 @@ bool cashData::price_test(string& data)
 	//string data;
 	//string result;
 	//테스트용 매개변수로 대체
-	cout << "price testing ";
+	//cout << "price testing ";
 	//cin >> data;
 	regex ex1("([1-9]{1})(\\d{0,2})([,]?)(\\d{0,3})([,]?)(\\d{0,3})");
 	smatch matches;
@@ -538,7 +538,7 @@ bool cashData::memo_test(string data)
 {
 	//string data = "a하b kkk ㅎcㅏ";
 	//매개변수 data
-	cout << "memo testing " << endl;
+	//cout << "memo testing " << endl;
 	//string result;
 	char* sub_str = new char[10]{ "" };
 	int k = 0;
