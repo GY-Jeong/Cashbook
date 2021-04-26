@@ -169,7 +169,6 @@ void user::login() {
 							if (diff == true && user::isLoginState == false) {
 								cout << "아이디와 비밀번호가 일치하지 않습니다." << endl;
 								//cout << "다시 입력해주세요" << endl;
-								cout << "> ";
 								//Sleep(2000);
 								cin.clear();
 								continue;
