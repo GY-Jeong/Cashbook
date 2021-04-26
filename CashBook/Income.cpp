@@ -100,6 +100,10 @@ string Income::printdata(vector<string> input)
 	if (input[2] == "기타^") {
 		cout << "카테고리 :" << "기타" << endl;
 	}
+	else {
+		cout << "카테고리 :" << input[2] << endl;
+	}
+
 	if (input[3] == "") {
 		cout << "내용: 없음" << endl;
 		result[3] = '*';

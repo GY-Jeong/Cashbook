@@ -389,6 +389,7 @@ void Cashbook::searchPayCategory(string start_date, string end_date, vector<vect
 	vector<vector<string>> category_paylist[7];
 	vector<string> pay_category = { "식비", "교통", "문화", "오락", "편의점", "카페", "기타" };
 
+	//cout << pay_list.size() << " Check" << endl;
 	for (vector<string> element : pay_list)
 	{
 		category = getIndex(pay_category, element[2]);
