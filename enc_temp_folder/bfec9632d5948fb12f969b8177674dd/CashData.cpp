@@ -628,17 +628,17 @@ bool cashData::is3digit(string data)
 
 void cashData::printprice_err()
 {
-	cout << "금액 형식이 맞지 않습니다." << endl;
+	cout << "금액 형식 오류" << endl;
 }
 
 void cashData::printdate_err()
 {
-	cout << "날짜 형식이 맞지 않습니다." << endl;
+	cout << "날짜 형식 오류" << endl;
 }
 
 void cashData::printmemo_err()
 {
-	cout << "내용 형식이 맞지 않습니다." << endl;
+	cout << "내용 형식 오류" << endl;
 }
 
 void cashData::readTextFile(string txt_name)
