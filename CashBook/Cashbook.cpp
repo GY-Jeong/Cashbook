@@ -8,8 +8,9 @@
 #include <stdlib.h>
 #include <ctime>
 #include <iostream>
-#include <io.h>
+//#include <io.h>
 #include <string>
+#include <stdio.h>
 
 #pragma warning(disable:4996)
 #define CLEAR system("cls")
@@ -497,12 +498,12 @@ SelectYNRetry_delete:
 
 		bool check = true;
 
-		if (access(c_txt_name, 00) == -1)
-		{
-			//cout << c_txt_name << "이 존재하지 않음" << endl;
-		}
-		else
-		{
+		//if (access(c_txt_name, 00) == -1)
+		//{
+		//	//cout << c_txt_name << "이 존재하지 않음" << endl;
+		//}
+		//else
+		//{
 			if (remove(c_txt_name) == 0) {							// 삭제할 공유 가계부 경로
 				//cout << c_txt_name << "삭제 성공" << endl;
 			}
@@ -510,14 +511,14 @@ SelectYNRetry_delete:
 				// 가계부 파일을 삭제하지 못한 상황
 				//cout << c_txt_name << "삭제 실패" << endl;
 			}
-		}
+		//}
 
-		if (access(c_M_txt_name, 00) == -1)
-		{
-			//cout << c_M_txt_name << "이 존재하지 않음" << endl;
-		}
-		else
-		{
+		//if (access(c_M_txt_name, 00) == -1)
+		//{
+		//	//cout << c_M_txt_name << "이 존재하지 않음" << endl;
+		//}
+		//else
+		//{
 			if (remove(c_M_txt_name) == 0) {							// 삭제할 공유 가계부 경로
 				//cout << c_M_txt_name << "삭제 성공" << endl;
 			}
@@ -525,7 +526,7 @@ SelectYNRetry_delete:
 				// 가계부 파일을 삭제하지 못한 상황
 				//cout << c_M_txt_name << "삭제 실패" << endl;
 			}
-		}
+		//}
 
 		//hidden 읽어와서 해당 line 삭제 필요
 		modify_hidden_file();

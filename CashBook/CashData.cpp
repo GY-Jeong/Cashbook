@@ -726,7 +726,7 @@ void cashData::writeTextFile(string txt_name, string data)
 	LPCWSTR result = stemp.c_str();
 	ofstream writeFile;
 	file_data.push_back(data);
-	SetFileAttributes(_T(result), FILE_ATTRIBUTE_NORMAL);
+	//SetFileAttributes(_T(result), FILE_ATTRIBUTE_NORMAL);
 	writeFile.open(txt_name, ofstream::out);
 	if (writeFile.is_open()) {
 		for (int i = 0; i < file_data.size(); i++)
@@ -734,7 +734,7 @@ void cashData::writeTextFile(string txt_name, string data)
 			file_data[i] = file_data[i] + "\n";
 			writeFile.write(file_data[i].c_str(), file_data[i].size());
 		}
-		SetFileAttributes(_T(result), FILE_ATTRIBUTE_READONLY); //파일 외부수정 금지
+		//SetFileAttributes(_T(result), FILE_ATTRIBUTE_READONLY); //파일 외부수정 금지
 	}
 	else {
 		cout << "file not open" << endl;
@@ -751,7 +751,7 @@ void cashData::reWriteTextFile(string txt_name)
 	wstring stemp = s2ws(txt_name);
 	LPCWSTR result = stemp.c_str();
 	ofstream writeFile;
-	SetFileAttributes(_T(result), FILE_ATTRIBUTE_NORMAL);
+	//SetFileAttributes(_T(result), FILE_ATTRIBUTE_NORMAL);
 	writeFile.open(txt_name, ofstream::out);
 	if (writeFile.is_open()) {
 		for (int i = 0; i < file_data.size(); i++)
@@ -762,7 +762,7 @@ void cashData::reWriteTextFile(string txt_name)
 			file_data[i] = file_data[i] + "\n";
 			writeFile.write(file_data[i].c_str(), file_data[i].size());
 		}
-		SetFileAttributes(_T(result), FILE_ATTRIBUTE_READONLY); //파일 외부수정 금지
+		//SetFileAttributes(_T(result), FILE_ATTRIBUTE_READONLY); //파일 외부수정 금지
 	}
 	else {
 		cout << "file not open" << endl;
