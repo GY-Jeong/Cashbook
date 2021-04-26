@@ -697,7 +697,7 @@ void user::select_CashBook_public(string user_id) {
 			}
 			else if (sel > files.size() && sel != 6) {
 				cout << "다시 입력해주세요" << endl;
-				Sleep(2000); // 2초 정지 후 다시 입력받음.
+				//Sleep(2000); // 2초 정지 후 다시 입력받음.
 				continue;
 			}
 			else {
