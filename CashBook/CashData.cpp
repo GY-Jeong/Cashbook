@@ -159,6 +159,7 @@ vector<string> cashData::data_split2()
 
 	while (1) {
 		string str;
+		cout << "> ";
 		getline(cin, str);
 		if (isquit(str)) {
 			(isDataSetting) = true;

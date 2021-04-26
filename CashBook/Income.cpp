@@ -76,7 +76,7 @@ Income::Income(bool isShared, string user_id, string cashbook_name, string txt_f
 					isDataSetting = true;//y/n 상관없이 흐름도상 분기로 이동
 				}
 				else {
-					cout << "시작일 / 종료일 의미규칙 오류" << endl;
+					//cout << "시작일 / 종료일 의미규칙 오류" << endl;
 				}
 			}
 			result.clear();
